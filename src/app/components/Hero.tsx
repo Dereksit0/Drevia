@@ -66,34 +66,39 @@ export default function Hero() {
               {...fadeProps(0.1)}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-black dark:text-white leading-[1.08] tracking-tight"
             >
-              Tu empresa,
+              Webs que venden
               <br />
-              <span className="text-black/45 dark:text-white/50">presencia</span>
+              <span className="text-black/40 dark:text-white/45">y posicionan</span>
               <br />
-              <span>digital élite.</span>
+              <span>tu negocio online.</span>
             </motion.h1>
 
             {/* Animated rotating word */}
             <motion.div
               {...fadeProps(0.18)}
-              className="mt-5 flex items-center gap-2 text-base sm:text-lg font-medium"
+              className="mt-6 flex items-center flex-wrap gap-x-2 gap-y-0 text-base sm:text-lg font-medium"
             >
-              <span className="text-black/45 dark:text-white/40">Desarrollamos</span>
-              <div className="overflow-hidden h-[1.5em] flex items-center">
+              <span className="text-black/40 dark:text-white/35">Desarrollamos</span>
+              <span className="relative inline-block overflow-hidden align-middle">
+                {/* Invisible spacer keeps width stable at the longest word */}
+                <span aria-hidden className="invisible font-bold whitespace-nowrap">landing pages</span>
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={WORDS[wordIndex]}
-                    initial={{ y: "110%", opacity: 0 }}
-                    animate={{ y: "0%", opacity: 1 }}
-                    exit={{ y: "-110%", opacity: 0 }}
-                    transition={{ duration: 0.42, ease: EASE }}
-                    className="block font-bold text-black dark:text-white"
+                    initial={{ y: "115%", filter: "blur(8px)", opacity: 0 }}
+                    animate={{ y: "0%",   filter: "blur(0px)", opacity: 1 }}
+                    exit={{ y: "-115%",   filter: "blur(8px)", opacity: 0 }}
+                    transition={{ duration: 0.55, ease: EASE }}
+                    className="absolute inset-0 flex items-center font-bold text-black dark:text-white whitespace-nowrap"
                   >
-                    {WORDS[wordIndex]}
+                    <span className="relative">
+                      {WORDS[wordIndex]}
+                      <span className="absolute -bottom-0.5 left-0 right-0 h-px bg-black/20 dark:bg-white/20 rounded-full" />
+                    </span>
                   </motion.span>
                 </AnimatePresence>
-              </div>
-              <span className="text-black/45 dark:text-white/40">para ti.</span>
+              </span>
+              <span className="text-black/40 dark:text-white/35">para ti.</span>
             </motion.div>
 
             {/* Subtitle */}
@@ -117,7 +122,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 px-7 py-3.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-full hover:bg-black/85 dark:hover:bg-white/90 hover:scale-105 hover:shadow-xl hover:shadow-black/20 dark:hover:shadow-white/20 active:scale-95 transition-all duration-200"
               >
-                Solicitar Demo / Cotización
+                Solicitar Cotización
                 <RiArrowRightLine
                   size={16}
                   className="transition-transform duration-200 group-hover:translate-x-1"
@@ -136,7 +141,7 @@ export default function Hero() {
             {/* Stats */}
             <motion.div
               {...fadeProps(0.48)}
-              className="mt-14 flex gap-8 sm:gap-12"
+              className="mt-14 flex gap-5 sm:gap-10 lg:gap-12 justify-center sm:justify-start"
             >
               {[
                 { value: "+150",   label: "Proyectos entregados" },

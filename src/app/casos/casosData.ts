@@ -9,6 +9,7 @@ export type Caso = {
   solucion: string;
   results: { metric: string; label: string }[];
   tags: string[];
+  url?: string;
 };
 
 export const projects: Caso[] = [
@@ -30,6 +31,7 @@ export const projects: Caso[] = [
       { metric: "4.9★",  label: "Satisfacción del cliente" },
     ],
     tags: ["Next.js", "SEO", "Reservas online"],
+    url: "https://centraldentmx.com/",
   },
   {
     slug: "didacticosiq",
@@ -49,6 +51,7 @@ export const projects: Caso[] = [
       { metric: "1.8s",  label: "Velocidad de carga" },
     ],
     tags: ["E-commerce", "CMS", "Pasarela de pago"],
+    url: "https://didacticosiq.com/",
   },
   {
     slug: "kraken",
@@ -68,6 +71,7 @@ export const projects: Caso[] = [
       { metric: "98",    label: "PageSpeed Score" },
     ],
     tags: ["Landing Page", "Framer Motion", "Conversión"],
+    url: "https://krakenfitnesspuebla.com/",
   },
   {
     slug: "musclevolution",
@@ -87,6 +91,7 @@ export const projects: Caso[] = [
       { metric: "-40%",  label: "Abandono de carrito" },
     ],
     tags: ["E-commerce", "Membresías", "Blog"],
+    url: "https://musclevolution.com/",
   },
   {
     slug: "plata925",
@@ -106,6 +111,7 @@ export const projects: Caso[] = [
       { metric: "+60k",  label: "Visitas al mes" },
     ],
     tags: ["E-commerce", "Fotografía de producto", "Colecciones"],
+    url: "https://compraplata925.com/es",
   },
   {
     slug: "sadmind",

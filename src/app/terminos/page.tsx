@@ -109,10 +109,10 @@ export default function TerminosPage() {
                 <p>
                   Para cualquier consulta sobre estos términos, contáctanos en{" "}
                   <a
-                    href="mailto:hola@drevia.com"
+                    href="mailto:dreviasolutions@gmail.com"
                     className="text-white/80 hover:text-white underline underline-offset-2 transition-colors"
                   >
-                    hola@drevia.com
+                    dreviasolutions@gmail.com
                   </a>{" "}
                   o por WhatsApp al{" "}
                   <a

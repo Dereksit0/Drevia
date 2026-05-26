@@ -29,19 +29,59 @@ const socialLinks = [
 ];
 
 const contactInfo = [
-  { icon: RiMailLine,   text: "hola@drevia.com" },
+  { icon: RiMailLine,   text: "dreviasolutions@gmail.com" },
   { icon: RiPhoneLine,  text: "+52 222 549 7631" },
   { icon: RiMapPinLine, text: "Puebla, México" },
 ];
+
+const serviceLinks = [
+  { label: "Páginas Web",         href: "/servicios/paginas-web"          },
+  { label: "Landing Pages",        href: "/servicios/landing-pages"        },
+  { label: "Sistemas Web",         href: "/servicios/sistema-web"          },
+  { label: "E-commerce",           href: "/servicios/ecommerce"            },
+  { label: "Desarrollos a Medida", href: "/servicios/desarrollos-a-medida" },
+];
+
+function ContactBlock() {
+  return (
+    <div>
+      <h4 className="text-black dark:text-white font-semibold text-sm tracking-wide mb-5">Contacto</h4>
+      <ul className="space-y-4 mb-6">
+        {contactInfo.map(({ icon: Icon, text }) => (
+          <li key={text} className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-md bg-black/5 dark:bg-white/6 flex items-center justify-center flex-shrink-0">
+              <Icon size={13} className="text-black/45 dark:text-white/45" />
+            </div>
+            <span className="text-black/45 dark:text-white/45 text-sm">{text}</span>
+          </li>
+        ))}
+      </ul>
+      <a
+        href={WA}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-5 py-2.5 bg-black/6 dark:bg-white/8 border border-black/10 dark:border-white/10 text-black/70 dark:text-white/70 text-xs font-semibold rounded-full hover:bg-black/12 dark:hover:bg-white/14 hover:border-black/22 dark:hover:border-white/22 hover:text-black dark:hover:text-white transition-all duration-200"
+      >
+        Solicitar Demo vía WhatsApp
+      </a>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
     <footer className="bg-white dark:bg-black border-t border-black/8 dark:border-white/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 pb-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-14">
 
-          {/* Brand column */}
-          <div className="sm:col-span-2 lg:col-span-1">
+        {/*
+          Grid layout:
+          Mobile  (grid-cols-2): [Brand 2-cols] | [Nav | Contact] | [Services 2-cols]
+          Desktop (grid-cols-3): [Brand+Contact] | [Nav] | [Services]
+        */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 lg:gap-12 mb-14">
+
+          {/* Brand — full width on mobile, col 1 on desktop */}
+          <div className="col-span-2 lg:col-span-1">
             <a href="#inicio" className="inline-flex items-center">
               <Image
                 src="/imgs/drevialogo.png"
@@ -52,10 +92,11 @@ export default function Footer() {
               />
             </a>
             <p className="mt-4 text-black/40 dark:text-white/40 text-sm leading-relaxed max-w-xs">
-              Agencia de desarrollo web premium para empresas medianas y grandes
-              que buscan resultados digitales reales.
+              Agencia de desarrollo web premium para empresas que buscan
+              resultados digitales reales: más tráfico, más clientes, más ventas.
             </p>
 
+            {/* Social links */}
             <div className="flex gap-2.5 mt-6">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
@@ -64,7 +105,7 @@ export default function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, backgroundColor: "rgba(0,0,0,0.08)" }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-9 h-9 rounded-lg bg-black/5 dark:bg-white/6 border border-black/8 dark:border-white/8 flex items-center justify-center text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors duration-200"
                 >
@@ -72,10 +113,15 @@ export default function Footer() {
                 </motion.a>
               ))}
             </div>
+
+            {/* Contact — only on desktop (below social) */}
+            <div className="hidden lg:block mt-10 pt-8 border-t border-black/6 dark:border-white/6">
+              <ContactBlock />
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
+          {/* Navigation — col 1 on mobile, col 2 on desktop */}
+          <div className="col-span-1">
             <h4 className="text-black dark:text-white font-semibold text-sm tracking-wide mb-5">Navegación</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -92,17 +138,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
+          {/* Contact — col 2 on mobile (next to nav), hidden on desktop */}
+          <div className="col-span-1 lg:hidden">
+            <ContactBlock />
+          </div>
+
+          {/* Services — full width on mobile, col 3 on desktop */}
+          <div className="col-span-2 lg:col-span-1">
             <h4 className="text-black dark:text-white font-semibold text-sm tracking-wide mb-5">Servicios</h4>
             <ul className="space-y-3">
-              {[
-                { label: "Páginas Web",          href: "/servicios/paginas-web"          },
-                { label: "Landing Pages",         href: "/servicios/landing-pages"        },
-                { label: "Sistemas Web",          href: "/servicios/sistema-web"          },
-                { label: "E-commerce",            href: "/servicios/ecommerce"            },
-                { label: "Desarrollos a Medida",  href: "/servicios/desarrollos-a-medida" },
-              ].map(({ label: s, href }) => (
+              {serviceLinks.map(({ label: s, href }) => (
                 <li key={s}>
                   <a
                     href={href}
@@ -116,29 +161,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="text-black dark:text-white font-semibold text-sm tracking-wide mb-5">Contacto</h4>
-            <ul className="space-y-4">
-              {contactInfo.map(({ icon: Icon, text }) => (
-                <li key={text} className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-md bg-black/5 dark:bg-white/6 flex items-center justify-center flex-shrink-0">
-                    <Icon size={13} className="text-black/45 dark:text-white/45" />
-                  </div>
-                  <span className="text-black/45 dark:text-white/45 text-sm">{text}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href={WA}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-black/6 dark:bg-white/8 border border-black/10 dark:border-white/10 text-black/70 dark:text-white/70 text-xs font-semibold rounded-full hover:bg-black/12 dark:hover:bg-white/14 hover:border-black/22 dark:hover:border-white/22 hover:text-black dark:hover:text-white transition-all duration-200"
-            >
-              Solicitar Demo vía WhatsApp
-            </a>
-          </div>
         </div>
 
         <div className="h-px w-full bg-black/6 dark:bg-white/6 mb-8" />

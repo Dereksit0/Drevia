@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     "Agencia de desarrollo web premium para empresas medianas y grandes. Diseñamos y desarrollamos soluciones digitales que transforman tu negocio.",
   keywords:
     "desarrollo web, agencia digital, landing pages, e-commerce, sistemas web, México",
+  icons: {
+    icon: [{ url: "/imgs/drevialogo.png", type: "image/png" }],
+    apple: "/imgs/drevialogo.png",
+  },
   openGraph: {
     title: "DREVIA — Desarrollo Web para Empresas",
     description:
@@ -35,6 +39,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" href="/imgs/drevialogo.png" type="image/png" />
+        <link rel="shortcut icon" href="/imgs/drevialogo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/imgs/drevialogo.png" />
         {/* Anti-flash: apply stored theme before React hydrates */}
         <script
           dangerouslySetInnerHTML={{

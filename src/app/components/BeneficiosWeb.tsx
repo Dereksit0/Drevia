@@ -52,7 +52,7 @@ export default function BeneficiosWeb() {
         {/* Rotating delivery badge */}
         <div className="flex justify-center mb-12">
           <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-black/12 dark:border-white/12 bg-white dark:bg-black shadow-sm shadow-black/5 dark:shadow-white/5">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse flex-shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-black/55 dark:bg-white/55 animate-pulse flex-shrink-0" />
             <span className="text-black/45 dark:text-white/45 text-xs font-medium">Entrega en</span>
             <AnimatePresence mode="wait">
               <motion.span
@@ -115,8 +115,8 @@ export default function BeneficiosWeb() {
             {/* Bottom bar */}
             <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-black/8 dark:border-white/8">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center flex-shrink-0">
-                  <RiWhatsappLine size={18} className="text-green-500" />
+                <div className="w-9 h-9 rounded-full bg-black/8 dark:bg-white/8 border border-black/15 dark:border-white/15 flex items-center justify-center flex-shrink-0">
+                  <RiWhatsappLine size={18} className="text-black/60 dark:text-white/60" />
                 </div>
                 <div>
                   <p className="text-black dark:text-white text-sm font-semibold">¿Listo para empezar?</p>
@@ -148,7 +148,7 @@ export default function BeneficiosWeb() {
                   <p className="text-black/35 dark:text-white/35 text-[10px] font-semibold tracking-[0.25em] uppercase mb-0.5">Web Performance</p>
                   <p className="text-black dark:text-white font-bold text-lg">Rendimiento de sitio</p>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-green-500/8 text-green-600 dark:text-green-400 text-[10px] font-bold tracking-wider border border-green-500/15">
+                <span className="px-3 py-1 rounded-full bg-black/8 dark:bg-white/8 text-black dark:text-white text-[10px] font-bold tracking-wider border border-black/12 dark:border-white/12">
                   En crecimiento
                 </span>
               </div>
@@ -175,15 +175,15 @@ export default function BeneficiosWeb() {
                     <p className="text-black/35 dark:text-white/35 text-[9px]">Últimos 6 meses</p>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-blue-500" />
+                    <div className="w-2 h-2 rounded-full bg-black/60 dark:bg-white/60" />
                     <span className="text-black/35 dark:text-white/35 text-[9px] font-medium">Growth</span>
                   </div>
                 </div>
-                <svg viewBox="0 0 280 70" className="w-full" fill="none">
+                <svg viewBox="0 0 280 70" className="w-full text-black dark:text-white" fill="none">
                   <defs>
                     <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.18" />
-                      <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                      <stop offset="0%" stopColor="currentColor" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                   <polygon
@@ -192,12 +192,12 @@ export default function BeneficiosWeb() {
                   />
                   <polyline
                     points="0,66 47,60 94,50 141,37 188,22 235,8 280,2"
-                    stroke="#3b82f6"
+                    stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                  <circle cx="280" cy="2" r="3" fill="#3b82f6" />
+                  <circle cx="280" cy="2" r="3" fill="currentColor" />
                   {["Ene","Feb","Mar","Abr","May","Jun"].map((m, i) => (
                     <text key={m} x={i * 47 + 2} y="70" fontSize="6.5" fill="currentColor" className="fill-black/30 dark:fill-white/30">{m}</text>
                   ))}

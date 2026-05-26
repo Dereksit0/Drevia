@@ -31,7 +31,7 @@ export default function PrivacidadPage() {
                   DREVIA Solutions (en adelante, "DREVIA") es responsable del tratamiento de los datos personales que
                   recabe a través de su sitio web <span className="text-white/80">drevia.com</span> y cualquier
                   formulario de contacto asociado. Para cualquier consulta relacionada con privacidad, puedes
-                  contactarnos en <span className="text-white/80">hola@drevia.com</span>.
+                  contactarnos en <span className="text-white/80">dreviasolutions@gmail.com</span>.
                 </p>
               </div>
 
@@ -93,7 +93,7 @@ export default function PrivacidadPage() {
                 <p>
                   Tienes derecho a Acceder, Rectificar, Cancelar u Oponerte al tratamiento de tus datos personales
                   en cualquier momento. Para ejercer estos derechos, envía un correo a{" "}
-                  <span className="text-white/80">hola@drevia.com</span> con el asunto "Derechos ARCO" e
+                  <span className="text-white/80">dreviasolutions@gmail.com</span> con el asunto "Derechos ARCO" e
                   indicando tu nombre y la acción que deseas realizar. Responderemos en un plazo máximo de 20 días
                   hábiles.
                 </p>
@@ -121,10 +121,10 @@ export default function PrivacidadPage() {
                 <p>
                   Para cualquier duda sobre esta política, escríbenos a{" "}
                   <a
-                    href="mailto:hola@drevia.com"
+                    href="mailto:dreviasolutions@gmail.com"
                     className="text-white/80 hover:text-white underline underline-offset-2 transition-colors"
                   >
-                    hola@drevia.com
+                    dreviasolutions@gmail.com
                   </a>{" "}
                   o comunícate por WhatsApp al{" "}
                   <a

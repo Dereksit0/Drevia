@@ -4,108 +4,74 @@ import { motion } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const techCategories = [
-  {
-    category: "Frontend",
-    techs: [
-      { name: "Next.js",       icon: "▲" },
-      { name: "React",         icon: "⚛" },
-      { name: "Astro",         icon: "🚀" },
-      { name: "TypeScript",    icon: "TS" },
-      { name: "Tailwind CSS",  icon: "🌊" },
-      { name: "Framer Motion", icon: "✦" },
-      { name: "HTML5",         icon: "H" },
-      { name: "CSS3",          icon: "C" },
-    ],
-  },
-  {
-    category: "Backend",
-    techs: [
-      { name: "Node.js",   icon: "⬡" },
-      { name: "Python",    icon: "🐍" },
-      { name: "PHP",       icon: "🐘" },
-      { name: "Laravel",   icon: "L" },
-      { name: "Express",   icon: "E" },
-      { name: "FastAPI",   icon: "F" },
-      { name: "GraphQL",   icon: "◈" },
-      { name: "REST API",  icon: "~" },
-    ],
-  },
-  {
-    category: "Base de Datos",
-    techs: [
-      { name: "PostgreSQL", icon: "🐘" },
-      { name: "MySQL",      icon: "🐬" },
-      { name: "MongoDB",    icon: "🍃" },
-      { name: "Redis",      icon: "⚡" },
-      { name: "Supabase",   icon: "S" },
-      { name: "Prisma",     icon: "◆" },
-      { name: "Firebase",   icon: "🔥" },
-      { name: "SQLite",     icon: "⬡" },
-    ],
-  },
-  {
-    category: "E-commerce",
-    techs: [
-      { name: "Shopify",      icon: "S" },
-      { name: "WooCommerce",  icon: "W" },
-      { name: "Mercado Pago", icon: "M" },
-      { name: "Stripe",       icon: "S" },
-      { name: "PayPal",       icon: "P" },
-      { name: "OXXO Pay",     icon: "O" },
-      { name: "Conekta",      icon: "C" },
-      { name: "OpenPay",      icon: "O" },
-    ],
-  },
-  {
-    category: "DevOps & Cloud",
-    techs: [
-      { name: "AWS",       icon: "☁" },
-      { name: "Vercel",    icon: "▲" },
-      { name: "Docker",    icon: "🐳" },
-      { name: "GitHub",    icon: "⬡" },
-      { name: "Git",       icon: "G" },
-      { name: "Netlify",   icon: "N" },
-      { name: "Linux",     icon: "🐧" },
-      { name: "Nginx",     icon: "N" },
-    ],
-  },
-  {
-    category: "Herramientas",
-    techs: [
-      { name: "Figma",       icon: "F" },
-      { name: "VS Code",     icon: "{}"},
-      { name: "Postman",     icon: "P" },
-      { name: "Jira",        icon: "J" },
-      { name: "Notion",      icon: "N" },
-      { name: "Cloudflare",  icon: "☁" },
-      { name: "Twilio",      icon: "T" },
-      { name: "SendGrid",    icon: "S" },
-    ],
-  },
+const ROW_1 = [
+  { name: "Next.js",       abbr: "▲"   },
+  { name: "React",         abbr: "⚛"   },
+  { name: "TypeScript",    abbr: "TS"  },
+  { name: "Tailwind CSS",  abbr: "TW"  },
+  { name: "Node.js",       abbr: "NJ"  },
+  { name: "Python",        abbr: "PY"  },
+  { name: "AWS",           abbr: "☁"   },
+  { name: "Docker",        abbr: "🐳"  },
+  { name: "PostgreSQL",    abbr: "PG"  },
+  { name: "Shopify",       abbr: "SH"  },
+  { name: "GitHub",        abbr: "GH"  },
+  { name: "Vercel",        abbr: "▲"   },
+  { name: "Stripe",        abbr: "ST"  },
+  { name: "Figma",         abbr: "FG"  },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
-};
+const ROW_2 = [
+  { name: "Astro",         abbr: "AS"  },
+  { name: "Framer Motion", abbr: "FM"  },
+  { name: "GraphQL",       abbr: "GQ"  },
+  { name: "MongoDB",       abbr: "MG"  },
+  { name: "Redis",         abbr: "RD"  },
+  { name: "Supabase",      abbr: "SB"  },
+  { name: "Laravel",       abbr: "LV"  },
+  { name: "WooCommerce",   abbr: "WC"  },
+  { name: "Firebase",      abbr: "🔥"  },
+  { name: "Cloudflare",    abbr: "CF"  },
+  { name: "MySQL",         abbr: "MY"  },
+  { name: "PHP",           abbr: "PHP" },
+  { name: "Mercado Pago",  abbr: "MP"  },
+  { name: "Nginx",         abbr: "NG"  },
+];
 
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: EASE } },
-};
+function TechPill({ name, abbr }: { name: string; abbr: string }) {
+  return (
+    <div className="flex items-center gap-2.5 mx-2 px-4 py-2.5 rounded-xl border border-black/8 dark:border-white/8 bg-white dark:bg-white/3 flex-shrink-0 select-none">
+      <span className="w-7 h-7 rounded-lg bg-black/5 dark:bg-white/8 flex items-center justify-center text-[10px] font-bold text-black/55 dark:text-white/55 leading-none flex-shrink-0 font-mono">
+        {abbr}
+      </span>
+      <span className="text-black/70 dark:text-white/70 text-sm font-medium whitespace-nowrap">
+        {name}
+      </span>
+    </div>
+  );
+}
 
 export default function Tecnologias() {
   return (
     <section className="bg-[#fafafa] dark:bg-[#050505] py-24 lg:py-32 border-t border-black/6 dark:border-white/6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <style>{`
+        @keyframes marquee-left {
+          0%   { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+          0%   { transform: translateX(-50%); }
+          100% { transform: translateX(0%); }
+        }
+      `}</style>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: EASE }}
-          className="text-center mb-14 lg:mb-16"
+          className="text-center mb-14"
         >
           <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
             Stack tecnológico
@@ -114,66 +80,47 @@ export default function Tecnologias() {
             Tecnologías que usamos
           </h2>
           <p className="mt-4 text-black/50 dark:text-white/50 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Construimos con las herramientas más modernas del mercado para garantizar
+            Construimos con las herramientas más modernas para garantizar
             rendimiento, seguridad y escalabilidad en cada proyecto.
           </p>
         </motion.div>
+      </div>
 
-        <div className="space-y-10">
-          {techCategories.map((group, groupIndex) => (
-            <motion.div
-              key={group.category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: groupIndex * 0.07, ease: EASE }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <h3 className="text-black/40 dark:text-white/40 text-xs font-semibold tracking-[0.25em] uppercase">
-                  {group.category}
-                </h3>
-                <div className="flex-1 h-px bg-black/8 dark:bg-white/8" />
-              </div>
+      {/* Slider — full bleed */}
+      <div className="relative py-2 space-y-4">
+        {/* Fade edges */}
+        <div className="absolute inset-y-0 left-0 z-10 w-20 sm:w-32 pointer-events-none bg-gradient-to-r from-[#fafafa] dark:from-[#050505] to-transparent" />
+        <div className="absolute inset-y-0 right-0 z-10 w-20 sm:w-32 pointer-events-none bg-gradient-to-l from-[#fafafa] dark:from-[#050505] to-transparent" />
 
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                className="flex flex-wrap gap-2"
-              >
-                {group.techs.map((tech) => (
-                  <motion.div
-                    key={tech.name}
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.06, y: -2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-black/8 dark:border-white/8 bg-white dark:bg-white/3 hover:border-black/18 dark:hover:border-white/18 hover:bg-black/3 dark:hover:bg-white/6 transition-all duration-200 cursor-default"
-                  >
-                    <span className="text-black/40 dark:text-white/40 text-xs font-mono w-5 text-center leading-none">
-                      {tech.icon}
-                    </span>
-                    <span className="text-black/70 dark:text-white/70 text-sm font-medium">
-                      {tech.name}
-                    </span>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-          ))}
+        {/* Row 1 — scrolls left */}
+        <div className="overflow-hidden">
+          <div style={{ animation: "marquee-left 42s linear infinite", display: "flex", width: "max-content" }}>
+            {[...ROW_1, ...ROW_1].map((tech, i) => (
+              <TechPill key={i} {...tech} />
+            ))}
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        {/* Row 2 — scrolls right */}
+        <div className="overflow-hidden">
+          <div style={{ animation: "marquee-right 48s linear infinite", display: "flex", width: "max-content" }}>
+            {[...ROW_2, ...ROW_2].map((tech, i) => (
+              <TechPill key={i} {...tech} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 text-center"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-10 text-center text-black/35 dark:text-white/35 text-sm"
         >
-          <p className="text-black/35 dark:text-white/35 text-sm">
-            +40 tecnologías y herramientas. Siempre elegimos la mejor para cada proyecto.
-          </p>
-        </motion.div>
+          +40 tecnologías y herramientas. Siempre elegimos la mejor para cada proyecto.
+        </motion.p>
       </div>
     </section>
   );

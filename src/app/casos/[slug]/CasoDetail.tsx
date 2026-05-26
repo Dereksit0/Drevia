@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { RiArrowLeftLine, RiWhatsappLine, RiAlertLine, RiLightbulbLine } from "react-icons/ri";
+import { RiArrowLeftLine, RiWhatsappLine, RiAlertLine, RiLightbulbLine, RiExternalLinkLine } from "react-icons/ri";
 import type { Caso } from "../casosData";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -100,6 +100,25 @@ export default function CasoDetail({ caso }: { caso: Caso }) {
                     </span>
                   ))}
                 </motion.div>
+
+                {caso.url && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="mt-6"
+                  >
+                    <a
+                      href={caso.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-2.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-full hover:bg-black/85 dark:hover:bg-white/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-black/10 dark:shadow-white/10"
+                    >
+                      <RiExternalLinkLine size={14} />
+                      Ver Proyecto
+                    </a>
+                  </motion.div>
+                )}
               </div>
 
               {/* Results */}
