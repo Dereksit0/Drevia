@@ -45,6 +45,14 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  // Close mobile menu with the Escape key
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
   useEffect(() => {
     if (!isHome) return;
     const sectionIds = navDefs.filter((d) => d.id).map((d) => d.id!);
@@ -114,8 +122,8 @@ export default function Header() {
             <div className="flex items-center gap-2">
               <button
                 onClick={toggle}
-                aria-label="Cambiar tema"
-                className="p-2 rounded-lg text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white hover:bg-black/6 dark:hover:bg-white/8 transition-all duration-200"
+                aria-label={theme === "dark" ? "Activar modo claro" : "Activar modo oscuro"}
+                className="w-11 h-11 flex items-center justify-center rounded-lg text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white hover:bg-black/6 dark:hover:bg-white/8 transition-all duration-200"
               >
                 {theme === "dark" ? <RiSunLine size={18} /> : <RiMoonLine size={18} />}
               </button>
@@ -131,8 +139,10 @@ export default function Header() {
 
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg text-black dark:text-white hover:bg-black/8 dark:hover:bg-white/10 transition-colors duration-200"
+                className="lg:hidden flex items-center justify-center w-11 h-11 rounded-lg text-black dark:text-white hover:bg-black/8 dark:hover:bg-white/10 transition-colors duration-200"
                 aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
               >
                 <AnimatePresence mode="wait">
                   {menuOpen ? (
@@ -181,6 +191,10 @@ export default function Header() {
             {/* Side panel */}
             <motion.div
               key="panel"
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menú de navegación"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -201,7 +215,7 @@ export default function Header() {
                 <button
                   onClick={() => setMenuOpen(false)}
                   aria-label="Cerrar menú"
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white hover:bg-black/6 dark:hover:bg-white/8 transition-all duration-200"
+                  className="w-10 h-10 rounded-lg flex items-center justify-center text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white hover:bg-black/6 dark:hover:bg-white/8 transition-all duration-200"
                 >
                   <HiX size={18} />
                 </button>
@@ -258,7 +272,7 @@ export default function Header() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: 0.46, duration: 0.25 }}
-                  className="text-center text-black/25 dark:text-white/25 text-[10px] leading-relaxed"
+                  className="text-center text-black/45 dark:text-white/45 text-[10px] leading-relaxed"
                 >
                   dreviasolutions@gmail.com
                   <br />

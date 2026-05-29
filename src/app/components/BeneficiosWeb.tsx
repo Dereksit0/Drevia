@@ -78,7 +78,7 @@ export default function BeneficiosWeb() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+            <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
               Lo que incluye tu página web
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight leading-[1.1] mb-5">
@@ -105,7 +105,7 @@ export default function BeneficiosWeb() {
                     <Icon size={17} className="text-black/35 dark:text-white/35 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-black dark:text-white text-sm font-semibold mb-1">{f.title}</p>
-                      <p className="text-black/45 dark:text-white/45 text-xs leading-relaxed">{f.desc}</p>
+                      <p className="text-black/55 dark:text-white/55 text-xs leading-relaxed">{f.desc}</p>
                     </div>
                   </motion.div>
                 );
@@ -120,7 +120,7 @@ export default function BeneficiosWeb() {
                 </div>
                 <div>
                   <p className="text-black dark:text-white text-sm font-semibold">¿Listo para empezar?</p>
-                  <p className="text-black/40 dark:text-white/40 text-xs">Desde $4,900 MXN · Sin compromiso</p>
+                  <p className="text-black/55 dark:text-white/55 text-xs">Desde $4,900 MXN · Sin compromiso</p>
                 </div>
               </div>
               <a

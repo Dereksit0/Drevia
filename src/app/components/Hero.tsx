@@ -61,9 +61,10 @@ export default function Hero() {
               Agencia Premium de Desarrollo Web
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline — rendered visible immediately (LCP element, no opacity fade) */}
             <motion.h1
-              {...fadeProps(0.1)}
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-black dark:text-white leading-[1.08] tracking-tight"
             >
               Webs que venden
@@ -78,7 +79,7 @@ export default function Hero() {
               {...fadeProps(0.18)}
               className="mt-6 flex items-center flex-wrap gap-x-2 gap-y-0 text-base sm:text-lg font-medium"
             >
-              <span className="text-black/40 dark:text-white/35">Desarrollamos</span>
+              <span className="text-black/55 dark:text-white/50">Desarrollamos</span>
               <span className="relative inline-block overflow-hidden align-middle">
                 {/* Invisible spacer keeps width stable at the longest word */}
                 <span aria-hidden className="invisible font-bold whitespace-nowrap">landing pages</span>
@@ -98,7 +99,7 @@ export default function Hero() {
                   </motion.span>
                 </AnimatePresence>
               </span>
-              <span className="text-black/40 dark:text-white/35">para ti.</span>
+              <span className="text-black/55 dark:text-white/50">para ti.</span>
             </motion.div>
 
             {/* Subtitle */}
@@ -144,15 +145,15 @@ export default function Hero() {
               className="mt-14 flex gap-5 sm:gap-10 lg:gap-12 justify-center sm:justify-start"
             >
               {[
-                { value: "+150",   label: "Proyectos entregados" },
-                { value: "98%",    label: "Clientes satisfechos" },
-                { value: "+7 años", label: "De experiencia" },
+                { value: "+50",    label: "Proyectos entregados" },
+                { value: "95%",    label: "Clientes satisfechos" },
+                { value: "+3 años", label: "De experiencia" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <p className="text-2xl sm:text-3xl font-bold text-black dark:text-white">
                     {stat.value}
                   </p>
-                  <p className="text-xs text-black/45 dark:text-white/45 mt-0.5 leading-snug max-w-[100px]">
+                  <p className="text-xs text-black/55 dark:text-white/55 mt-0.5 leading-snug max-w-[100px]">
                     {stat.label}
                   </p>
                 </div>
@@ -220,11 +221,8 @@ export default function Hero() {
                       {[40, 55, 35, 70, 62, 85, 75].map((h, i) => (
                         <div
                           key={i}
-                          className="flex-1 rounded-t"
-                          style={{
-                            height: `${h}%`,
-                            background: i === 5 ? "rgba(0,0,0,0.55)" : "rgba(0,0,0,0.10)",
-                          }}
+                          className={`flex-1 rounded-t ${i === 5 ? "bg-black/55 dark:bg-white/60" : "bg-black/10 dark:bg-white/15"}`}
+                          style={{ height: `${h}%` }}
                         />
                       ))}
                     </div>

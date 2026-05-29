@@ -26,7 +26,6 @@ const actions = [
 export default function CTAFinal() {
   return (
     <section
-      id="contacto"
       className="relative bg-[#fafafa] dark:bg-[#050505] py-28 lg:py-40 overflow-hidden border-t border-black/6 dark:border-white/6"
     >
       <div
@@ -44,7 +43,7 @@ export default function CTAFinal() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-6"
+          className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-6"
         >
           ¿Listo para empezar?
         </motion.span>
@@ -110,9 +109,9 @@ export default function CTAFinal() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-10 text-black/25 dark:text-white/25 text-sm"
+          className="mt-10 text-black/45 dark:text-white/45 text-sm"
         >
-          Sin permanencia mínima · Primera consulta gratuita · Resultados garantizados
+          Primera consulta sin costo · Sin compromiso · Trato directo con el equipo
         </motion.p>
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">

@@ -91,7 +91,7 @@ export default function LogosCompatibles() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <span className="inline-block text-black/35 dark:text-white/35 text-[10px] font-semibold tracking-[0.4em] uppercase mb-3">
+          <span className="inline-block text-black/55 dark:text-white/55 text-[10px] font-semibold tracking-[0.4em] uppercase mb-3">
             Todas nuestras páginas web
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white tracking-tight">

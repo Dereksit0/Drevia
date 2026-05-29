@@ -51,7 +51,7 @@ export default function Proceso() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center mb-16 lg:mb-20"
         >
-          <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+          <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
             Metodología
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight">
@@ -97,7 +97,7 @@ export default function Proceso() {
                     </span>
                   </motion.div>
                   <h3 className="text-black dark:text-white font-semibold text-sm mb-2.5 leading-snug">{step.title}</h3>
-                  <p className="text-black/40 dark:text-white/40 text-xs leading-relaxed">{step.description}</p>
+                  <p className="text-black/55 dark:text-white/55 text-xs leading-relaxed">{step.description}</p>
                 </motion.div>
               );
             })}
@@ -130,7 +130,7 @@ export default function Proceso() {
                   </div>
                   <div className="pt-2 flex-1">
                     <h3 className="text-black dark:text-white font-semibold text-sm mb-1.5">{step.title}</h3>
-                    <p className="text-black/45 dark:text-white/45 text-sm leading-relaxed">{step.description}</p>
+                    <p className="text-black/55 dark:text-white/55 text-sm leading-relaxed">{step.description}</p>
                   </div>
                 </motion.div>
               );

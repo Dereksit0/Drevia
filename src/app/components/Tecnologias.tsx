@@ -54,17 +54,6 @@ function TechPill({ name, abbr }: { name: string; abbr: string }) {
 export default function Tecnologias() {
   return (
     <section className="bg-[#fafafa] dark:bg-[#050505] py-24 lg:py-32 border-t border-black/6 dark:border-white/6">
-      <style>{`
-        @keyframes marquee-left {
-          0%   { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-right {
-          0%   { transform: translateX(-50%); }
-          100% { transform: translateX(0%); }
-        }
-      `}</style>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -73,7 +62,7 @@ export default function Tecnologias() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center mb-14"
         >
-          <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+          <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
             Stack tecnológico
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight">
@@ -117,7 +106,7 @@ export default function Tecnologias() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-10 text-center text-black/35 dark:text-white/35 text-sm"
+          className="mt-10 text-center text-black/50 dark:text-white/50 text-sm"
         >
           +40 tecnologías y herramientas. Siempre elegimos la mejor para cada proyecto.
         </motion.p>

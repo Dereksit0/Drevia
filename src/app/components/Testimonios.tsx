@@ -5,35 +5,35 @@ import { RiStarFill } from "react-icons/ri";
 
 const testimonials = [
   {
-    name: "Gabriela Montoya",
-    role: "CEO",
-    company: "Summit Group",
-    initials: "GM",
-    quote: "DREVIA transformó por completo nuestra presencia digital. El nuevo sitio web aumentó nuestras consultas en un 180% en solo tres meses. El equipo entiende el negocio, no solo el código.",
+    name: "Dr. Alejandro Ríos",
+    role: "Director General",
+    company: "CentralDent",
+    initials: "AR",
+    quote: "DREVIA transformó por completo nuestra presencia digital. El nuevo sitio aumentó nuestras consultas en línea de forma notable en solo tres meses. El equipo entiende el negocio, no solo el código.",
     stars: 5,
   },
   {
-    name: "Rodrigo Castillo",
-    role: "Director de Marketing",
-    company: "Nexus Ventures",
-    initials: "RC",
-    quote: "Entregaron en tiempo récord y con una calidad que superó nuestras expectativas. La landing page que desarrollaron convierte a más del doble de nuestra tasa anterior. Altamente recomendados.",
-    stars: 5,
-  },
-  {
-    name: "Valentina Reyes",
+    name: "Karla Mendoza",
     role: "Fundadora",
-    company: "Atlas Commerce",
-    initials: "VR",
-    quote: "El e-commerce que DREVIA diseñó para nosotros es elegante, rápido y fácil de administrar. Las ventas online crecieron un 340% en el primer trimestre. Un partner estratégico indispensable.",
+    company: "Didácticos IQ",
+    initials: "KM",
+    quote: "Entregaron en tiempo récord y con una calidad que superó nuestras expectativas. La tienda online que desarrollaron convierte muchísimo mejor que nuestra plataforma anterior. Altamente recomendados.",
     stars: 5,
   },
   {
-    name: "Fernando Juárez",
-    role: "CTO",
-    company: "Vortex Tech",
-    initials: "FJ",
-    quote: "Excelente comunicación durante todo el proceso. Desarrollaron nuestro sistema web a medida con una arquitectura sólida y escalable. El soporte post-lanzamiento es impecable.",
+    name: "Eduardo Torres",
+    role: "CEO & Fundador",
+    company: "Muscle Evolution",
+    initials: "ET",
+    quote: "El e-commerce que DREVIA diseñó para nosotros es elegante, rápido y fácil de administrar. Mis clientes me escriben a diario felicitando el diseño y las ventas crecieron desde el primer mes.",
+    stars: 5,
+  },
+  {
+    name: "Mariana Vargas",
+    role: "CEO",
+    company: "Plata 925",
+    initials: "MV",
+    quote: "Pasamos de vender solo en redes a tener una tienda profesional de verdad. La comunicación durante todo el proceso fue excelente y el soporte post-lanzamiento es impecable.",
     stars: 5,
   },
 ];
@@ -61,7 +61,7 @@ export default function Testimonios() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center mb-14 lg:mb-16"
         >
-          <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+          <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
             Testimonios
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight">
@@ -103,7 +103,7 @@ export default function Testimonios() {
                 </div>
                 <div>
                   <p className="text-black dark:text-white font-semibold text-sm leading-tight">{t.name}</p>
-                  <p className="text-black/40 dark:text-white/40 text-xs mt-0.5">{t.role} · {t.company}</p>
+                  <p className="text-black/55 dark:text-white/55 text-xs mt-0.5">{t.role} · {t.company}</p>
                 </div>
               </div>
             </motion.div>
@@ -122,10 +122,10 @@ export default function Testimonios() {
               <RiStarFill key={i} size={16} className="text-black/60 dark:text-white/60" />
             ))}
           </div>
-          <p className="text-black/40 dark:text-white/40 text-sm">
+          <p className="text-black/55 dark:text-white/55 text-sm">
             <span className="text-black dark:text-white font-semibold">4.9/5</span> promedio en
             satisfacción del cliente — basado en{" "}
-            <span className="text-black dark:text-white font-semibold">+150</span> proyectos
+            <span className="text-black dark:text-white font-semibold">+50</span> proyectos
           </p>
         </motion.div>
       </div>

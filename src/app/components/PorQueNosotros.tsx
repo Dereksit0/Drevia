@@ -79,7 +79,7 @@ export default function PorQueNosotros() {
           transition={{ duration: 0.6, ease: EASE }}
           className="mb-14 lg:mb-16"
         >
-          <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+          <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
             Ventajas
           </span>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -88,7 +88,7 @@ export default function PorQueNosotros() {
               <br />
               <span className="text-black/45 dark:text-white/45">DREVIA?</span>
             </h2>
-            <p className="text-black/45 dark:text-white/45 text-sm sm:text-base max-w-xs leading-relaxed flex-shrink-0">
+            <p className="text-black/55 dark:text-white/55 text-sm sm:text-base max-w-xs leading-relaxed flex-shrink-0">
               Lo que nos hace diferentes no es lo que prometemos, es lo que entregamos.
             </p>
           </div>
@@ -124,7 +124,7 @@ export default function PorQueNosotros() {
                   {reason.title}
                 </h3>
 
-                <p className="text-black/50 dark:text-white/45 text-sm leading-relaxed flex-1">
+                <p className="text-black/55 dark:text-white/55 text-sm leading-relaxed flex-1">
                   {reason.description}
                 </p>
               </motion.div>
@@ -144,11 +144,11 @@ export default function PorQueNosotros() {
             { value: "100%",   label: "Código a medida" },
             { value: "<3s",    label: "Tiempo de carga" },
             { value: "Mobile", label: "First por defecto" },
-            { value: "+7 años",label: "De experiencia" },
+            { value: "+3 años",label: "De experiencia" },
           ].map((item) => (
             <div key={item.label} className="flex flex-col items-center gap-1">
               <span className="text-2xl font-bold text-black dark:text-white">{item.value}</span>
-              <span className="text-black/35 dark:text-white/35 text-xs text-center">{item.label}</span>
+              <span className="text-black/50 dark:text-white/50 text-xs text-center">{item.label}</span>
             </div>
           ))}
         </motion.div>

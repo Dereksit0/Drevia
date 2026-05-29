@@ -29,13 +29,13 @@ export default function SliderLogos() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="inline-block text-black/30 dark:text-white/30 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+          <span className="inline-block text-black/50 dark:text-white/50 text-xs font-medium tracking-[0.3em] uppercase mb-4">
             Confianza
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white tracking-tight">
             Empresas que confían en nosotros
           </h2>
-          <p className="mt-3 text-black/40 dark:text-white/40 text-sm sm:text-base max-w-lg mx-auto">
+          <p className="mt-3 text-black/55 dark:text-white/55 text-sm sm:text-base max-w-lg mx-auto">
             Marcas que han transformado su presencia digital con DREVIA.
           </p>
         </motion.div>
@@ -87,11 +87,11 @@ export default function SliderLogos() {
         {[
           { value: "+50",  label: "proyectos entregados" },
           { value: "6+",   label: "industrias atendidas" },
-          { value: "98%",  label: "clientes satisfechos" },
+          { value: "95%",  label: "clientes satisfechos" },
         ].map((item) => (
           <div key={item.label} className="flex items-center gap-3">
             <span className="text-black dark:text-white font-bold text-xl">{item.value}</span>
-            <span className="text-black/35 dark:text-white/35 text-sm">{item.label}</span>
+            <span className="text-black/50 dark:text-white/50 text-sm">{item.label}</span>
           </div>
         ))}
       </motion.div>

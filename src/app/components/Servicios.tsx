@@ -70,7 +70,7 @@ export default function Servicios() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center mb-16 lg:mb-20"
         >
-          <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+          <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
             Qué hacemos
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight">
@@ -108,7 +108,7 @@ export default function Servicios() {
                   {service.title}
                 </h3>
 
-                <p className="text-black/45 dark:text-white/45 text-sm leading-relaxed flex-1">
+                <p className="text-black/55 dark:text-white/55 text-sm leading-relaxed flex-1">
                   {service.description}
                 </p>
 

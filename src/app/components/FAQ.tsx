@@ -54,11 +54,25 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section className="bg-white dark:bg-black py-24 lg:py-32 border-t border-black/6 dark:border-white/6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <motion.div
@@ -99,6 +113,9 @@ export default function FAQ() {
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
+                  id={`faq-question-${index}`}
                   className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
                 >
                   <span className={`text-sm sm:text-base font-medium transition-colors duration-200 ${isOpen ? "text-black dark:text-white" : "text-black/70 dark:text-white/70"}`}>
@@ -113,6 +130,9 @@ export default function FAQ() {
                   {isOpen && (
                     <motion.div
                       key="content"
+                      id={`faq-answer-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-question-${index}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -139,7 +159,7 @@ export default function FAQ() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-center mt-12"
         >
-          <p className="text-black/40 dark:text-white/40 text-sm">
+          <p className="text-black/55 dark:text-white/55 text-sm">
             ¿Tienes otra pregunta?{" "}
             <a
               href="https://wa.me/522225497631?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20los%20servicios%20de%20DREVIA."

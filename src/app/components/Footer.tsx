@@ -50,9 +50,9 @@ function ContactBlock() {
         {contactInfo.map(({ icon: Icon, text }) => (
           <li key={text} className="flex items-center gap-3">
             <div className="w-7 h-7 rounded-md bg-black/5 dark:bg-white/6 flex items-center justify-center flex-shrink-0">
-              <Icon size={13} className="text-black/45 dark:text-white/45" />
+              <Icon size={13} className="text-black/55 dark:text-white/55" />
             </div>
-            <span className="text-black/45 dark:text-white/45 text-sm">{text}</span>
+            <span className="text-black/55 dark:text-white/55 text-sm">{text}</span>
           </li>
         ))}
       </ul>
@@ -91,7 +91,7 @@ export default function Footer() {
                 className="h-16 w-auto object-contain dark:invert-0 invert"
               />
             </a>
-            <p className="mt-4 text-black/40 dark:text-white/40 text-sm leading-relaxed max-w-xs">
+            <p className="mt-4 text-black/55 dark:text-white/55 text-sm leading-relaxed max-w-xs">
               Agencia de desarrollo web premium para empresas que buscan
               resultados digitales reales: más tráfico, más clientes, más ventas.
             </p>
@@ -107,7 +107,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-9 h-9 rounded-lg bg-black/5 dark:bg-white/6 border border-black/8 dark:border-white/8 flex items-center justify-center text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors duration-200"
+                  className="w-11 h-11 rounded-lg bg-black/5 dark:bg-white/6 border border-black/8 dark:border-white/8 flex items-center justify-center text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white transition-colors duration-200"
                 >
                   <Icon size={16} />
                 </motion.a>
@@ -128,7 +128,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-black/45 dark:text-white/45 hover:text-black dark:hover:text-white text-sm transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white text-sm transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-1.5 h-px bg-black/20 dark:bg-white/20 group-hover:w-3 group-hover:bg-black/60 dark:group-hover:bg-white/60 transition-all duration-300" />
                     {link.label}
@@ -151,7 +151,7 @@ export default function Footer() {
                 <li key={s}>
                   <a
                     href={href}
-                    className="text-black/45 dark:text-white/45 hover:text-black dark:hover:text-white text-sm transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white text-sm transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-1.5 h-px bg-black/20 dark:bg-white/20 group-hover:w-3 group-hover:bg-black/60 dark:group-hover:bg-white/60 transition-all duration-300" />
                     {s}
@@ -166,14 +166,14 @@ export default function Footer() {
         <div className="h-px w-full bg-black/6 dark:bg-white/6 mb-8" />
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-black/25 dark:text-white/25 text-xs">
+          <p className="text-black/45 dark:text-white/45 text-xs">
             © {new Date().getFullYear()} DREVIA. Todos los derechos reservados.
           </p>
           <div className="flex items-center gap-5">
-            <a href="/privacidad" className="text-black/25 dark:text-white/25 hover:text-black/60 dark:hover:text-white/60 text-xs transition-colors duration-200">
+            <a href="/privacidad" className="text-black/45 dark:text-white/45 hover:text-black/60 dark:hover:text-white/60 text-xs transition-colors duration-200">
               Política de Privacidad
             </a>
-            <a href="/terminos" className="text-black/25 dark:text-white/25 hover:text-black/60 dark:hover:text-white/60 text-xs transition-colors duration-200">
+            <a href="/terminos" className="text-black/45 dark:text-white/45 hover:text-black/60 dark:hover:text-white/60 text-xs transition-colors duration-200">
               Términos de Uso
             </a>
           </div>

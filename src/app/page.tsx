@@ -11,6 +11,7 @@ import Tecnologias from "./components/Tecnologias";
 import Proceso from "./components/Proceso";
 import FAQ from "./components/FAQ";
 import LogosCompatibles from "./components/LogosCompatibles";
+import Contacto from "./components/Contacto";
 import CTAFinal from "./components/CTAFinal";
 import Footer from "./components/Footer";
 import FloatingCTA from "./components/FloatingCTA";
@@ -32,6 +33,7 @@ export default function Home() {
         <Proceso />
         <FAQ />
         <LogosCompatibles />
+        <Contacto />
         <CTAFinal />
       </main>
       <Footer />
