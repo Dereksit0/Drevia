@@ -14,18 +14,12 @@ export default function CasoDetail({ caso }: { caso: Caso }) {
   return (
     <>
       <Header />
-      <main className="bg-white dark:bg-black min-h-screen">
+      <main className="relative min-h-screen overflow-hidden bg-[#061029] text-white">
 
         {/* Hero */}
         <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-          <div
-            className="absolute inset-0 opacity-[0.18]"
-            style={{
-              backgroundImage: `linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)`,
-              backgroundSize: "64px 64px",
-            }}
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,var(--glow),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(125%_125%_at_15%_10%,#2f6bff_0%,#1d4ed8_38%,#0a1a3f_78%,#061029_100%)]" />
+          <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:46px_46px]" />
 
           <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -175,8 +169,8 @@ export default function CasoDetail({ caso }: { caso: Caso }) {
                 className="p-7 rounded-2xl border border-black/12 dark:border-white/12 bg-black/3 dark:bg-white/5"
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-9 h-9 rounded-xl bg-black dark:bg-white flex items-center justify-center flex-shrink-0">
-                    <RiLightbulbLine size={18} className="text-white dark:text-black" />
+                  <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center flex-shrink-0">
+                    <RiLightbulbLine size={18} className="text-white" />
                   </div>
                   <div>
                     <p className="text-[10px] text-black/35 dark:text-white/35 font-semibold tracking-widest uppercase">Lo que hicimos</p>

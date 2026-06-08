@@ -1,13 +1,20 @@
 @import "tailwindcss";
 
-/* Class-based dark mode: dark: classes apply when .dark is on <html> */
+/* Class-based dark mode: kept so internal pages (/casos, /servicios, legales) keep working */
 @custom-variant dark (&:is(.dark, .dark *));
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
+  --foreground: #0a0a0a;
   --grid-line: rgba(0,0,0,0.055);
   --glow: rgba(0,0,0,0.045);
+
+  /* DREVIA brand palette */
+  --drevia-blue: #2563eb;
+  --drevia-blue-bright: #3b82f6;
+  --drevia-blue-soft: #60a5fa;
+  --drevia-navy: #0a1a3f;
+  --drevia-navy-deep: #061029;
 }
 
 html.dark {
@@ -21,10 +28,18 @@ html.dark {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --color-brand: #2563eb;
+  --color-brand-bright: #3b82f6;
+  --color-brand-soft: #60a5fa;
+  --color-navy: #0a1a3f;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Firefox: barra fina con la paleta de marca */
+  scrollbar-width: thin;
+  scrollbar-color: #2563eb #081535;
 }
 
 body {
@@ -32,36 +47,53 @@ body {
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Scrollbar de marca (Chrome / Edge / Safari) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #081535;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 9999px;
+  border: 3px solid #081535;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-corner {
+  background: #081535;
+}
+
+/* Serif display used for emphasized italic words in headings */
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
 }
 
 @keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-12px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-18px); }
 }
 
 @keyframes marquee-left {
@@ -74,19 +106,15 @@ body {
   100% { transform: translateX(0%); }
 }
 
-.animate-marquee {
-  animation: marquee 35s linear infinite;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
+.animate-marquee     { animation: marquee 35s linear infinite; }
+.animate-float       { animation: float 6s ease-in-out infinite; }
+.animate-float-slow  { animation: float-slow 9s ease-in-out infinite; }
 
 .group:hover .group-hover-pause {
   animation-play-state: paused;
 }
 
-/* Hide scrollbar for video carousel */
+/* Hide scrollbar for carousels */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -97,12 +125,8 @@ body {
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;

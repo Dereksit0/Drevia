@@ -1,133 +1,213 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { RiStarFill } from "react-icons/ri";
-
-const testimonials = [
-  {
-    name: "Dr. Alejandro Ríos",
-    role: "Director General",
-    company: "CentralDent",
-    initials: "AR",
-    quote: "DREVIA transformó por completo nuestra presencia digital. El nuevo sitio aumentó nuestras consultas en línea de forma notable en solo tres meses. El equipo entiende el negocio, no solo el código.",
-    stars: 5,
-  },
-  {
-    name: "Karla Mendoza",
-    role: "Fundadora",
-    company: "Didácticos IQ",
-    initials: "KM",
-    quote: "Entregaron en tiempo récord y con una calidad que superó nuestras expectativas. La tienda online que desarrollaron convierte muchísimo mejor que nuestra plataforma anterior. Altamente recomendados.",
-    stars: 5,
-  },
-  {
-    name: "Eduardo Torres",
-    role: "CEO & Fundador",
-    company: "Muscle Evolution",
-    initials: "ET",
-    quote: "El e-commerce que DREVIA diseñó para nosotros es elegante, rápido y fácil de administrar. Mis clientes me escriben a diario felicitando el diseño y las ventas crecieron desde el primer mes.",
-    stars: 5,
-  },
-  {
-    name: "Mariana Vargas",
-    role: "CEO",
-    company: "Plata 925",
-    initials: "MV",
-    quote: "Pasamos de vender solo en redes a tener una tienda profesional de verdad. La comunicación durante todo el proceso fue excelente y el soporte post-lanzamiento es impecable.",
-    stars: 5,
-  },
-];
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { RiStarFill, RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
+import Reveal from "./Reveal";
+import { WA } from "../lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
-};
+const testimonios = [
+  {
+    name: "Dr. Alejandro Ríos",
+    role: "Director · CentralDent",
+    initials: "AR",
+    color: "from-cyan-500 to-blue-600",
+    enfoque: "Resultados reales",
+    relacion: "Comunicación clara",
+    quote:
+      "Pasamos de no tener presencia digital a recibir pacientes nuevos cada semana. El sitio agenda citas solo y transmite exactamente la calidad de nuestra clínica.",
+  },
+  {
+    name: "Karla Mendoza",
+    role: "Fundadora · Didácticos IQ",
+    initials: "KM",
+    color: "from-amber-400 to-orange-500",
+    enfoque: "Crecimiento",
+    relacion: "Entrega ágil",
+    quote:
+      "Vendíamos solo por WhatsApp y era un caos. Con la tienda que nos construyeron triplicamos las ventas en un trimestre y hoy gestionamos todo sin depender de nadie.",
+  },
+  {
+    name: "Eduardo Torres",
+    role: "CEO · Muscle Evolution",
+    initials: "ET",
+    color: "from-emerald-400 to-green-600",
+    enfoque: "Escala",
+    relacion: "Soporte continuo",
+    quote:
+      "Dejamos de depender de marketplaces con altas comisiones. Nuestro ecosistema digital creció los pedidos +240% y las campañas de temporada ya no son un caos operativo.",
+  },
+  {
+    name: "Mariana Vargas",
+    role: "Fundadora · Plata 925",
+    initials: "MV",
+    color: "from-fuchsia-400 to-purple-600",
+    enfoque: "Marca premium",
+    relacion: "Diseño cuidado",
+    quote:
+      "La tienda refleja la elegancia de mis piezas y vende sola. Dejé de pasar horas respondiendo precios por DM y ahora llego a clientes de todo México.",
+  },
+  {
+    name: "Carlos Infante",
+    role: "Dirección · Sadmind",
+    initials: "CI",
+    color: "from-blue-500 to-indigo-600",
+    enfoque: "Eficiencia",
+    relacion: "Documentación clara",
+    quote:
+      "Construimos un sistema a medida que centraliza toda la operación. Automatizamos el 60% de los procesos y por fin tenemos visibilidad real del avance de cada proyecto.",
+  },
+];
 
 export default function Testimonios() {
+  const [active, setActive] = useState(0);
+  const t = testimonios[active];
+  const go = (dir: number) =>
+    setActive((a) => (a + dir + testimonios.length) % testimonios.length);
+
   return (
-    <section id="testimonios" className="bg-[#fafafa] dark:bg-[#050505] py-24 lg:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="text-center mb-14 lg:mb-16"
-        >
-          <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
+    <section id="testimonios" className="relative bg-slate-50 py-20 lg:py-28">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Reveal className="text-center max-w-3xl mx-auto">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-wide">
             Testimonios
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight">
-            Lo que dicen nuestros clientes
+          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+            La confianza también se{" "}
+            <span className="font-display italic font-medium text-slate-700">
+              demuestra
+            </span>
           </h2>
-          <p className="mt-4 text-black/50 dark:text-white/50 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            Resultados reales de empresas que apostaron por la excelencia digital.
+          <p className="mt-5 text-slate-500 text-base lg:text-lg leading-relaxed">
+            Empresas y proyectos que necesitaban una solución clara, funcional y
+            enfocada en resultados.
           </p>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-5"
-        >
-          {testimonials.map((t) => (
-            <motion.div
-              key={t.name}
-              variants={cardVariants}
-              whileHover={{ y: -6, borderColor: "rgba(0,0,0,0.18)" }}
-              transition={{ type: "spring", stiffness: 280, damping: 20 }}
-              className="flex flex-col p-6 lg:p-7 rounded-2xl border border-black/8 dark:border-white/8 bg-white dark:bg-white/3 transition-colors duration-300"
-            >
-              <div className="flex gap-0.5 mb-5">
-                {Array.from({ length: t.stars }).map((_, i) => (
-                  <RiStarFill key={i} size={14} className="text-black/70 dark:text-white/70" />
-                ))}
-              </div>
-
-              <p className="text-black/65 dark:text-white/65 text-sm leading-relaxed flex-1 mb-6">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              <div className="flex items-center gap-3 pt-5 border-t border-black/6 dark:border-white/6">
-                <div className="w-10 h-10 rounded-full bg-black/8 dark:bg-white/10 border border-black/10 dark:border-white/12 flex items-center justify-center flex-shrink-0">
-                  <span className="text-black/70 dark:text-white/70 text-xs font-bold tracking-wide">{t.initials}</span>
+        {/* Featured card */}
+        <Reveal delay={0.1} className="mt-14">
+          <div className="relative rounded-3xl bg-white border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden">
+            <div className="h-1 w-full bg-gradient-to-r from-blue-600 to-cyan-400" />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.4, ease: EASE }}
+                className="grid md:grid-cols-2"
+              >
+                {/* left */}
+                <div className="p-8 lg:p-10 border-b md:border-b-0 md:border-r border-slate-100">
+                  <div className="flex gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <RiStarFill key={i} size={18} className="text-amber-400" />
+                    ))}
+                  </div>
+                  <div className="mt-6 flex items-center gap-4">
+                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold`}>
+                      {t.initials}
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-900">{t.name}</p>
+                      <p className="text-sm text-slate-500">{t.role}</p>
+                    </div>
+                  </div>
+                  <div className="mt-8 grid grid-cols-2 gap-3">
+                    <div className="rounded-xl border border-slate-200 p-4">
+                      <p className="text-[10px] font-semibold tracking-wider text-blue-600 uppercase">Enfoque</p>
+                      <p className="mt-1 text-sm font-semibold text-slate-800">{t.enfoque}</p>
+                    </div>
+                    <div className="rounded-xl border border-slate-200 p-4">
+                      <p className="text-[10px] font-semibold tracking-wider text-blue-600 uppercase">Relación</p>
+                      <p className="mt-1 text-sm font-semibold text-slate-800">{t.relacion}</p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-black dark:text-white font-semibold text-sm leading-tight">{t.name}</p>
-                  <p className="text-black/55 dark:text-white/55 text-xs mt-0.5">{t.role} · {t.company}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6"
-        >
-          <div className="flex items-center gap-1.5">
-            {[1,2,3,4,5].map((i) => (
-              <RiStarFill key={i} size={16} className="text-black/60 dark:text-white/60" />
-            ))}
+                {/* right */}
+                <div className="p-8 lg:p-10 flex flex-col justify-between">
+                  <blockquote className="text-xl lg:text-2xl font-bold text-slate-900 leading-snug">
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <div className="mt-8 pt-6 border-t border-slate-100 flex items-end justify-between">
+                    <div>
+                      <p className="text-[10px] font-semibold tracking-wider text-blue-600 uppercase">
+                        Testimonio destacado
+                      </p>
+                      <p className="mt-1 text-sm text-slate-500">
+                        4.9/5 · +50 proyectos con foco en resultados.
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => go(-1)}
+                        aria-label="Anterior testimonio"
+                        className="w-11 h-11 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-colors"
+                      >
+                        <RiArrowLeftLine size={18} />
+                      </button>
+                      <button
+                        onClick={() => go(1)}
+                        aria-label="Siguiente testimonio"
+                        className="w-11 h-11 rounded-full bg-[#0a1a3f] flex items-center justify-center text-white hover:bg-[#13234a] transition-colors"
+                      >
+                        <RiArrowRightLine size={18} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
-          <p className="text-black/55 dark:text-white/55 text-sm">
-            <span className="text-black dark:text-white font-semibold">4.9/5</span> promedio en
-            satisfacción del cliente — basado en{" "}
-            <span className="text-black dark:text-white font-semibold">+50</span> proyectos
+        </Reveal>
+
+        {/* Avatar selector */}
+        <Reveal delay={0.15} className="mt-8 flex flex-wrap justify-center gap-2.5">
+          {testimonios.map((item, i) => (
+            <button
+              key={item.name}
+              onClick={() => setActive(i)}
+              className={`flex items-center gap-2 pl-1.5 pr-4 py-1.5 rounded-full border transition-all ${
+                active === i
+                  ? "bg-white border-blue-300 shadow-sm"
+                  : "bg-white/60 border-slate-200 hover:border-slate-300"
+              }`}
+            >
+              <span className={`w-8 h-8 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center text-white text-[11px] font-bold`}>
+                {item.initials}
+              </span>
+              <span className={`text-sm font-medium ${active === i ? "text-blue-700" : "text-slate-600"}`}>
+                {item.name.split(" ").slice(-1)[0]}
+              </span>
+            </button>
+          ))}
+        </Reveal>
+
+        {/* CTA */}
+        <Reveal delay={0.2} className="mt-12 text-center">
+          <p className="text-slate-500 text-sm">
+            ¿Quieres un proyecto con esta claridad y nivel de ejecución?
           </p>
-        </motion.div>
+          <div className="mt-4 flex flex-col sm:flex-row justify-center gap-3">
+            <a
+              href={WA.llamada}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-6 py-3.5 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-500 hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-blue-600/25"
+            >
+              Agendar diagnóstico gratuito
+            </a>
+            <a
+              href="#casos"
+              className="inline-flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-800 text-sm font-semibold rounded-full hover:border-slate-300 transition-all"
+            >
+              Ver casos de éxito
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

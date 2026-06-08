@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./components/ThemeProvider";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  style: ["italic", "normal"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -24,10 +31,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  icons: {
-    icon: [{ url: "/imgs/drevialogo.png", type: "image/png" }],
-    apple: "/imgs/drevialogo.png",
-  },
+  // El favicon lo genera src/app/icon.tsx (monograma "D" a tamaño completo).
   openGraph: {
     title: "DREVIA — Desarrollo Web para Empresas",
     description:
@@ -81,23 +85,17 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} dark h-full scroll-smooth antialiased`}
+      className={`${inter.variable} ${playfair.variable} dark h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
       <head>
-        {/* Anti-flash: apply stored theme before React hydrates */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('drevia-theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){}})()`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-white dark:bg-black text-black dark:text-white">
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="min-h-full flex flex-col bg-[#061029] text-white">
+        {children}
       </body>
     </html>
   );

@@ -10,8 +10,9 @@ export default function TerminosPage() {
   return (
     <>
       <Header />
-      <main className="bg-white dark:bg-black min-h-screen">
-        <section className="pt-32 pb-24 lg:pt-40 lg:pb-32">
+      <main className="relative min-h-screen overflow-hidden bg-[#061029] text-white">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(110%_80%_at_50%_0%,#1d4ed8_0%,#0a1a3f_55%,transparent_100%)] opacity-60" />
+        <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <span className="inline-block text-black/45 dark:text-white/45 text-xs font-medium tracking-[0.3em] uppercase mb-5">
               Legal

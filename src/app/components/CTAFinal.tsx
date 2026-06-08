@@ -2,123 +2,71 @@
 
 import { motion } from "framer-motion";
 import { RiArrowRightLine, RiCalendarLine, RiWhatsappLine } from "react-icons/ri";
+import { WA } from "../lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const WA_BASE = "https://wa.me/522225497631?text=";
-
-const actions = [
-  {
-    icon: RiArrowRightLine,
-    label: "Cotizar Proyecto",
-    href: WA_BASE + "Hola%2C%20me%20interesa%20cotizar%20un%20proyecto%20con%20DREVIA.",
-    primary: true,
-    external: true,
-  },
-  {
-    icon: RiCalendarLine,
-    label: "Agendar Llamada",
-    href: WA_BASE + "Hola%2C%20quisiera%20agendar%20una%20llamada%20con%20el%20equipo%20de%20DREVIA.",
-    primary: false,
-    external: true,
-  },
-];
 
 export default function CTAFinal() {
   return (
-    <section
-      className="relative bg-[#fafafa] dark:bg-[#050505] py-28 lg:py-40 overflow-hidden border-t border-black/6 dark:border-white/6"
-    >
-      <div
-        className="absolute inset-0 opacity-15"
-        style={{
-          backgroundImage: `linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,var(--glow),transparent)]" />
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
-          className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-6"
-        >
-          ¿Listo para empezar?
-        </motion.span>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
-          className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-black dark:text-white tracking-tight leading-[1.08]"
-        >
-          Transforma tu negocio
-          <br />
-          <span className="text-black/40 dark:text-white/40">con una presencia</span>
-          <br />
-          <span>digital de élite.</span>
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-6 text-black/50 dark:text-white/50 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
-        >
-          No esperes más para dar el salto digital que tu empresa merece.
-          Hablemos de tu proyecto por WhatsApp, sin compromisos, sin burocracia.
-        </motion.p>
-
+    <section className="relative bg-[#061029] py-16 lg:py-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.32 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: EASE }}
+          className="relative overflow-hidden rounded-[2.5rem] px-6 py-16 lg:px-12 lg:py-20 text-center bg-[radial-gradient(125%_125%_at_50%_0%,#2f6bff_0%,#1d4ed8_45%,#0a1a3f_100%)]"
         >
-          {actions.map((action) => {
-            const Icon = action.icon;
-            return (
-              <motion.a
-                key={action.label}
-                href={action.href}
-                target={action.external ? "_blank" : undefined}
-                rel={action.external ? "noopener noreferrer" : undefined}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className={`group inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 ${
-                  action.primary
-                    ? "bg-black dark:bg-white text-white dark:text-black hover:bg-black/85 dark:hover:bg-white/90 shadow-lg shadow-black/15 dark:shadow-white/15"
-                    : "border border-black/18 dark:border-white/18 text-black/75 dark:text-white/75 hover:border-black/35 dark:hover:border-white/35 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
-                }`}
+          <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:42px_42px]" />
+
+          <div className="relative max-w-2xl mx-auto">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/85 text-xs font-semibold tracking-wide">
+              DIAGNÓSTICO GRATUITO
+            </span>
+            <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              ¿Listo para transformar tu{" "}
+              <span className="block font-display italic font-medium text-blue-200">
+                presencia digital?
+              </span>
+            </h2>
+            <p className="mt-5 text-blue-100/80 text-base lg:text-lg leading-relaxed">
+              Agenda un diagnóstico gratuito y descubre cómo podemos ayudarte a
+              crecer con tecnología, procesos más claros y una solución diseñada
+              para generar resultados.
+            </p>
+
+            <div className="mt-9 flex flex-col sm:flex-row justify-center gap-3">
+              <a
+                href={WA.cotizar}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white text-[#0a1a3f] text-sm font-semibold rounded-full hover:bg-blue-50 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20"
               >
-                <Icon size={15} />
-                {action.label}
-              </motion.a>
-            );
-          })}
+                <RiWhatsappLine size={18} className="text-green-500" />
+                Cotizar Proyecto
+              </a>
+              <a
+                href={WA.llamada}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 border border-white/25 text-white text-sm font-semibold rounded-full hover:bg-white/15 transition-all backdrop-blur-sm"
+              >
+                <RiCalendarLine size={18} />
+                Agendar Llamada
+                <RiArrowRightLine size={16} />
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-xs text-blue-100/70">
+              {["Sin compromiso", "Propuesta clara", "Enfoque en resultados"].map((b, i) => (
+                <span key={b} className="flex items-center gap-2">
+                  {i > 0 && <span className="hidden sm:inline w-1 h-1 rounded-full bg-blue-300/60 -ml-3" />}
+                  {b}
+                </span>
+              ))}
+            </div>
+          </div>
         </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-10 text-black/45 dark:text-white/45 text-sm"
-        >
-          Primera consulta sin costo · Sin compromiso · Trato directo con el equipo
-        </motion.p>
-
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-          <div className="w-[600px] h-[600px] rounded-full border border-black/3 dark:border-white/3" />
-          <div className="absolute inset-0 m-auto w-[400px] h-[400px] rounded-full border border-black/4 dark:border-white/4" />
-          <div className="absolute inset-0 m-auto w-[200px] h-[200px] rounded-full border border-black/5 dark:border-white/5" />
-        </div>
       </div>
     </section>
   );

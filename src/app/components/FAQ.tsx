@@ -2,175 +2,117 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RiAddLine, RiSubtractLine } from "react-icons/ri";
+import { RiArrowDownSLine, RiWhatsappLine } from "react-icons/ri";
+import Reveal from "./Reveal";
+import { WA } from "../lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const faqs = [
   {
-    question: "¿Cuánto tiempo tarda en estar listo mi proyecto?",
-    answer:
-      "Depende del tipo y complejidad del proyecto. Una landing page puede estar lista en 1-2 semanas, una página web corporativa en 3-4 semanas, y un e-commerce o sistema web entre 6-12 semanas. Siempre te damos un cronograma claro antes de empezar.",
+    q: "¿Por qué elegir DREVIA en lugar de otras agencias?",
+    a: "Porque no entregamos solo un sitio bonito: construimos una solución digital con estrategia, SEO técnico e integraciones pensadas para convertir visitas en clientes. Tenemos casos verificables como CentralDent, Didácticos IQ y Muscle Evolution con resultados medibles.",
   },
   {
-    question: "¿Puedo actualizar el contenido de mi sitio yo mismo?",
-    answer:
-      "Sí. Todos nuestros proyectos incluyen un panel de administración (CMS) intuitivo desde donde puedes actualizar textos, imágenes, productos o cualquier contenido sin necesitar conocimientos técnicos. También te capacitamos para usarlo.",
+    q: "¿Cuánto cuesta una página web profesional en México?",
+    a: "Manejamos precios claros de pago único: Landing Pages desde $4,500 MXN, Páginas Web desde $6,500 MXN y E-commerce desde $9,900 MXN. Cada servicio tiene tres niveles (Esencial, Crecimiento y Pro), y los proyectos más complejos (sistemas a medida o e-commerce a gran escala) se cotizan según el alcance.",
   },
   {
-    question: "¿Utilizan plantillas o todo es desarrollado desde cero?",
-    answer:
-      "Todo es desarrollado desde cero. Nunca usamos plantillas prehechas ni temas de WordPress u otras plataformas. Cada diseño es 100% personalizado para tu marca e identidad. Esto garantiza un resultado único, más rápido y más seguro.",
+    q: "¿Cuánto tarda el desarrollo de mi proyecto?",
+    a: "Depende del alcance. Una landing page puede estar lista en 1–2 semanas, una página web entre 2–4 semanas y un sistema a medida se define en el diagnóstico inicial. Trabajamos con entregas ágiles y un roadmap claro de etapas.",
   },
   {
-    question: "¿Qué tecnologías utilizan para los proyectos?",
-    answer:
-      "Usamos las tecnologías más modernas del mercado: Next.js, React, Astro, TypeScript, Tailwind CSS para el frontend; Node.js, Python o PHP para el backend; PostgreSQL, MySQL o MongoDB para bases de datos; AWS o Vercel para hosting. La tecnología depende del tipo de proyecto.",
+    q: "¿DREVIA trabaja con empresas de mi sector?",
+    a: "Sí. Hemos desarrollado proyectos para clínicas, educación, fitness, joyería, retail y software. Adaptamos la estrategia y el diseño a las necesidades específicas de cada industria.",
   },
   {
-    question: "¿Necesito tener un dominio y hosting antes de empezar?",
-    answer:
-      "No es necesario. Podemos ayudarte a adquirir el dominio y configurar el hosting durante el proyecto. Si ya tienes uno, también lo migramos sin problema. En muchos casos el hosting está incluido en el primer año del proyecto.",
+    q: "¿El sitio va a aparecer en Google?",
+    a: "Sí. Implementamos SEO técnico desde el desarrollo: estructura optimizada, velocidad de carga, metadatos y buenas prácticas. CentralDent triplicó sus visitas orgánicas y Muscle Evolution posiciona orgánicamente para sus productos.",
   },
   {
-    question: "¿Qué incluye el soporte post-lanzamiento?",
-    answer:
-      "Una vez lanzado el proyecto, ofrecemos un período de acompañamiento para resolver dudas, ajustes menores y monitoreo de estabilidad. También contamos con planes de mantenimiento mensual para actualizaciones, backups y soporte continuo.",
+    q: "¿Puedo administrar el contenido yo mismo?",
+    a: "Sí. Entregamos paneles de administración intuitivos para que gestiones productos, contenido, pedidos e inventario sin depender de nosotros. Incluimos capacitación de uso.",
   },
   {
-    question: "¿Trabajan con clientes fuera de México?",
-    answer:
-      "Sí. Trabajamos con empresas de toda Latinoamérica y hemos tenido proyectos con clientes en Estados Unidos y Europa. Toda la comunicación y gestión del proyecto se puede hacer de manera remota sin ningún problema.",
+    q: "¿Son confiables? ¿Puedo ver referencias verificables?",
+    a: "Sí. Puedes revisar nuestros casos de éxito con sitios en vivo (CentralDent, Didácticos IQ, Muscle Evolution, Plata 925 y más). Contamos con +50 proyectos entregados y 95% de satisfacción.",
   },
   {
-    question: "¿Los precios incluyen IVA?",
-    answer:
-      "Los precios mostrados en nuestra sección de planes son de referencia y no incluyen IVA. Al generar la cotización formal te indicamos el desglose completo con impuestos aplicables. También ofrecemos facturación electrónica (CFDI) para personas morales y físicas con actividad empresarial.",
-  },
-  {
-    question: "¿Puedo ver el avance del proyecto durante el desarrollo?",
-    answer:
-      "Por supuesto. Trabajamos de forma transparente y te mostramos avances en cada etapa. Utilizamos un ambiente de staging (pre-producción) donde puedes revisar el proyecto en tiempo real antes del lanzamiento final.",
+    q: "¿Qué pasa después del lanzamiento?",
+    a: "Todos los planes incluyen soporte post-lanzamiento (de 20 a 60 días según el plan) y ofrecemos soporte continuo y mejoras futuras. No te dejamos solo cuando el proyecto está en línea.",
   },
 ];
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
-    "@type": "Question",
-    name: f.question,
-    acceptedAnswer: { "@type": "Answer", text: f.answer },
-  })),
-};
-
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="bg-white dark:bg-black py-24 lg:py-32 border-t border-black/6 dark:border-white/6">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="text-center mb-14"
-        >
-          <span className="inline-block text-black/40 dark:text-white/40 text-xs font-medium tracking-[0.3em] uppercase mb-4">
-            FAQ
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight">
+    <section id="faq" className="relative bg-white py-20 lg:py-28">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-wide">
             Preguntas frecuentes
+          </span>
+          <h2 className="mt-5 text-3xl sm:text-4xl font-bold text-slate-900">
+            Todo lo que necesitas saber
           </h2>
-          <p className="mt-4 text-black/50 dark:text-white/50 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            Todo lo que necesitas saber antes de iniciar tu proyecto con nosotros.
-          </p>
-        </motion.div>
+          <p className="mt-3 text-slate-500">Las dudas más comunes, resueltas.</p>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="space-y-2"
-        >
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
+        <div className="mt-10 space-y-3">
+          {faqs.map((f, i) => {
+            const isOpen = open === i;
             return (
-              <div
-                key={index}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                  isOpen
-                    ? "border-black/15 dark:border-white/15 bg-black/3 dark:bg-white/4"
-                    : "border-black/8 dark:border-white/8 bg-black/2 dark:bg-white/2 hover:border-black/12 dark:hover:border-white/12"
-                }`}
-              >
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${index}`}
-                  id={`faq-question-${index}`}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
-                >
-                  <span className={`text-sm sm:text-base font-medium transition-colors duration-200 ${isOpen ? "text-black dark:text-white" : "text-black/70 dark:text-white/70"}`}>
-                    {faq.question}
-                  </span>
-                  <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? "bg-black dark:bg-white text-white dark:text-black" : "bg-black/8 dark:bg-white/8 text-black/50 dark:text-white/50"}`}>
-                    {isOpen ? <RiSubtractLine size={14} /> : <RiAddLine size={14} />}
-                  </span>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="content"
-                      id={`faq-answer-${index}`}
-                      role="region"
-                      aria-labelledby={`faq-question-${index}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: EASE }}
-                    >
-                      <div className="px-6 pb-5">
-                        <div className="h-px w-full bg-black/6 dark:bg-white/6 mb-4" />
-                        <p className="text-black/55 dark:text-white/55 text-sm leading-relaxed">
-                          {faq.answer}
+              <Reveal key={f.q} delay={i * 0.04}>
+                <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden hover:border-slate-300 transition-colors">
+                  <button
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-${i}`}
+                    className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-5 text-left"
+                  >
+                    <span className="text-sm sm:text-base font-semibold text-slate-900">
+                      {f.q}
+                    </span>
+                    <RiArrowDownSLine
+                      size={22}
+                      className={`text-blue-600 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`faq-${i}`}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: EASE }}
+                        className="overflow-hidden"
+                      >
+                        <p className="px-5 sm:px-6 pb-5 text-sm text-slate-500 leading-relaxed">
+                          {f.a}
                         </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </Reveal>
             );
           })}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-12"
-        >
-          <p className="text-black/55 dark:text-white/55 text-sm">
-            ¿Tienes otra pregunta?{" "}
-            <a
-              href="https://wa.me/522225497631?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20los%20servicios%20de%20DREVIA."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-black dark:text-white font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
-            >
-              Escríbenos por WhatsApp
-            </a>
-          </p>
-        </motion.div>
+        <Reveal delay={0.1} className="mt-10 text-center">
+          <p className="text-slate-500 text-sm">¿Otra pregunta? Escríbenos directo.</p>
+          <a
+            href={WA.pregunta}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-2 px-6 py-3.5 bg-green-500 text-white text-sm font-semibold rounded-full hover:bg-green-600 transition-all"
+          >
+            <RiWhatsappLine size={18} />
+            Escríbenos por WhatsApp
+          </a>
+        </Reveal>
       </div>
     </section>
   );

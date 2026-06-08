@@ -29,18 +29,12 @@ export default function CasosContent() {
   return (
     <>
       <Header />
-      <main className="bg-white dark:bg-black min-h-screen">
+      <main className="relative min-h-screen overflow-hidden bg-[#061029] text-white">
 
         {/* Hero */}
         <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-          <div
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: `linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)`,
-              backgroundSize: "64px 64px",
-            }}
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,var(--glow),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(125%_125%_at_15%_10%,#2f6bff_0%,#1d4ed8_38%,#0a1a3f_78%,#061029_100%)]" />
+          <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:46px_46px]" />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.a
@@ -117,7 +111,7 @@ export default function CasosContent() {
                   key={project.company}
                   href={`/casos/${project.slug}`}
                   variants={itemVariants}
-                  whileHover={{ y: -4, borderColor: "rgba(0,0,0,0.18)" }}
+                  whileHover={{ y: -4, borderColor: "rgba(255,255,255,0.18)" }}
                   transition={{ type: "spring", stiffness: 280, damping: 22 }}
                   className="group rounded-2xl border border-black/8 dark:border-white/8 bg-black/2 dark:bg-white/3 overflow-hidden transition-colors duration-300 cursor-pointer"
                 >

@@ -1,284 +1,232 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   RiArrowRightLine,
-  RiPlayCircleLine,
-  RiArrowDownLine,
+  RiWhatsappLine,
+  RiShoppingBag3Line,
+  RiGlobalLine,
+  RiLineChartLine,
+  RiShieldCheckLine,
 } from "react-icons/ri";
+import { WA } from "../lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const WA = "https://wa.me/522225497631?text=Hola%2C%20me%20interesa%20solicitar%20una%20demo%20o%20cotizaci%C3%B3n%20con%20DREVIA.";
 
-const WORDS = ["páginas web", "landing pages", "e-commerce", "sistemas web", "profesionales"];
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
 
-function fadeProps(delay: number) {
-  return {
-    initial: { opacity: 0, y: 32 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, delay, ease: EASE },
-  } as const;
+function FloatBadge({
+  icon: Icon,
+  small,
+  big,
+  href,
+  className,
+  delay,
+}: {
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  small: string;
+  big: string;
+  href: string;
+  className: string;
+  delay: number;
+}) {
+  return (
+    <motion.a
+      href={href}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.06 }}
+      whileTap={{ scale: 0.96 }}
+      transition={{ delay, duration: 0.6, ease: EASE }}
+      className={`absolute z-20 hidden sm:flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/15 hover:border-white/30 shadow-xl shadow-black/20 animate-float cursor-pointer transition-colors ${className}`}
+      style={{ animationDelay: `${delay}s` }}
+    >
+      <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
+        <Icon size={18} className="text-white" />
+      </div>
+      <div className="leading-tight">
+        <p className="text-[10px] text-white/60 font-medium">{small}</p>
+        <p className="text-sm text-white font-semibold">{big}</p>
+      </div>
+    </motion.a>
+  );
 }
 
 export default function Hero() {
-  const [wordIndex, setWordIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setWordIndex((i) => (i + 1) % WORDS.length);
-    }, 2200);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <section
       id="inicio"
-      className="relative min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center overflow-hidden pt-20"
+      className="relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28"
     >
-      {/* Grid background */}
-      <div
-        className="absolute inset-0 opacity-25"
-        style={{
-          backgroundImage: `linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)`,
-          backgroundSize: "72px 72px",
-        }}
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-10%,var(--glow),transparent)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_110%,rgba(255,255,255,0.06),transparent)] dark:block hidden" />
+      {/* Background: electric blue gradient */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(125%_125%_at_15%_10%,#2f6bff_0%,#1d4ed8_38%,#0a1a3f_78%,#061029_100%)]" />
+      <div className="absolute inset-0 -z-10 opacity-[0.06] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:46px_46px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[80vh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
-          {/* Left: Text content */}
-          <div className="flex flex-col items-start justify-center text-left">
-            {/* Badge */}
-            <motion.div
-              {...fadeProps(0)}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 text-black/70 dark:text-white/70 text-xs font-medium tracking-widest uppercase mb-8"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-black/60 dark:bg-white/60 inline-block" />
-              Agencia Premium de Desarrollo Web
+          {/* Left column */}
+          <motion.div variants={container} initial="hidden" animate="show">
+            <motion.div variants={item}>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/85 text-xs font-medium backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-300 animate-pulse" />
+                Resultados verificables, no promesas genéricas
+              </span>
             </motion.div>
 
-            {/* Headline — rendered visible immediately (LCP element, no opacity fade) */}
             <motion.h1
-              initial={{ opacity: 1, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-black dark:text-white leading-[1.08] tracking-tight"
+              variants={item}
+              className="mt-6 text-4xl sm:text-5xl lg:text-[3.7rem] font-bold leading-[1.05] tracking-tight text-white"
             >
-              Webs que venden
-              <br />
-              <span className="text-black/40 dark:text-white/45">y posicionan</span>
-              <br />
-              <span>tu negocio online.</span>
+              Páginas web que traen{" "}
+              <span className="font-display italic font-medium text-blue-200">
+                clientes reales
+              </span>{" "}
+              — no solo se ven bien, también venden.
             </motion.h1>
 
-            {/* Animated rotating word */}
-            <motion.div
-              {...fadeProps(0.18)}
-              className="mt-6 flex items-center flex-wrap gap-x-2 gap-y-0 text-base sm:text-lg font-medium"
-            >
-              <span className="text-black/55 dark:text-white/50">Desarrollamos</span>
-              <span className="relative inline-block overflow-hidden align-middle">
-                {/* Invisible spacer keeps width stable at the longest word */}
-                <span aria-hidden className="invisible font-bold whitespace-nowrap">landing pages</span>
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={WORDS[wordIndex]}
-                    initial={{ y: "115%", filter: "blur(8px)", opacity: 0 }}
-                    animate={{ y: "0%",   filter: "blur(0px)", opacity: 1 }}
-                    exit={{ y: "-115%",   filter: "blur(8px)", opacity: 0 }}
-                    transition={{ duration: 0.55, ease: EASE }}
-                    className="absolute inset-0 flex items-center font-bold text-black dark:text-white whitespace-nowrap"
-                  >
-                    <span className="relative">
-                      {WORDS[wordIndex]}
-                      <span className="absolute -bottom-0.5 left-0 right-0 h-px bg-black/20 dark:bg-white/20 rounded-full" />
-                    </span>
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-              <span className="text-black/55 dark:text-white/50">para ti.</span>
-            </motion.div>
-
-            {/* Subtitle */}
             <motion.p
-              {...fadeProps(0.26)}
-              className="mt-5 text-base sm:text-lg text-black/55 dark:text-white/55 max-w-xl leading-relaxed"
+              variants={item}
+              className="mt-6 text-base lg:text-lg text-blue-100/80 leading-relaxed max-w-xl"
             >
-              Desarrollamos soluciones web a medida para empresas medianas y
-              grandes que buscan resultados reales: más tráfico, más
-              conversiones, más negocio.
+              CentralDent recibe pacientes nuevos{" "}
+              <span className="font-semibold text-white">cada semana</span>.
+              Didácticos IQ{" "}
+              <span className="font-semibold text-white">triplicó sus ventas</span>{" "}
+              en un trimestre. Muscle Evolution creció{" "}
+              <span className="font-semibold text-white">+240% en pedidos</span>.
+              Mira exactamente qué los hizo diferentes.
             </motion.p>
 
-            {/* CTAs */}
-            <motion.div
-              {...fadeProps(0.36)}
-              className="flex flex-wrap gap-3 mt-10"
-            >
+            <motion.div variants={item} className="mt-9 flex flex-col sm:flex-row gap-3">
               <a
-                href={WA}
+                href={WA.cotizar}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-7 py-3.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-full hover:bg-black/85 dark:hover:bg-white/90 hover:scale-105 hover:shadow-xl hover:shadow-black/20 dark:hover:shadow-white/20 active:scale-95 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white text-[#0a1a3f] text-sm font-semibold rounded-full hover:bg-blue-50 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20"
               >
                 Solicitar Cotización
-                <RiArrowRightLine
-                  size={16}
-                  className="transition-transform duration-200 group-hover:translate-x-1"
-                />
+                <RiArrowRightLine size={18} />
               </a>
-
               <a
                 href="#servicios"
-                className="group inline-flex items-center gap-2 px-7 py-3.5 border border-black/20 dark:border-white/20 text-black/80 dark:text-white/80 text-sm font-medium rounded-full hover:border-black/50 dark:hover:border-white/50 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/15 transition-all backdrop-blur-sm"
               >
-                <RiPlayCircleLine size={16} />
+                <RiWhatsappLine size={18} className="text-green-400" />
                 Ver Servicios
               </a>
             </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              {...fadeProps(0.48)}
-              className="mt-14 flex gap-5 sm:gap-10 lg:gap-12 justify-center sm:justify-start"
-            >
-              {[
-                { value: "+50",    label: "Proyectos entregados" },
-                { value: "95%",    label: "Clientes satisfechos" },
-                { value: "+3 años", label: "De experiencia" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl sm:text-3xl font-bold text-black dark:text-white">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-black/55 dark:text-white/55 mt-0.5 leading-snug max-w-[100px]">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+            <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-3">
+              <div className="flex -space-x-2">
+                {["MX", "CD", "GD"].map((c) => (
+                  <span
+                    key={c}
+                    className="w-9 h-9 rounded-full bg-white/10 border border-white/25 backdrop-blur-sm flex items-center justify-center text-[10px] font-bold text-white"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+              <p className="text-xs sm:text-sm text-blue-100/70">
+                <span className="font-semibold text-white">+50 empresas</span> en
+                México confían en DREVIA · Puebla · CDMX · GDL
+              </p>
             </motion.div>
-          </div>
+          </motion.div>
 
-          {/* Right: Visual mockup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
-            className="hidden lg:flex items-center justify-center relative"
-          >
-            <div className="animate-float w-full max-w-[540px]">
-              {/* Browser mockup */}
-              <div className="rounded-2xl border border-black/10 dark:border-white/12 bg-black/3 dark:bg-white/4 backdrop-blur-sm overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.15)] dark:shadow-[0_40px_80px_rgba(0,0,0,0.6)]">
-                {/* Browser bar */}
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-black/6 dark:border-white/8 bg-black/2 dark:bg-white/3">
-                  <span className="w-2.5 h-2.5 rounded-full bg-black/20 dark:bg-white/20" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-black/15 dark:bg-white/15" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10" />
-                  <div className="flex-1 ml-3 h-5 rounded-full bg-black/5 dark:bg-white/6 flex items-center px-3">
-                    <span className="text-black/30 dark:text-white/30 text-[10px] font-mono">
-                      https://tuempresa.com
-                    </span>
+          {/* Right column — phone mockup with floating badges */}
+          <div className="relative flex justify-center lg:justify-end">
+            <FloatBadge
+              icon={RiShoppingBag3Line}
+              small="Diseño profesional"
+              big="E-commerce"
+              href="/servicios/ecommerce"
+              delay={0.6}
+              className="top-2 lg:top-14 -right-2 lg:-right-10"
+            />
+            <FloatBadge
+              icon={RiGlobalLine}
+              small="Presencia digital"
+              big="Páginas web"
+              href="/servicios/paginas-web"
+              delay={0.9}
+              className="bottom-28 left-2 sm:left-4 lg:left-44"
+            />
+            <FloatBadge
+              icon={RiLineChartLine}
+              small="Alta conversión"
+              big="Landing Pages"
+              href="/servicios/landing-pages"
+              delay={1.2}
+              className="bottom-6 -right-2 lg:-right-14"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.3 }}
+              className="relative w-[260px] sm:w-[300px]"
+            >
+              {/* Phone frame */}
+              <div className="relative rounded-[2.8rem] border-[10px] border-[#0d1b3a] bg-[#0d1b3a] shadow-[0_40px_120px_rgba(0,0,0,0.5)]">
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 bg-[#0d1b3a] rounded-full z-10" />
+                <div className="rounded-[2.1rem] overflow-hidden bg-white">
+                  {/* Browser bar */}
+                  <div className="flex items-center gap-1.5 px-3 py-2.5 bg-slate-100 border-b border-slate-200">
+                    <span className="w-2 h-2 rounded-full bg-slate-300" />
+                    <span className="w-2 h-2 rounded-full bg-slate-300" />
+                    <div className="ml-2 flex-1 h-4 rounded bg-white border border-slate-200" />
                   </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-5 space-y-4">
-                  {/* Nav skeleton */}
-                  <div className="flex items-center justify-between">
-                    <div className="w-20 h-4 rounded bg-black/10 dark:bg-white/10" />
-                    <div className="flex gap-2">
-                      {[56, 44, 52, 64].map((w, i) => (
-                        <div key={i} className="h-3 rounded bg-black/6 dark:bg-white/6" style={{ width: w }} />
-                      ))}
-                    </div>
-                    <div className="w-20 h-7 rounded-full bg-black/12 dark:bg-white/15" />
-                  </div>
-
-                  {/* Metric cards */}
-                  <div className="grid grid-cols-3 gap-3 mt-2">
-                    {[
-                      { label: "Visitas",     value: "12,847", trend: "+24%" },
-                      { label: "Conversión",  value: "3.2%",   trend: "+0.8%" },
-                      { label: "Revenue",     value: "$48.2k", trend: "+31%" },
-                    ].map((m) => (
-                      <div key={m.label} className="rounded-xl bg-black/4 dark:bg-white/5 border border-black/6 dark:border-white/8 p-3">
-                        <p className="text-black/40 dark:text-white/40 text-[9px] uppercase tracking-wider">{m.label}</p>
-                        <p className="text-black dark:text-white font-bold text-base mt-1">{m.value}</p>
-                        <p className="text-black/50 dark:text-white/50 text-[9px] mt-0.5">{m.trend}</p>
+                  {/* Stylized site */}
+                  <div className="relative h-[440px] bg-gradient-to-b from-slate-900 to-slate-800">
+                    <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,#1d4ed8_0%,transparent_60%)] opacity-70" />
+                    <div className="relative p-5 flex flex-col h-full">
+                      <p className="font-display italic text-blue-200 text-xs">drevia</p>
+                      <h3 className="mt-8 text-white font-bold text-2xl leading-tight">
+                        Convertimos visitas en clientes reales.
+                      </h3>
+                      <p className="mt-3 text-white/60 text-[11px] leading-relaxed">
+                        Diseño, estrategia y tecnología en una sola solución
+                        digital pensada para vender.
+                      </p>
+                      <div className="mt-5 inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-blue-600 text-white text-[11px] font-semibold w-fit">
+                        Iniciar proyecto →
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Chart */}
-                  <div className="rounded-xl bg-black/3 dark:bg-white/3 border border-black/5 dark:border-white/6 p-4">
-                    <div className="flex justify-between items-end mb-3">
-                      <span className="text-black/40 dark:text-white/40 text-[10px] uppercase tracking-wider">Tráfico semanal</span>
-                      <span className="text-black/30 dark:text-white/30 text-[10px]">Últimos 7 días</span>
-                    </div>
-                    <div className="flex items-end gap-1.5 h-16">
-                      {[40, 55, 35, 70, 62, 85, 75].map((h, i) => (
-                        <div
-                          key={i}
-                          className={`flex-1 rounded-t ${i === 5 ? "bg-black/55 dark:bg-white/60" : "bg-black/10 dark:bg-white/15"}`}
-                          style={{ height: `${h}%` }}
-                        />
-                      ))}
-                    </div>
-                    <div className="flex justify-between mt-1.5">
-                      {["L","M","X","J","V","S","D"].map((d) => (
-                        <span key={d} className="text-black/25 dark:text-white/25 text-[9px] flex-1 text-center">{d}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Activity */}
-                  <div className="space-y-2">
-                    {[
-                      { label: "Nuevo lead captado",         time: "hace 2m" },
-                      { label: "Venta completada — $3,200",  time: "hace 8m" },
-                      { label: "Formulario contacto",         time: "hace 15m" },
-                    ].map((item) => (
-                      <div key={item.label} className="flex items-center justify-between py-2 border-b border-black/5 dark:border-white/5">
-                        <div className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-black/50 dark:bg-white/50" />
-                          <span className="text-black/60 dark:text-white/60 text-[10px]">{item.label}</span>
-                        </div>
-                        <span className="text-black/25 dark:text-white/25 text-[10px]">{item.time}</span>
+                      <div className="mt-auto grid grid-cols-3 gap-2">
+                        {["+240%", "95%", "+50"].map((v) => (
+                          <div key={v} className="rounded-lg bg-white/10 border border-white/10 p-2 text-center">
+                            <p className="text-white font-bold text-sm">{v}</p>
+                            <p className="text-white/45 text-[7px]">resultado</p>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Floating badge */}
+              {/* chip bottom */}
               <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-                className="absolute -right-6 top-16 hidden xl:flex items-center gap-2 px-3 py-2 rounded-xl bg-black/6 dark:bg-white/8 border border-black/10 dark:border-white/12 backdrop-blur-sm"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4, duration: 0.5 }}
+                className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-xl whitespace-nowrap"
               >
-                <span className="w-2 h-2 rounded-full bg-black/70 dark:bg-white/70" />
-                <span className="text-black/70 dark:text-white/70 text-[10px] font-medium">+24% conversiones</span>
+                <RiShieldCheckLine size={15} className="text-blue-600" />
+                <span className="text-[11px] font-semibold text-slate-800">Proyecto real · +confianza</span>
               </motion.div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.a
-        href="#servicios"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 transition-colors duration-200"
-      >
-        <span className="text-[10px] tracking-widest uppercase">Scroll</span>
-        <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-          <RiArrowDownLine size={16} />
-        </motion.div>
-      </motion.a>
     </section>
   );
 }

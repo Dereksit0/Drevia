@@ -8,95 +8,96 @@ import {
   RiMailLine,
   RiPhoneLine,
   RiMapPinLine,
+  RiArrowRightLine,
+  RiArrowUpLine,
 } from "react-icons/ri";
 import { SiTiktok } from "react-icons/si";
+import { WA, EMAIL, PHONE, LOCATION, SOCIAL } from "../lib/site";
 
-const WA = "https://wa.me/522225497631?text=Hola%2C%20me%20interesa%20solicitar%20información%20sobre%20los%20servicios%20de%20DREVIA.";
-
-const quickLinks = [
-  { label: "Inicio",         href: "#inicio" },
-  { label: "Servicios",      href: "#servicios" },
-  { label: "Clientes",       href: "#clientes" },
-  { label: "Precios",        href: "#precios" },
-  { label: "Testimonios",    href: "#testimonios" },
-  { label: "Casos de Éxito", href: "/casos" },
-];
-
-const socialLinks = [
-  { icon: RiInstagramLine, href: "https://www.instagram.com/dreviasolutions/",             label: "Instagram" },
-  { icon: SiTiktok,        href: "https://www.tiktok.com/@dreviasolutionsweb?lang=es",     label: "TikTok"    },
-  { icon: RiFacebookFill,  href: "https://www.facebook.com/profile.php?id=61586295823455", label: "Facebook"  },
-];
-
-const contactInfo = [
-  { icon: RiMailLine,   text: "dreviasolutions@gmail.com" },
-  { icon: RiPhoneLine,  text: "+52 222 549 7631" },
-  { icon: RiMapPinLine, text: "Puebla, México" },
+const empresaLinks = [
+  { label: "Inicio", href: "/#inicio" },
+  { label: "Servicios", href: "/#servicios" },
+  { label: "Precios", href: "/#precios" },
+  { label: "Casos de Éxito", href: "/#casos" },
+  { label: "Quiénes somos", href: "/#problema" },
 ];
 
 const serviceLinks = [
-  { label: "Páginas Web",         href: "/servicios/paginas-web"          },
-  { label: "Landing Pages",        href: "/servicios/landing-pages"        },
-  { label: "Sistemas Web",         href: "/servicios/sistema-web"          },
-  { label: "E-commerce",           href: "/servicios/ecommerce"            },
+  { label: "Páginas Web", href: "/servicios/paginas-web" },
+  { label: "Landing Pages", href: "/servicios/landing-pages" },
+  { label: "E-commerce", href: "/servicios/ecommerce" },
+  { label: "Sistemas Web", href: "/servicios/sistema-web" },
   { label: "Desarrollos a Medida", href: "/servicios/desarrollos-a-medida" },
 ];
 
-function ContactBlock() {
-  return (
-    <div>
-      <h4 className="text-black dark:text-white font-semibold text-sm tracking-wide mb-5">Contacto</h4>
-      <ul className="space-y-4 mb-6">
-        {contactInfo.map(({ icon: Icon, text }) => (
-          <li key={text} className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-md bg-black/5 dark:bg-white/6 flex items-center justify-center flex-shrink-0">
-              <Icon size={13} className="text-black/55 dark:text-white/55" />
-            </div>
-            <span className="text-black/55 dark:text-white/55 text-sm">{text}</span>
-          </li>
-        ))}
-      </ul>
-      <a
-        href={WA}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-5 py-2.5 bg-black/6 dark:bg-white/8 border border-black/10 dark:border-white/10 text-black/70 dark:text-white/70 text-xs font-semibold rounded-full hover:bg-black/12 dark:hover:bg-white/14 hover:border-black/22 dark:hover:border-white/22 hover:text-black dark:hover:text-white transition-all duration-200"
-      >
-        Solicitar Demo vía WhatsApp
-      </a>
-    </div>
-  );
-}
+const ciudades = ["Puebla", "CDMX", "Guadalajara", "Querétaro", "Monterrey"];
+
+const socialLinks = [
+  { icon: RiInstagramLine, href: SOCIAL.instagram, label: "Instagram" },
+  { icon: SiTiktok, href: SOCIAL.tiktok, label: "TikTok" },
+  { icon: RiFacebookFill, href: SOCIAL.facebook, label: "Facebook" },
+];
+
+const contactInfo = [
+  { icon: RiMailLine, text: EMAIL, href: `mailto:${EMAIL}` },
+  { icon: RiPhoneLine, text: PHONE, href: `tel:${PHONE.replace(/\s/g, "")}` },
+  { icon: RiMapPinLine, text: LOCATION, href: null },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-black border-t border-black/8 dark:border-white/8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 pb-8">
+    <footer className="relative overflow-hidden bg-[#070f24] border-t border-white/10">
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.18),transparent_70%)]" />
 
-        {/*
-          Grid layout:
-          Mobile  (grid-cols-2): [Brand 2-cols] | [Nav | Contact] | [Services 2-cols]
-          Desktop (grid-cols-3): [Brand+Contact] | [Nav] | [Services]
-        */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 lg:gap-12 mb-14">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Brand — full width on mobile, col 1 on desktop */}
-          <div className="col-span-2 lg:col-span-1">
-            <a href="#inicio" className="inline-flex items-center">
+        {/* CTA band */}
+        <div className="py-12 lg:py-14 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight">
+              ¿Listo para hacer crecer{" "}
+              <span className="font-display italic font-medium text-blue-300">
+                tu negocio
+              </span>
+              ?
+            </h3>
+            <p className="mt-3 text-blue-100/60 text-sm sm:text-base max-w-md">
+              Cuéntanos tu idea y te decimos exactamente cómo convertirla en
+              resultados. Sin compromisos.
+            </p>
+          </div>
+          <motion.a
+            href={WA.cotizar}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
+            className="shrink-0 inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/30"
+          >
+            Cotizar Proyecto
+            <RiArrowRightLine size={18} />
+          </motion.a>
+        </div>
+
+        {/* Main grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-x-6 gap-y-10 py-14 lg:py-16">
+
+          {/* Brand */}
+          <div className="col-span-2 lg:col-span-4">
+            <a href="/#inicio" className="inline-flex items-center">
               <Image
                 src="/imgs/drevialogo.png"
-                alt="DREVIA"
-                height={40}
-                width={160}
-                className="h-16 w-auto object-contain dark:invert-0 invert"
+                alt="DREVIA Solutions"
+                height={56}
+                width={200}
+                className="h-16 w-auto object-contain brightness-0 invert"
               />
             </a>
-            <p className="mt-4 text-black/55 dark:text-white/55 text-sm leading-relaxed max-w-xs">
+            <p className="mt-5 text-blue-100/55 text-sm leading-relaxed max-w-xs">
               Agencia de desarrollo web premium para empresas que buscan
               resultados digitales reales: más tráfico, más clientes, más ventas.
             </p>
-
-            {/* Social links */}
             <div className="flex gap-2.5 mt-6">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
@@ -105,76 +106,119 @@ export default function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-11 h-11 rounded-lg bg-black/5 dark:bg-white/6 border border-black/8 dark:border-white/8 flex items-center justify-center text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white transition-colors duration-200"
+                  className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-100/60 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
                 >
                   <Icon size={16} />
                 </motion.a>
               ))}
             </div>
+          </div>
 
-            {/* Contact — only on desktop (below social) */}
-            <div className="hidden lg:block mt-10 pt-8 border-t border-black/6 dark:border-white/6">
-              <ContactBlock />
+          {/* Empresa */}
+          <div className="lg:col-span-2">
+            <h4 className="text-white font-semibold text-sm mb-5">Empresa</h4>
+            <ul className="space-y-3.5">
+              {empresaLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    className="group inline-flex items-center gap-1.5 text-blue-100/55 hover:text-white text-sm transition-colors"
+                  >
+                    <span className="w-0 h-px bg-blue-400 group-hover:w-3 transition-all duration-300" />
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Servicios */}
+          <div className="lg:col-span-3">
+            <h4 className="text-white font-semibold text-sm mb-5">Servicios</h4>
+            <ul className="space-y-3.5">
+              {serviceLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    className="group inline-flex items-center gap-1.5 text-blue-100/55 hover:text-white text-sm transition-colors"
+                  >
+                    <span className="w-0 h-px bg-blue-400 group-hover:w-3 transition-all duration-300" />
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contacto */}
+          <div className="col-span-2 lg:col-span-3">
+            <h4 className="text-white font-semibold text-sm mb-5">Contacto</h4>
+            <ul className="space-y-4">
+              {contactInfo.map(({ icon: Icon, text, href }) => {
+                const inner = (
+                  <>
+                    <span className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                      <Icon size={15} className="text-blue-300" />
+                    </span>
+                    <span className="text-blue-100/60 text-sm group-hover:text-white transition-colors break-all">
+                      {text}
+                    </span>
+                  </>
+                );
+                return (
+                  <li key={text}>
+                    {href ? (
+                      <a href={href} className="group flex items-center gap-3">
+                        {inner}
+                      </a>
+                    ) : (
+                      <div className="flex items-center gap-3">{inner}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+
+            <p className="mt-7 mb-3 text-[11px] font-semibold tracking-[0.15em] text-blue-300/60 uppercase">
+              Ciudades
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {ciudades.map((c) => (
+                <span
+                  key={c}
+                  className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-blue-100/55 text-xs"
+                >
+                  {c}
+                </span>
+              ))}
             </div>
           </div>
-
-          {/* Navigation — col 1 on mobile, col 2 on desktop */}
-          <div className="col-span-1">
-            <h4 className="text-black dark:text-white font-semibold text-sm tracking-wide mb-5">Navegación</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white text-sm transition-colors duration-200 flex items-center gap-1.5 group"
-                  >
-                    <span className="w-1.5 h-px bg-black/20 dark:bg-white/20 group-hover:w-3 group-hover:bg-black/60 dark:group-hover:bg-white/60 transition-all duration-300" />
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact — col 2 on mobile (next to nav), hidden on desktop */}
-          <div className="col-span-1 lg:hidden">
-            <ContactBlock />
-          </div>
-
-          {/* Services — full width on mobile, col 3 on desktop */}
-          <div className="col-span-2 lg:col-span-1">
-            <h4 className="text-black dark:text-white font-semibold text-sm tracking-wide mb-5">Servicios</h4>
-            <ul className="space-y-3">
-              {serviceLinks.map(({ label: s, href }) => (
-                <li key={s}>
-                  <a
-                    href={href}
-                    className="text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white text-sm transition-colors duration-200 flex items-center gap-1.5 group"
-                  >
-                    <span className="w-1.5 h-px bg-black/20 dark:bg-white/20 group-hover:w-3 group-hover:bg-black/60 dark:group-hover:bg-white/60 transition-all duration-300" />
-                    {s}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
         </div>
 
-        <div className="h-px w-full bg-black/6 dark:bg-white/6 mb-8" />
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-black/45 dark:text-white/45 text-xs">
-            © {new Date().getFullYear()} DREVIA. Todos los derechos reservados.
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 py-7 flex flex-col sm:flex-row items-center justify-between gap-5">
+          <p className="text-blue-100/45 text-xs order-2 sm:order-1">
+            © 2026 DREVIA Solutions. Todos los derechos reservados.
           </p>
-          <div className="flex items-center gap-5">
-            <a href="/privacidad" className="text-black/45 dark:text-white/45 hover:text-black/60 dark:hover:text-white/60 text-xs transition-colors duration-200">
-              Política de Privacidad
+
+          <div className="flex items-center gap-5 order-1 sm:order-2">
+            <a href="/privacidad" className="text-blue-100/45 hover:text-white text-xs transition-colors">
+              Privacidad
             </a>
-            <a href="/terminos" className="text-black/45 dark:text-white/45 hover:text-black/60 dark:hover:text-white/60 text-xs transition-colors duration-200">
-              Términos de Uso
+            <a href="/terminos" className="text-blue-100/45 hover:text-white text-xs transition-colors">
+              Términos
+            </a>
+            <a
+              href="#inicio"
+              aria-label="Volver arriba"
+              className="inline-flex items-center gap-1.5 text-blue-100/55 hover:text-white text-xs font-medium transition-colors"
+            >
+              Arriba
+              <span className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-500 transition-colors">
+                <RiArrowUpLine size={14} />
+              </span>
             </a>
           </div>
         </div>

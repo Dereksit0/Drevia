@@ -2,405 +2,338 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RiCheckLine, RiArrowRightLine, RiSubtractLine } from "react-icons/ri";
+import { RiCheckLine, RiWhatsappLine, RiFireLine } from "react-icons/ri";
+import Reveal from "./Reveal";
+import { WA } from "../lib/site";
 
-const WA = "https://wa.me/522225497631?text=Hola%2C%20me%20interesa%20solicitar%20información%20sobre%20los%20planes%20de%20DREVIA.";
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-type Category = "Landing Page" | "Página Web" | "E-commerce" | "Sistema Web";
-const categories: Category[] = ["Landing Page", "Página Web", "E-commerce", "Sistema Web"];
-
-interface Plan {
+type Plan = {
+  badge: string;
   name: string;
+  tagline: string;
   price: string;
-  currency: string;
-  period: string;
-  description: string;
-  badge: string | null;
-  highlighted: boolean;
-  cta: string;
-  features: { text: string; included: boolean }[];
-}
+  features: string[];
+};
 
-const plansByCategory: Record<Category, Plan[]> = {
+const tabs = ["Landing Page", "Página Web", "E-commerce"] as const;
+type Tab = (typeof tabs)[number];
+
+const detailsHref: Record<Tab, string> = {
+  "Landing Page": "/servicios/landing-pages",
+  "Página Web": "/servicios/paginas-web",
+  "E-commerce": "/servicios/ecommerce",
+};
+
+const plansByTab: Record<Tab, Plan[]> = {
   "Landing Page": [
     {
-      name: "Starter", price: "$4,900", currency: "MXN", period: "/proyecto",
-      description: "Landing page rápida para captar leads desde el día uno.", badge: null, highlighted: false, cta: "Empezar ahora",
+      badge: "Para empezar",
+      name: "Esencial",
+      tagline: "Prueba tu idea en 3–5 días",
+      price: "$4,500",
       features: [
-        { text: "1 página / landing",              included: true  },
-        { text: "Diseño responsive",               included: true  },
-        { text: "SSL & dominio",                   included: true  },
-        { text: "SEO básico on-page",              included: true  },
-        { text: "CTA a WhatsApp",                  included: true  },
-        { text: "Formulario de contacto",          included: true  },
-        { text: "Secciones ilimitadas",            included: false },
-        { text: "Google Analytics",                included: false },
-        { text: "Integración de herramientas",     included: false },
-        { text: "A/B testing",                     included: false },
+        "Página lista para recibir clientes en 3–5 días",
+        "Formulario que llega directo a tu WhatsApp",
+        "Aparece bien en Google desde el inicio",
+        "Se ve perfecto en celular y carga rápido",
+        "Una ronda de cambios incluida",
+        "Correos con tu dominio (disponibles con costo adicional)",
       ],
     },
     {
-      name: "Professional", price: "$9,900", currency: "MXN", period: "/proyecto",
-      description: "Landing page premium optimizada para convertir visitas en clientes.", badge: "Más popular", highlighted: true, cta: "Elegir Professional",
+      badge: "Más recomendado",
+      name: "Crecimiento",
+      tagline: "Atrae clientes y mide resultados",
+      price: "$8,500",
       features: [
-        { text: "Secciones ilimitadas",            included: true  },
-        { text: "Diseño responsive premium",       included: true  },
-        { text: "SSL & dominio",                   included: true  },
-        { text: "SEO avanzado + Analytics",        included: true  },
-        { text: "CTA a WhatsApp optimizado",       included: true  },
-        { text: "Formularios avanzados",           included: true  },
-        { text: "Google Analytics integrado",      included: true  },
-        { text: "3 revisiones de diseño",          included: true  },
-        { text: "Integración de herramientas",     included: true  },
-        { text: "A/B testing",                     included: false },
+        "Todo lo del plan Esencial",
+        "Más secciones para convencer a quien dudaba",
+        "2 correos con tu dominio incluidos",
+        "Sabes de dónde vienen tus clientes (píxel Meta/Google)",
+        "Google te posiciona mejor (datos estructurados)",
+        "Dos rondas de cambios incluidas",
+        "Diseño accesible para todo tipo de usuario",
       ],
     },
     {
-      name: "Enterprise", price: "A medida", currency: "", period: "",
-      description: "Landing enterprise con tracking avanzado y múltiples variantes.", badge: null, highlighted: false, cta: "Agendar llamada",
+      badge: "Máximo potencial",
+      name: "Pro",
+      tagline: "Campañas pagadas optimizadas",
+      price: "$13,900",
       features: [
-        { text: "Secciones ilimitadas",            included: true  },
-        { text: "Diseño responsive premium",       included: true  },
-        { text: "SSL & dominio",                   included: true  },
-        { text: "SEO técnico completo",            included: true  },
-        { text: "CTAs múltiples optimizados",      included: true  },
-        { text: "Formularios avanzados",           included: true  },
-        { text: "Google Tag Manager + Analytics",  included: true  },
-        { text: "Revisiones ilimitadas",           included: true  },
-        { text: "Integraciones avanzadas",         included: true  },
-        { text: "A/B testing avanzado",            included: true  },
+        "Todo lo del plan Crecimiento, al máximo",
+        "Hasta 9 secciones con animaciones profesionales",
+        "Se conecta con tu CRM o sistema de ventas",
+        "4 correos corporativos incluidos",
+        "Tu dominio .com o .mx (primer año gratis)",
+        "Velocidad y rendimiento optimizados (Core Web Vitals)",
+        "15 días de soporte tras el lanzamiento",
+        "Tres rondas de cambios incluidas",
       ],
     },
   ],
   "Página Web": [
     {
-      name: "Starter", price: "$9,900", currency: "MXN", period: "/proyecto",
-      description: "Para empresas que dan su primer paso digital.", badge: null, highlighted: false, cta: "Empezar ahora",
+      badge: "Para empezar",
+      name: "Esencial",
+      tagline: "Tu presencia profesional online",
+      price: "$6,500",
       features: [
-        { text: "Hasta 5 páginas",             included: true  },
-        { text: "Diseño responsive",            included: true  },
-        { text: "SSL & dominio",                included: true  },
-        { text: "SEO básico on-page",           included: true  },
-        { text: "1 revisión de diseño",         included: true  },
-        { text: "Integración de formularios",   included: true  },
-        { text: "Blog / CMS",                   included: false },
-        { text: "Soporte prioritario",          included: false },
-        { text: "Integraciones API",            included: false },
-        { text: "Desarrollo a medida",          included: false },
+        "Sitio de hasta 4 páginas (Inicio, Servicios, Nosotros, Contacto)",
+        "Luce impecable en celular y computadora",
+        "Tus clientes te encuentran por WhatsApp o correo",
+        "Google te detecta y empieza a posicionarte",
+        "Entrega en 5–8 días hábiles",
+        "Una ronda de ajustes incluida",
       ],
     },
     {
-      name: "Professional", price: "$24,900", currency: "MXN", period: "/proyecto",
-      description: "La opción más elegida por empresas en crecimiento.", badge: "Más popular", highlighted: true, cta: "Elegir Professional",
+      badge: "Más recomendado",
+      name: "Crecimiento",
+      tagline: "Tráfico orgánico + contactos constantes",
+      price: "$13,900",
       features: [
-        { text: "Hasta 15 páginas",             included: true  },
-        { text: "Diseño responsive premium",    included: true  },
-        { text: "SSL & dominio",                included: true  },
-        { text: "SEO avanzado + Analytics",     included: true  },
-        { text: "3 revisiones de diseño",       included: true  },
-        { text: "Integración de formularios",   included: true  },
-        { text: "Blog / CMS incluido",          included: true  },
-        { text: "Soporte prioritario",          included: true  },
-        { text: "Integraciones API",            included: false },
-        { text: "Desarrollo a medida",          included: false },
+        "Todo lo del plan Esencial",
+        "Hasta 7 páginas, incluyendo blog para atraer clientes orgánicos",
+        "20 artículos listos para posicionarte en Google",
+        "4 correos con tu dominio incluidos",
+        "Mides resultados con Analytics y Meta Ads",
+        "Dominio .com o .mx (primer año gratis)",
+        "Sitio que tú mismo puedes actualizar",
+        "Dos rondas de ajustes",
       ],
     },
     {
-      name: "Enterprise", price: "A medida", currency: "", period: "",
-      description: "Soluciones completas para grandes organizaciones.", badge: null, highlighted: false, cta: "Agendar llamada",
+      badge: "Máximo potencial",
+      name: "Pro",
+      tagline: "Domina tu nicho en Google",
+      price: "$21,900",
       features: [
-        { text: "Páginas ilimitadas",           included: true  },
-        { text: "Diseño responsive premium",    included: true  },
-        { text: "SSL & dominio",                included: true  },
-        { text: "SEO técnico completo",         included: true  },
-        { text: "Revisiones ilimitadas",        included: true  },
-        { text: "Integración de formularios",   included: true  },
-        { text: "Blog / CMS avanzado",          included: true  },
-        { text: "Soporte 24/7 dedicado",        included: true  },
-        { text: "Integraciones API",            included: true  },
-        { text: "Desarrollo a medida",          included: true  },
+        "Todo lo del plan Crecimiento, sin límites",
+        "Hasta 12 secciones completamente personalizadas",
+        "Blog avanzado por categorías para autoridad de marca",
+        "Google te reconoce como referente (datos estructurados)",
+        "Galería de imágenes optimizada sin sacrificar velocidad",
+        "Correos ilimitados con tu dominio",
+        "Sitio ultra-rápido certificado (Core Web Vitals)",
+        "Tres rondas de ajustes",
       ],
     },
   ],
   "E-commerce": [
     {
-      name: "Starter", price: "$14,900", currency: "MXN", period: "/proyecto",
-      description: "Lanza tu tienda online con todo lo esencial.", badge: null, highlighted: false, cta: "Empezar ahora",
+      badge: "Para empezar",
+      name: "Esencial",
+      tagline: "Vende online desde el día 1",
+      price: "$9,900",
       features: [
-        { text: "Hasta 50 productos",           included: true  },
-        { text: "1 pasarela de pago",           included: true  },
-        { text: "Carrito de compras",           included: true  },
-        { text: "Diseño responsive",            included: true  },
-        { text: "SSL & dominio",                included: true  },
-        { text: "Gestión de inventario básica", included: true  },
-        { text: "Cupones y descuentos",         included: false },
-        { text: "Dashboard de ventas",          included: false },
-        { text: "Integración de envíos",        included: false },
-        { text: "App móvil / API",              included: false },
+        "Hasta 70 productos configurados y listos",
+        "Carrito, pago en línea y cobro integrado desde el día 1",
+        "Cada producto aparece en Google (SEO por producto)",
+        "Controlas tu inventario sin complicaciones",
+        "2 correos con tu dominio",
+        "Servidor gratis 4 meses + dominio .mx incluido",
+        "20 días de soporte post-lanzamiento",
       ],
     },
     {
-      name: "Professional", price: "$34,900", currency: "MXN", period: "/proyecto",
-      description: "La tienda online completa para escalar tus ventas.", badge: "Más popular", highlighted: true, cta: "Elegir Professional",
+      badge: "Más recomendado",
+      name: "Crecimiento",
+      tagline: "Catálogo + automaciones de venta",
+      price: "$17,900",
       features: [
-        { text: "Productos ilimitados",         included: true  },
-        { text: "Múltiples pasarelas de pago",  included: true  },
-        { text: "Carrito + wishlist + cupones", included: true  },
-        { text: "Diseño responsive premium",    included: true  },
-        { text: "SSL & dominio",                included: true  },
-        { text: "Inventario avanzado",          included: true  },
-        { text: "Cupones y descuentos",         included: true  },
-        { text: "Dashboard de ventas",          included: true  },
-        { text: "Integración de envíos",        included: true  },
-        { text: "App móvil / API",              included: false },
+        "Todo lo del plan Esencial",
+        "Hasta 150 productos con categorías bien organizadas",
+        "Cupones y descuentos que se aplican solos",
+        "Envíos conectados a tu proveedor de paquetería",
+        "4 correos corporativos incluidos",
+        "Google te posiciona por categorías y productos",
+        "40 días de soporte post-lanzamiento",
+        "Tres rondas de ajustes",
       ],
     },
     {
-      name: "Enterprise", price: "A medida", currency: "", period: "",
-      description: "E-commerce enterprise con integraciones avanzadas.", badge: null, highlighted: false, cta: "Agendar llamada",
+      badge: "Máximo potencial",
+      name: "Pro",
+      tagline: "Tienda sin límites + marketing integrado",
+      price: "$29,900",
       features: [
-        { text: "Productos ilimitados",         included: true  },
-        { text: "Múltiples pasarelas de pago",  included: true  },
-        { text: "Carrito + wishlist + cupones", included: true  },
-        { text: "Diseño responsive premium",    included: true  },
-        { text: "SSL & dominio",                included: true  },
-        { text: "Inventario enterprise",        included: true  },
-        { text: "Cupones y descuentos",         included: true  },
-        { text: "Dashboard avanzado + BI",      included: true  },
-        { text: "Integración de envíos + ERP",  included: true  },
-        { text: "App móvil / API propia",       included: true  },
-      ],
-    },
-  ],
-  "Sistema Web": [
-    {
-      name: "Starter", price: "$19,900", currency: "MXN", period: "/proyecto",
-      description: "Tu primer sistema web a medida, funcional desde el día uno.", badge: null, highlighted: false, cta: "Empezar ahora",
-      features: [
-        { text: "1-3 módulos personalizados",     included: true  },
-        { text: "Panel de administración",        included: true  },
-        { text: "Roles y permisos básicos",       included: true  },
-        { text: "Base de datos incluida",         included: true  },
-        { text: "SSL & hosting",                  included: true  },
-        { text: "Autenticación segura",           included: true  },
-        { text: "Reportería y analytics",         included: false },
-        { text: "API REST / Integraciones",       included: false },
-        { text: "Soporte prioritario",            included: false },
-        { text: "Hosting dedicado / VPS",         included: false },
-      ],
-    },
-    {
-      name: "Professional", price: "$49,900", currency: "MXN", period: "/proyecto",
-      description: "Sistema robusto para automatizar y escalar operaciones.", badge: "Más popular", highlighted: true, cta: "Elegir Professional",
-      features: [
-        { text: "Hasta 8 módulos personalizados",   included: true  },
-        { text: "Panel de administración avanzado", included: true  },
-        { text: "Roles y permisos granulares",      included: true  },
-        { text: "Base de datos + respaldos",        included: true  },
-        { text: "SSL & hosting VPS",                included: true  },
-        { text: "Autenticación segura (2FA)",       included: true  },
-        { text: "Reportería y analytics",           included: true  },
-        { text: "API REST / 2 integraciones",       included: true  },
-        { text: "Soporte prioritario",              included: true  },
-        { text: "Hosting dedicado",                 included: false },
-      ],
-    },
-    {
-      name: "Enterprise", price: "A medida", currency: "", period: "",
-      description: "Plataforma enterprise escalable y de misión crítica.", badge: null, highlighted: false, cta: "Agendar llamada",
-      features: [
-        { text: "Módulos ilimitados",              included: true  },
-        { text: "Panel enterprise + BI",           included: true  },
-        { text: "Roles granulares + Audit log",    included: true  },
-        { text: "BD + respaldos automáticos",      included: true  },
-        { text: "Hosting dedicado + CDN",          included: true  },
-        { text: "Autenticación SSO / 2FA",         included: true  },
-        { text: "Reportería avanzada + BI",        included: true  },
-        { text: "API REST + integraciones ∞",      included: true  },
-        { text: "Soporte 24/7 con SLA",            included: true  },
-        { text: "Infraestructura dedicada",        included: true  },
+        "Todo lo del plan Crecimiento, sin restricciones",
+        "Catálogo ilimitado (hasta 100 variantes por producto)",
+        "Correos de marketing personalizados automatizados",
+        "Cupones que se envían solos cuando el cliente los necesita",
+        "Conectado a tu CRM y herramientas de analítica",
+        "Tienda ultra-rápida que no pierde ventas por lentitud",
+        "Dominio .com incluido (primer año)",
+        "60 días de soporte post-lanzamiento",
       ],
     },
   ],
 };
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
-};
+const ctaLabels = ["Cotizar por WhatsApp", "Quiero este plan", "Hablar con especialista"];
 
 export default function Planes() {
-  const [active, setActive] = useState<Category>("Página Web");
-  const plans = plansByCategory[active];
+  const [tab, setTab] = useState<Tab>("Página Web");
+  const plans = plansByTab[tab];
 
   return (
-    <section id="precios" className="bg-white dark:bg-black py-24 lg:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="text-center mb-10 lg:mb-12"
-        >
-          <span className="inline-block text-black/55 dark:text-white/55 text-xs font-medium tracking-[0.3em] uppercase mb-4">
-            Inversión
+    <section
+      id="precios"
+      className="relative overflow-hidden py-20 lg:py-28 bg-[linear-gradient(180deg,#0e2356_0%,#0a1a3f_100%)]"
+    >
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Reveal className="text-center max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-white text-xs font-semibold">
+            <RiFireLine size={14} className="text-orange-400" />
+            Planes web
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white tracking-tight">
-            Planes y Precios
+          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            Precios claros para crecer con{" "}
+            <span className="font-display italic font-medium text-blue-200">
+              tecnología
+            </span>
           </h2>
-          <p className="mt-4 text-black/50 dark:text-white/50 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            Selecciona el tipo de proyecto y descubre el plan ideal para tu empresa.
-          </p>
-        </motion.div>
+        </Reveal>
 
-        {/* Category selector */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
-          className="flex justify-center mb-12"
-        >
-          <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/3 dark:bg-white/3">
-            {categories.map((cat) => (
+        {/* Tabs */}
+        <Reveal delay={0.1} className="mt-10 flex justify-center">
+          <div className="inline-flex flex-wrap justify-center gap-1 p-1.5 rounded-full bg-white/5 border border-white/10">
+            {tabs.map((t) => (
               <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                  active === cat
-                    ? "bg-black dark:bg-white text-white dark:text-black shadow-lg shadow-black/10 dark:shadow-white/10"
-                    : "text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/6"
+                key={t}
+                onClick={() => setTab(t)}
+                className={`relative px-5 sm:px-8 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                  tab === t ? "text-slate-900" : "text-blue-100/60 hover:text-white"
                 }`}
               >
-                {cat}
-                {active === cat && (
+                {tab === t && (
                   <motion.span
-                    layoutId="activeCategory"
-                    className="absolute inset-0 bg-black dark:bg-white rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                    layoutId="tab-pill"
+                    className="absolute inset-0 rounded-full bg-white"
+                    transition={{ duration: 0.3, ease: EASE }}
                   />
                 )}
+                <span className="relative z-10">{t}</span>
               </button>
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
-        {/* Plans grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.35, ease: EASE }}
-          >
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-start"
-            >
-              {plans.map((plan) => (
+        {/* Plans */}
+        <div className="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          <AnimatePresence mode="popLayout">
+            {plans.map((p, i) => {
+              const dark = i === 2; // Pro card is dark navy
+              const recommended = i === 1;
+              return (
                 <motion.div
-                  key={plan.name}
-                  variants={cardVariants}
-                  whileHover={!plan.highlighted ? { y: -6 } : {}}
-                  className={`relative rounded-2xl p-7 lg:p-8 flex flex-col transition-all duration-300 ${
-                    plan.highlighted
-                      ? "bg-black dark:bg-white border-2 border-black dark:border-white shadow-[0_0_60px_rgba(0,0,0,0.12)] dark:shadow-[0_0_60px_rgba(255,255,255,0.12)] lg:-mt-4 lg:-mb-4"
-                      : "bg-black/3 dark:bg-white/3 border border-black/10 dark:border-white/10 hover:border-black/22 dark:hover:border-white/22 hover:bg-black/5 dark:hover:bg-white/5"
+                  key={tab + p.name}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.4, ease: EASE, delay: i * 0.08 }}
+                  className={`relative rounded-3xl p-7 lg:p-8 flex flex-col ${
+                    dark
+                      ? "bg-[#0a1733] border border-white/10"
+                      : recommended
+                      ? "bg-white border-2 border-blue-500 lg:-mt-4 shadow-2xl shadow-blue-600/20"
+                      : "bg-white border border-slate-200"
                   }`}
                 >
-                  {plan.badge && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                      <span className="inline-block px-4 py-1 rounded-full bg-white dark:bg-black text-black dark:text-white text-[10px] font-bold tracking-widest uppercase border border-black/20 dark:border-white/20">
-                        {plan.badge}
-                      </span>
-                    </div>
+                  {recommended && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-[11px] font-bold tracking-wide shadow-sm">
+                      RECOMENDADO
+                    </span>
                   )}
 
-                  <p className={`text-xs font-bold tracking-[0.25em] uppercase mb-3 ${plan.highlighted ? "text-white/50 dark:text-black/50" : "text-black/40 dark:text-white/40"}`}>
-                    {plan.name}
+                  <p className={`text-xs font-bold tracking-wider uppercase ${dark ? "text-blue-300" : "text-blue-600"}`}>
+                    {p.badge}
+                  </p>
+                  <h3 className={`mt-3 text-2xl font-bold ${dark ? "text-white" : "text-slate-900"}`}>
+                    {p.name}
+                  </h3>
+                  <p className={`mt-1.5 text-sm font-medium ${dark ? "text-blue-300/90" : "text-blue-600"}`}>
+                    {p.tagline}
                   </p>
 
-                  <div className="flex items-end gap-1.5 mb-1">
-                    <span className={`font-bold tracking-tight ${plan.price === "A medida" ? "text-3xl lg:text-4xl" : "text-4xl lg:text-5xl"} ${plan.highlighted ? "text-white dark:text-black" : "text-black dark:text-white"}`}>
-                      {plan.price}
+                  <div className="mt-6 flex items-end gap-2">
+                    <span className={`text-4xl font-bold ${dark ? "text-white" : "text-slate-900"}`}>
+                      {p.price}
                     </span>
-                    {plan.period && (
-                      <span className={`text-sm mb-2 ${plan.highlighted ? "text-white/50 dark:text-black/50" : "text-black/40 dark:text-white/40"}`}>
-                        {plan.period}
-                      </span>
-                    )}
+                    <span className={`mb-1.5 px-2 py-0.5 rounded text-[10px] font-semibold ${dark ? "bg-white/10 text-blue-200" : "bg-slate-100 text-slate-500"}`}>
+                      PAGO ÚNICO
+                    </span>
                   </div>
 
-                  {plan.currency && (
-                    <p className={`text-xs mb-4 ${plan.highlighted ? "text-white/40 dark:text-black/40" : "text-black/30 dark:text-white/30"}`}>
-                      Pesos mexicanos (MXN) · IVA no incluido
-                    </p>
-                  )}
-
-                  <p className={`text-sm leading-relaxed mb-6 ${plan.highlighted ? "text-white/60 dark:text-black/60" : "text-black/45 dark:text-white/45"}`}>
-                    {plan.description}
-                  </p>
-
+                  {/* Primary CTA */}
                   <a
-                    href={WA}
+                    href={WA.plan(`${p.name} (${tab})`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group inline-flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-semibold transition-all duration-200 mb-7 hover:gap-3 ${
-                      plan.highlighted
-                        ? "bg-white dark:bg-black text-black dark:text-white hover:bg-white/85 dark:hover:bg-black/85"
-                        : "bg-black/6 dark:bg-white/8 text-black dark:text-white hover:bg-black/12 dark:hover:bg-white/15 border border-black/10 dark:border-white/12 hover:border-black/22 dark:hover:border-white/25"
+                    className={`mt-6 flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold transition-all hover:scale-[1.02] active:scale-95 ${
+                      dark
+                        ? "bg-white text-slate-900 hover:bg-blue-50"
+                        : recommended
+                        ? "bg-[#0a1a3f] text-white hover:bg-[#13234a]"
+                        : "bg-blue-600 text-white hover:bg-blue-500"
                     }`}
                   >
-                    {plan.cta}
-                    <RiArrowRightLine size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+                    <RiWhatsappLine size={16} />
+                    {ctaLabels[i]}
                   </a>
 
-                  <div className={`h-px w-full mb-6 ${plan.highlighted ? "bg-white/10 dark:bg-black/10" : "bg-black/8 dark:bg-white/8"}`} />
+                  {/* Ver detalles */}
+                  <a
+                    href={detailsHref[tab]}
+                    className={`mt-3 flex items-center justify-center w-full py-3 rounded-xl text-sm font-semibold border transition-colors ${
+                      dark
+                        ? "bg-[#13234a] border-white/10 text-white hover:bg-[#1a2d5a] hover:border-white/20"
+                        : "bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+                    }`}
+                  >
+                    Ver detalles
+                  </a>
 
-                  <ul className="space-y-3 flex-1">
-                    {plan.features.map((feature) => (
-                      <li key={feature.text} className="flex items-center gap-3">
-                        {feature.included ? (
-                          <span className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${plan.highlighted ? "bg-white/15 dark:bg-black/10" : "bg-black/8 dark:bg-white/10"}`}>
-                            <RiCheckLine size={10} className={plan.highlighted ? "text-white dark:text-black" : "text-black dark:text-white"} />
+                  <div className={`mt-7 pt-6 border-t ${dark ? "border-white/10" : "border-slate-100"}`}>
+                    <p className={`text-xs font-semibold mb-4 ${dark ? "text-blue-200/70" : "text-slate-400"}`}>
+                      Incluye:
+                    </p>
+                    <ul className="space-y-3">
+                      {p.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2.5">
+                          <span className="mt-0.5 w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+                            <RiCheckLine size={12} className="text-white" />
                           </span>
-                        ) : (
-                          <span className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center bg-black/4 dark:bg-white/4">
-                            <RiSubtractLine size={10} className="text-black/20 dark:text-white/20" />
+                          <span className={`text-sm leading-relaxed ${dark ? "text-blue-50/90" : "text-slate-600"}`}>
+                            {f}
                           </span>
-                        )}
-                        <span className={`text-sm ${feature.included ? (plan.highlighted ? "text-white/75 dark:text-black/75" : "text-black/70 dark:text-white/70") : "text-black/25 dark:text-white/25 line-through"}`}>
-                          {feature.text}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
+              );
+            })}
+          </AnimatePresence>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center text-black/30 dark:text-white/30 text-sm mt-10"
-        >
-          Precios referenciales en pesos mexicanos. Contáctanos para una cotización personalizada sin costo.
-        </motion.p>
+        <Reveal delay={0.15} className="mt-12 text-center">
+          <p className="text-blue-100/60 text-sm">
+            ¿Necesitas algo más específico? También podemos armar una cotización
+            personalizada.
+          </p>
+          <a
+            href={WA.cotizar}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-2 text-white font-semibold text-sm hover:text-blue-300 transition-colors"
+          >
+            <RiWhatsappLine size={16} className="text-green-400" />
+            Cotizar a medida →
+          </a>
+        </Reveal>
       </div>
     </section>
   );
