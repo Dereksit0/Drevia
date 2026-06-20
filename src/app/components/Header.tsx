@@ -66,7 +66,7 @@ const serviciosColumns: { title: string; items: MegaItem[] }[] = [
 const flatLinks = [
   { label: "Precios", href: "/#precios" },
   { label: "Casos de Éxito", href: "/#casos" },
-  { label: "Quiénes somos", href: "/#problema" },
+  { label: "Quiénes somos", href: "/quienes-somos" },
 ];
 
 const socialLinks = [

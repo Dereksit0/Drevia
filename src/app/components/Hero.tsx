@@ -63,14 +63,14 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28"
+      className="relative overflow-hidden flex items-center min-h-screen pt-28 pb-16 lg:pt-32 lg:pb-20"
     >
       {/* Background: electric blue gradient */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(125%_125%_at_15%_10%,#2f6bff_0%,#1d4ed8_38%,#0a1a3f_78%,#061029_100%)]" />
       <div className="absolute inset-0 -z-10 opacity-[0.06] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:46px_46px]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
 
           {/* Left column */}
           <motion.div variants={container} initial="hidden" animate="show">
@@ -83,7 +83,7 @@ export default function Hero() {
 
             <motion.h1
               variants={item}
-              className="mt-6 text-4xl sm:text-5xl lg:text-[3.7rem] font-bold leading-[1.05] tracking-tight text-white"
+              className="mt-6 text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-bold leading-[1.05] tracking-tight text-white"
             >
               Páginas web que traen{" "}
               <span className="font-display italic font-medium text-blue-200">
@@ -94,7 +94,7 @@ export default function Hero() {
 
             <motion.p
               variants={item}
-              className="mt-6 text-base lg:text-lg text-blue-100/80 leading-relaxed max-w-xl"
+              className="mt-7 text-base lg:text-xl text-blue-100/80 leading-relaxed max-w-xl"
             >
               CentralDent recibe pacientes nuevos{" "}
               <span className="font-semibold text-white">cada semana</span>.
@@ -105,19 +105,19 @@ export default function Hero() {
               Mira exactamente qué los hizo diferentes.
             </motion.p>
 
-            <motion.div variants={item} className="mt-9 flex flex-col sm:flex-row gap-3">
+            <motion.div variants={item} className="mt-10 flex flex-col sm:flex-row gap-3">
               <a
                 href={WA.cotizar}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white text-[#0a1a3f] text-sm font-semibold rounded-full hover:bg-blue-50 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 lg:py-5 bg-white text-[#0a1a3f] text-sm lg:text-base font-semibold rounded-full hover:bg-blue-50 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20"
               >
                 Solicitar Cotización
                 <RiArrowRightLine size={18} />
               </a>
               <a
                 href="#servicios"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/15 transition-all backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 lg:py-5 bg-white/10 border border-white/20 text-white text-sm lg:text-base font-semibold rounded-full hover:bg-white/15 transition-all backdrop-blur-sm"
               >
                 <RiWhatsappLine size={18} className="text-green-400" />
                 Ver Servicios
@@ -173,7 +173,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.3 }}
-              className="relative w-[260px] sm:w-[300px]"
+              className="relative w-[280px] sm:w-[330px] lg:w-[360px]"
             >
               {/* Phone frame */}
               <div className="relative rounded-[2.8rem] border-[10px] border-[#0d1b3a] bg-[#0d1b3a] shadow-[0_40px_120px_rgba(0,0,0,0.5)]">
@@ -186,7 +186,7 @@ export default function Hero() {
                     <div className="ml-2 flex-1 h-4 rounded bg-white border border-slate-200" />
                   </div>
                   {/* Stylized site */}
-                  <div className="relative h-[440px] bg-gradient-to-b from-slate-900 to-slate-800">
+                  <div className="relative h-[480px] lg:h-[520px] bg-gradient-to-b from-slate-900 to-slate-800">
                     <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,#1d4ed8_0%,transparent_60%)] opacity-70" />
                     <div className="relative p-5 flex flex-col h-full">
                       <p className="font-display italic text-blue-200 text-xs">drevia</p>

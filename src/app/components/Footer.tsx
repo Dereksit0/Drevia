@@ -19,7 +19,7 @@ const empresaLinks = [
   { label: "Servicios", href: "/#servicios" },
   { label: "Precios", href: "/#precios" },
   { label: "Casos de Éxito", href: "/#casos" },
-  { label: "Quiénes somos", href: "/#problema" },
+  { label: "Quiénes somos", href: "/quienes-somos" },
 ];
 
 const serviceLinks = [

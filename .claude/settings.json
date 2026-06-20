@@ -6,7 +6,8 @@
       "Read(//c/Users/derek/.claude/projects/c--Users-derek-Documents-drevia/memory/**)",
       "Bash(node -e \"const s=require\\('fs'\\).statSync\\('public/imgs/drevialogo.png'\\); console.log\\(s.size+' bytes'\\)\")",
       "Bash(node -e \"const b=require\\('fs'\\).readFileSync\\('public/imgs/drevialogo.png'\\); const w=b.readUInt32BE\\(16\\), h=b.readUInt32BE\\(20\\); console.log\\('w='+w+' h='+h+' ratio='+\\(w/h\\).toFixed\\(2\\)\\)\")",
-      "Bash(node -e \"try{require.resolve\\('sharp'\\);console.log\\('sharp OK'\\)}catch\\(e\\){console.log\\('NO sharp'\\)}\")"
+      "Bash(node -e \"try{require.resolve\\('sharp'\\);console.log\\('sharp OK'\\)}catch\\(e\\){console.log\\('NO sharp'\\)}\")",
+      "PowerShell(npm run build 2>&1)"
     ]
   }
 }
