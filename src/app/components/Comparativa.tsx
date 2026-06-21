@@ -10,6 +10,7 @@ const rows = [
   { otros: "Poca integración con herramientas", drevia: "Integración con CRM, APIs y automatizaciones" },
   { otros: "Sin SEO técnico", drevia: "SEO técnico desde el desarrollo" },
   { otros: "Soporte limitado después del proyecto", drevia: "Soporte continuo y mejoras futuras" },
+  { otros: "Resultados difíciles de verificar", drevia: "Resultados verificables: +50 proyectos y casos en vivo" },
 ];
 
 export default function Comparativa() {
@@ -32,15 +33,15 @@ export default function Comparativa() {
         </Reveal>
 
         <Reveal delay={0.1} className="mt-14">
-          <div className="rounded-3xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/50">
+          <div role="table" aria-label="Comparativa entre otras agencias y DREVIA" className="rounded-3xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/50">
             {/* Header */}
-            <div className="grid grid-cols-2 bg-slate-50/80 border-b border-slate-200">
-              <div className="px-5 sm:px-8 py-5">
-                <p className="text-sm font-semibold text-slate-400">
+            <div role="row" className="grid grid-cols-2 bg-slate-50/80 border-b border-slate-200">
+              <div role="columnheader" className="px-5 sm:px-8 py-5">
+                <p className="text-sm font-semibold text-slate-500">
                   Otros freelancers / agencias
                 </p>
               </div>
-              <div className="px-5 sm:px-8 py-5 bg-blue-600/5 border-l border-slate-200">
+              <div role="columnheader" className="px-5 sm:px-8 py-5 bg-blue-600/5 border-l border-slate-200">
                 <p className="text-sm font-bold text-blue-600">DREVIA</p>
               </div>
             </div>
@@ -48,18 +49,19 @@ export default function Comparativa() {
             {/* Rows */}
             {rows.map((r, i) => (
               <div
+                role="row"
                 key={r.drevia}
                 className={`grid grid-cols-2 ${i !== rows.length - 1 ? "border-b border-slate-100" : ""}`}
               >
-                <div className="flex items-start gap-3 px-5 sm:px-8 py-5">
-                  <span className="mt-0.5 w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                    <RiCloseLine size={13} className="text-slate-400" />
+                <div role="cell" className="flex items-start gap-3 px-5 sm:px-8 py-5">
+                  <span className="mt-0.5 w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center shrink-0">
+                    <RiCloseLine size={13} className="text-slate-500" aria-hidden="true" />
                   </span>
-                  <span className="text-sm text-slate-500 leading-relaxed">{r.otros}</span>
+                  <span className="text-sm text-slate-600 leading-relaxed">{r.otros}</span>
                 </div>
-                <div className="flex items-start gap-3 px-5 sm:px-8 py-5 bg-blue-600/[0.03] border-l border-slate-100">
+                <div role="cell" className="flex items-start gap-3 px-5 sm:px-8 py-5 bg-blue-600/[0.03] border-l border-slate-100">
                   <span className="mt-0.5 w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                    <RiCheckLine size={13} className="text-white" />
+                    <RiCheckLine size={13} className="text-white" aria-hidden="true" />
                   </span>
                   <span className="text-sm font-medium text-slate-800 leading-relaxed">{r.drevia}</span>
                 </div>

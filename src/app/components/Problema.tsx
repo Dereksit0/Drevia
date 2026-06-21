@@ -45,14 +45,15 @@ export default function Problema() {
             El problema
           </span>
           <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            Tú conoces tu negocio.{" "}
+            ¿Tu sitio actual no te trae clientes?{" "}
             <span className="block font-display italic font-medium text-blue-600">
-              Nosotros sabemos digitalizarlo.
+              Sabemos exactamente por qué.
             </span>
           </h2>
-          <p className="mt-5 text-slate-500 text-base lg:text-lg leading-relaxed">
-            Creamos webs, tiendas, landings y sistemas a medida para convertir,
-            vender y automatizar.
+          <p className="mt-5 text-slate-600 text-base lg:text-lg leading-relaxed">
+            La mayoría de las webs de PYME fallan en lo mismo: se ven bien pero no
+            convierten, pierden ventas o dependen de procesos manuales. Esto es lo
+            que está frenando tu crecimiento:
           </p>
         </Reveal>
 
@@ -60,7 +61,7 @@ export default function Problema() {
           {problemas.map((p, i) => (
             <Reveal key={p.n} delay={i * 0.08} className="text-center group">
               <div className="mx-auto w-16 h-16 rounded-full border border-slate-200 bg-slate-50 flex items-center justify-center group-hover:border-blue-300 group-hover:bg-blue-50 transition-colors duration-300">
-                <p.icon size={26} className="text-blue-600" />
+                <p.icon size={26} className="text-blue-600" aria-hidden="true" />
               </div>
               <p className="mt-5 text-sm font-mono tracking-[0.3em] text-slate-300">
                 {p.n}
@@ -79,7 +80,7 @@ export default function Problema() {
             className="inline-flex items-center gap-2 px-7 py-4 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-500 hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-blue-600/25"
           >
             Ver soluciones
-            <RiArrowRightLine size={18} />
+            <RiArrowRightLine size={18} aria-hidden="true" />
           </a>
         </Reveal>
       </div>

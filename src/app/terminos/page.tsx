@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -131,12 +132,12 @@ export default function TerminosPage() {
             </div>
 
             <div className="mt-16 pt-8 border-t border-black/8 dark:border-white/8">
-              <a
+              <Link
                 href="/"
                 className="text-black/45 dark:text-white/45 hover:text-black dark:hover:text-white text-sm transition-colors duration-200"
               >
                 ← Volver a la página principal
-              </a>
+              </Link>
             </div>
           </div>
         </section>

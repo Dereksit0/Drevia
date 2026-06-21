@@ -16,28 +16,38 @@ type Plan = {
   features: string[];
 };
 
-const tabs = ["Landing Page", "Página Web", "E-commerce"] as const;
+const tabs = ["Landing Page", "Página Web", "E-commerce", "SEO"] as const;
 type Tab = (typeof tabs)[number];
 
 const detailsHref: Record<Tab, string> = {
   "Landing Page": "/servicios/landing-pages",
   "Página Web": "/servicios/paginas-web",
   "E-commerce": "/servicios/ecommerce",
+  SEO: "/servicios/seo",
 };
 
 // La inversión cubre 1 año (desarrollo + lo incluido) y se renueva cada año.
-const priceMeta: Record<Tab, { badge: string; note: string }> = {
+// `suffix` se muestra junto al precio; SEO es un servicio mensual recurrente.
+const priceMeta: Record<Tab, { badge: string; note: string; suffix: string }> = {
   "Landing Page": {
     badge: "POR 1 AÑO",
     note: "Hosting y dominio incluidos · renovación anual",
+    suffix: "",
   },
   "Página Web": {
     badge: "POR 1 AÑO",
     note: "Hosting y dominio incluidos · renovación anual",
+    suffix: "",
   },
   "E-commerce": {
     badge: "POR 1 AÑO",
     note: "Plataforma (mensualidad) la pagas tú · renovación anual",
+    suffix: "",
+  },
+  SEO: {
+    badge: "MENSUAL",
+    note: "Servicio mensual · sin permanencia · cancela cuando quieras",
+    suffix: "/mes",
   },
 };
 
@@ -182,6 +192,54 @@ const plansByTab: Record<Tab, Plan[]> = {
       ],
     },
   ],
+  SEO: [
+    {
+      badge: "Para empezar",
+      name: "Básico",
+      tagline: "Tu primer mes en búsqueda orgánica",
+      price: "$2,900",
+      features: [
+        "4 blogs de 1,000 palabras/mes",
+        "Auditoría on-page inicial",
+        "Reporte básico de posiciones",
+        "5–10 keywords objetivo",
+        "Optimización de títulos y meta descripciones",
+        "Seguimiento mensual de rankings",
+      ],
+    },
+    {
+      badge: "Más recomendado",
+      name: "Profesional",
+      tagline: "Tráfico orgánico real + posiciones en página 1",
+      price: "$5,900",
+      features: [
+        "Todo lo del plan Básico",
+        "8 blogs de 1,200 palabras/mes",
+        "Backlinks de autoridad",
+        "Auditoría trimestral + optimizaciones",
+        "Estrategia de contenido trimestral",
+        "15–25 keywords objetivo",
+        "Reporte mensual detallado con tráfico y posiciones",
+        "Google Analytics 4 + Search Console configurados",
+      ],
+    },
+    {
+      badge: "Máximo potencial",
+      name: "Premium",
+      tagline: "Dominio completo de tu nicho",
+      price: "$9,900",
+      features: [
+        "Todo lo del plan Profesional",
+        "12 blogs/mes + content hub",
+        "Estrategia link building avanzada",
+        "Auditoría técnica mensual",
+        "Llamada mensual de estrategia",
+        "Análisis de competencia + proyecciones",
+        "Local SEO + featured snippets",
+        "Keywords ilimitadas",
+      ],
+    },
+  ],
 };
 
 const ctaLabels = ["Cotizar por WhatsApp", "Quiero este plan", "Hablar con especialista"];
@@ -189,6 +247,18 @@ const ctaLabels = ["Cotizar por WhatsApp", "Quiero este plan", "Hablar con espec
 export default function Planes() {
   const [tab, setTab] = useState<Tab>("Página Web");
   const plans = plansByTab[tab];
+
+  // #52 — Navegación por teclado del tablist (flechas)
+  const onTabKey = (e: React.KeyboardEvent) => {
+    const i = tabs.indexOf(tab);
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setTab(tabs[(i + 1) % tabs.length]);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setTab(tabs[(i - 1 + tabs.length) % tabs.length]);
+    }
+  };
 
   return (
     <section
@@ -211,30 +281,48 @@ export default function Planes() {
 
         {/* Tabs */}
         <Reveal delay={0.1} className="mt-10 flex justify-center">
-          <div className="inline-flex flex-wrap justify-center gap-1 p-1.5 rounded-full bg-white/5 border border-white/10">
-            {tabs.map((t) => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`relative px-5 sm:px-8 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                  tab === t ? "text-slate-900" : "text-blue-100/60 hover:text-white"
-                }`}
-              >
-                {tab === t && (
-                  <motion.span
-                    layoutId="tab-pill"
-                    className="absolute inset-0 rounded-full bg-white"
-                    transition={{ duration: 0.3, ease: EASE }}
-                  />
-                )}
-                <span className="relative z-10">{t}</span>
-              </button>
-            ))}
+          <div
+            role="tablist"
+            aria-label="Tipo de servicio"
+            onKeyDown={onTabKey}
+            className="inline-flex flex-wrap justify-center gap-1 p-1.5 rounded-full bg-white/5 border border-white/10"
+          >
+            {tabs.map((t) => {
+              const selected = tab === t;
+              return (
+                <button
+                  key={t}
+                  id={`tab-${t}`}
+                  role="tab"
+                  aria-selected={selected}
+                  aria-controls="planes-panel"
+                  tabIndex={selected ? 0 : -1}
+                  onClick={() => setTab(t)}
+                  className={`relative px-5 sm:px-8 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                    selected ? "text-slate-900" : "text-blue-100/80 hover:text-white"
+                  }`}
+                >
+                  {selected && (
+                    <motion.span
+                      layoutId="tab-pill"
+                      className="absolute inset-0 rounded-full bg-white"
+                      transition={{ duration: 0.3, ease: EASE }}
+                    />
+                  )}
+                  <span className="relative z-10">{t}</span>
+                </button>
+              );
+            })}
           </div>
         </Reveal>
 
         {/* Plans */}
-        <div className="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div
+          id="planes-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${tab}`}
+          className="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start pt-3"
+        >
           <AnimatePresence mode="popLayout">
             {plans.map((p, i) => {
               const dark = i === 2; // Pro card is dark navy
@@ -274,10 +362,18 @@ export default function Planes() {
                     <span className={`text-4xl font-bold ${dark ? "text-white" : "text-slate-900"}`}>
                       {p.price}
                     </span>
-                    <span className={`mb-1.5 px-2 py-0.5 rounded text-[10px] font-semibold ${dark ? "bg-white/10 text-blue-200" : "bg-slate-100 text-slate-500"}`}>
+                    <span className={`mb-1.5 text-sm font-semibold ${dark ? "text-blue-200/80" : "text-slate-500"}`}>
+                      MXN{priceMeta[tab].suffix}
+                    </span>
+                    <span className={`mb-1.5 px-2 py-0.5 rounded text-[11px] font-semibold ${dark ? "bg-white/10 text-blue-200" : "bg-slate-100 text-slate-500"}`}>
                       {priceMeta[tab].badge}
                     </span>
                   </div>
+                  {recommended && (
+                    <p className="mt-2 text-xs font-semibold text-blue-600">
+                      ★ El plan más elegido por PYMES
+                    </p>
+                  )}
                   <p className={`mt-2 text-xs leading-relaxed ${dark ? "text-blue-200/60" : "text-slate-400"}`}>
                     {priceMeta[tab].note}
                   </p>
@@ -302,6 +398,9 @@ export default function Planes() {
                   {/* Ver detalles */}
                   <a
                     href={detailsHref[tab]}
+                    {...(detailsHref[tab].startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     className={`mt-3 flex items-center justify-center w-full py-3 rounded-xl text-sm font-semibold border transition-colors ${
                       dark
                         ? "bg-[#13234a] border-white/10 text-white hover:bg-[#1a2d5a] hover:border-white/20"

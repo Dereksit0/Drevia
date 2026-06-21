@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiStarFill, RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 import Reveal from "./Reveal";
@@ -13,6 +14,7 @@ const testimonios = [
     name: "Dr. Alejandro Ríos",
     role: "Director · CentralDent",
     initials: "AR",
+    logo: "/imgs/centraldent.png",
     color: "from-cyan-500 to-blue-600",
     enfoque: "Resultados reales",
     relacion: "Comunicación clara",
@@ -23,6 +25,7 @@ const testimonios = [
     name: "Karla Mendoza",
     role: "Fundadora · Didácticos IQ",
     initials: "KM",
+    logo: "/imgs/didacticosiq.png",
     color: "from-amber-400 to-orange-500",
     enfoque: "Crecimiento",
     relacion: "Entrega ágil",
@@ -33,6 +36,7 @@ const testimonios = [
     name: "Eduardo Torres",
     role: "CEO · Muscle Evolution",
     initials: "ET",
+    logo: "/imgs/musclevolution.png",
     color: "from-emerald-400 to-green-600",
     enfoque: "Escala",
     relacion: "Soporte continuo",
@@ -43,6 +47,7 @@ const testimonios = [
     name: "Mariana Vargas",
     role: "Fundadora · Plata 925",
     initials: "MV",
+    logo: "/imgs/plata925logo.png",
     color: "from-fuchsia-400 to-purple-600",
     enfoque: "Marca premium",
     relacion: "Diseño cuidado",
@@ -53,6 +58,7 @@ const testimonios = [
     name: "Carlos Infante",
     role: "Dirección · Sadmind",
     initials: "CI",
+    logo: "/imgs/sadmind.png",
     color: "from-blue-500 to-indigo-600",
     enfoque: "Eficiencia",
     relacion: "Documentación clara",
@@ -101,14 +107,22 @@ export default function Testimonios() {
               >
                 {/* left */}
                 <div className="p-8 lg:p-10 border-b md:border-b-0 md:border-r border-slate-100">
-                  <div className="flex gap-1">
+                  <div className="flex gap-1" role="img" aria-label="5 de 5 estrellas">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <RiStarFill key={i} size={18} className="text-amber-400" />
+                      <RiStarFill key={i} size={18} className="text-amber-400" aria-hidden="true" />
                     ))}
                   </div>
                   <div className="mt-6 flex items-center gap-4">
-                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold`}>
-                      {t.initials}
+                    <div className="w-14 h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center p-2.5 shrink-0">
+                      <span className="relative w-full h-full">
+                        <Image
+                          src={t.logo}
+                          alt={t.role.split("·").slice(-1)[0].trim()}
+                          fill
+                          className="object-contain"
+                          sizes="44px"
+                        />
+                      </span>
                     </div>
                     <div>
                       <p className="font-bold text-slate-900">{t.name}</p>
@@ -147,14 +161,14 @@ export default function Testimonios() {
                         aria-label="Anterior testimonio"
                         className="w-11 h-11 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-colors"
                       >
-                        <RiArrowLeftLine size={18} />
+                        <RiArrowLeftLine size={18} aria-hidden="true" />
                       </button>
                       <button
                         onClick={() => go(1)}
                         aria-label="Siguiente testimonio"
                         className="w-11 h-11 rounded-full bg-[#0a1a3f] flex items-center justify-center text-white hover:bg-[#13234a] transition-colors"
                       >
-                        <RiArrowRightLine size={18} />
+                        <RiArrowRightLine size={18} aria-hidden="true" />
                       </button>
                     </div>
                   </div>
@@ -170,14 +184,24 @@ export default function Testimonios() {
             <button
               key={item.name}
               onClick={() => setActive(i)}
-              className={`flex items-center gap-2 pl-1.5 pr-4 py-1.5 rounded-full border transition-all ${
+              aria-pressed={active === i}
+              aria-label={`Ver testimonio de ${item.name}`}
+              className={`flex items-center gap-2 min-h-11 pl-1.5 pr-4 py-1.5 rounded-full border transition-all ${
                 active === i
-                  ? "bg-white border-blue-300 shadow-sm"
+                  ? "bg-white border-blue-400 ring-2 ring-blue-200 shadow-sm"
                   : "bg-white/60 border-slate-200 hover:border-slate-300"
               }`}
             >
-              <span className={`w-8 h-8 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center text-white text-[11px] font-bold`}>
-                {item.initials}
+              <span className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center p-1.5">
+                <span className="relative w-full h-full">
+                  <Image
+                    src={item.logo}
+                    alt=""
+                    fill
+                    className="object-contain"
+                    sizes="32px"
+                  />
+                </span>
               </span>
               <span className={`text-sm font-medium ${active === i ? "text-blue-700" : "text-slate-600"}`}>
                 {item.name.split(" ").slice(-1)[0]}

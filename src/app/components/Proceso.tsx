@@ -12,21 +12,25 @@ const pasos = [
   {
     icon: RiSearchLine,
     title: "1. Consulta Inicial",
+    time: "Día 1–2",
     desc: "Entendemos tus objetivos, contexto y necesidades específicas para definir una base clara.",
   },
   {
     icon: RiPencilRuler2Line,
     title: "2. Diseño & Prototipo",
+    time: "Semana 1",
     desc: "Diseñamos una experiencia visual clara, intuitiva y alineada con tu marca.",
   },
   {
     icon: RiTerminalBoxLine,
     title: "3. Desarrollo Ágil",
+    time: "Semana 1–3",
     desc: "Construimos con tecnología moderna, iteraciones rápidas y enfoque en resultados.",
   },
   {
     icon: RiRocket2Line,
     title: "4. Lanzamiento & Soporte",
+    time: "Semana 3–4",
     desc: "Publicamos, optimizamos y dejamos una base sólida para seguir creciendo.",
   },
 ];
@@ -67,11 +71,14 @@ export default function Proceso() {
                         : "bg-white border border-slate-200 shadow-slate-200/60"
                     }`}
                   >
-                    <p.icon size={26} className={i === 0 ? "text-white" : "text-blue-600"} />
+                    <p.icon size={26} className={i === 0 ? "text-white" : "text-blue-600"} aria-hidden="true" />
                   </div>
                   <div className="mt-6 w-full rounded-2xl bg-slate-50/80 border border-slate-200/70 p-6">
-                    <h3 className="text-base font-bold text-slate-900">{p.title}</h3>
-                    <p className="mt-2.5 text-sm text-slate-500 leading-relaxed">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-semibold">
+                      {p.time}
+                    </span>
+                    <h3 className="mt-3 text-base font-bold text-slate-900">{p.title}</h3>
+                    <p className="mt-2.5 text-sm text-slate-600 leading-relaxed">
                       {p.desc}
                     </p>
                   </div>

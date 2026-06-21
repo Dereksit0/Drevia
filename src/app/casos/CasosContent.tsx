@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import {
@@ -193,23 +194,23 @@ export default function CasosContent() {
                     <RiWhatsappLine size={16} />
                     Contactar por WhatsApp
                   </a>
-                  <a
-                    href="/"
+                  <Link
+                    href="/#servicios"
                     className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-black/15 dark:border-white/15 text-black/70 dark:text-white/70 text-sm font-medium rounded-full hover:border-black/30 dark:hover:border-white/30 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200"
                   >
                     <RiExternalLinkLine size={15} />
                     Ver servicios
-                  </a>
+                  </Link>
                 </div>
               </div>
 
-              <a
+              <Link
                 href="/"
                 className="inline-flex items-center gap-2 text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 text-sm transition-colors duration-200 mt-8 group"
               >
                 <RiArrowLeftLine size={14} className="transition-transform group-hover:-translate-x-1" />
                 Volver a la página principal
-              </a>
+              </Link>
             </motion.div>
           </div>
         </section>

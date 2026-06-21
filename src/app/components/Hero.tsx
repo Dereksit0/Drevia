@@ -1,17 +1,41 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   RiArrowRightLine,
-  RiWhatsappLine,
   RiShoppingBag3Line,
   RiGlobalLine,
   RiLineChartLine,
   RiShieldCheckLine,
+  RiPauseFill,
+  RiPlayFill,
 } from "react-icons/ri";
 import { WA } from "../lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+// Proyectos reales que rotan dentro del mockup del celular.
+const showcase = [
+  { video: "/videos/musclevolution_movil.mp4", poster: "/videos/musclevolution_movil.jpg", name: "Muscle Evolution", tag: "E-commerce", metric: "+240% pedidos" },
+  { video: "/videos/centraldent_movil.mp4", poster: "/videos/centraldent_movil.jpg", name: "CentralDent", tag: "Sitio corporativo", metric: "+180% consultas" },
+  { video: "/videos/didacticosiq_movil.mp4", poster: "/videos/didacticosiq_movil.jpg", name: "Didácticos IQ", tag: "Tienda en línea", metric: "+320% ventas" },
+];
+
+// Logos reales para la prueba social del hero.
+const trustLogos = [
+  { src: "/imgs/centraldent.png", alt: "CentralDent" },
+  { src: "/imgs/didacticosiq.png", alt: "Didácticos IQ" },
+  { src: "/imgs/musclevolution.png", alt: "Muscle Evolution" },
+  { src: "/imgs/plata925logo.png", alt: "Plata 925" },
+];
+
+const valueChips = [
+  { icon: RiShoppingBag3Line, label: "E-commerce" },
+  { icon: RiGlobalLine, label: "Páginas web" },
+  { icon: RiLineChartLine, label: "Landing Pages" },
+];
 
 const container = {
   hidden: {},
@@ -52,7 +76,7 @@ function FloatBadge({
         <Icon size={18} className="text-white" />
       </div>
       <div className="leading-tight">
-        <p className="text-[10px] text-white/60 font-medium">{small}</p>
+        <p className="text-xs text-white/60 font-medium">{small}</p>
         <p className="text-sm text-white font-semibold">{big}</p>
       </div>
     </motion.a>
@@ -60,10 +84,35 @@ function FloatBadge({
 }
 
 export default function Hero() {
+  const [slide, setSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  // Auto-rotación (pausable — WCAG 2.2.2)
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      setSlide((s) => (s + 1) % showcase.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  // #5/#32 — Solo reproduce el video activo (los demás quedan montados, pausados)
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === slide) {
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [slide]);
+
   return (
     <section
       id="inicio"
-      className="relative overflow-hidden flex items-center min-h-screen pt-28 pb-16 lg:pt-32 lg:pb-20"
+      className="relative overflow-hidden flex items-center pt-24 pb-12 lg:pt-28 lg:pb-16"
     >
       {/* Background: electric blue gradient */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(125%_125%_at_15%_10%,#2f6bff_0%,#1d4ed8_38%,#0a1a3f_78%,#061029_100%)]" />
@@ -77,15 +126,15 @@ export default function Hero() {
             <motion.div variants={item}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/85 text-xs font-medium backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-300 animate-pulse" />
-                Resultados verificables, no promesas genéricas
+                +50 proyectos con resultados medibles
               </span>
             </motion.div>
 
             <motion.h1
               variants={item}
-              className="mt-6 text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-bold leading-[1.05] tracking-tight text-white"
+              className="mt-5 text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold leading-[1.08] tracking-tight text-white"
             >
-              Páginas web que traen{" "}
+              Sitios web, tiendas y SEO que traen{" "}
               <span className="font-display italic font-medium text-blue-200">
                 clientes reales
               </span>{" "}
@@ -94,7 +143,7 @@ export default function Hero() {
 
             <motion.p
               variants={item}
-              className="mt-7 text-base lg:text-xl text-blue-100/80 leading-relaxed max-w-xl"
+              className="mt-5 text-base lg:text-lg text-blue-100/85 leading-relaxed max-w-xl"
             >
               CentralDent recibe pacientes nuevos{" "}
               <span className="font-semibold text-white">cada semana</span>.
@@ -105,39 +154,61 @@ export default function Hero() {
               Mira exactamente qué los hizo diferentes.
             </motion.p>
 
-            <motion.div variants={item} className="mt-10 flex flex-col sm:flex-row gap-3">
+            <motion.div variants={item} className="mt-8 flex flex-col sm:flex-row gap-3">
               <a
                 href={WA.cotizar}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 lg:py-5 bg-white text-[#0a1a3f] text-sm lg:text-base font-semibold rounded-full hover:bg-blue-50 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-[#0a1a3f] text-sm lg:text-base font-semibold rounded-full hover:bg-blue-50 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20"
               >
                 Solicitar Cotización
-                <RiArrowRightLine size={18} />
+                <RiArrowRightLine size={18} aria-hidden="true" />
+                <span className="sr-only">(se abre WhatsApp)</span>
               </a>
               <a
                 href="#servicios"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 lg:py-5 bg-white/10 border border-white/20 text-white text-sm lg:text-base font-semibold rounded-full hover:bg-white/15 transition-all backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/10 border border-white/20 text-white text-sm lg:text-base font-semibold rounded-full hover:bg-white/15 transition-all backdrop-blur-sm"
               >
-                <RiWhatsappLine size={18} className="text-green-400" />
                 Ver Servicios
               </a>
             </motion.div>
 
-            <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-3">
-              <div className="flex -space-x-2">
-                {["MX", "CD", "GD"].map((c) => (
-                  <span
-                    key={c}
-                    className="w-9 h-9 rounded-full bg-white/10 border border-white/25 backdrop-blur-sm flex items-center justify-center text-[10px] font-bold text-white"
-                  >
-                    {c}
+            {/* #37 — atajo a precios */}
+            <motion.div variants={item} className="mt-4">
+              <a href="#precios" className="inline-flex items-center gap-1.5 text-blue-100/80 hover:text-white text-sm font-medium transition-colors">
+                Ver planes y precios
+                <RiArrowRightLine size={15} aria-hidden="true" />
+              </a>
+            </motion.div>
+
+            {/* #28 — chips de valor visibles en móvil (los badges flotantes son sm+) */}
+            <motion.div variants={item} className="mt-6 flex sm:hidden flex-wrap gap-2">
+              {valueChips.map(({ icon: Icon, label }) => (
+                <span key={label} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-white text-xs font-medium">
+                  <Icon size={14} aria-hidden="true" className="text-blue-200" />
+                  {label}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* #29 — prueba social con logos reales */}
+            <motion.div variants={item} className="mt-8">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                {trustLogos.map((logo) => (
+                  <span key={logo.alt} className="relative h-7 w-24 opacity-70">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      className="object-contain object-left brightness-0 invert"
+                      sizes="96px"
+                    />
                   </span>
                 ))}
               </div>
-              <p className="text-xs sm:text-sm text-blue-100/70">
+              <p className="mt-3 text-sm text-blue-100/75">
                 <span className="font-semibold text-white">+50 empresas</span> en
-                México confían en DREVIA · Puebla · CDMX · GDL
+                México y Colombia confían en DREVIA
               </p>
             </motion.div>
           </motion.div>
@@ -173,42 +244,68 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.3 }}
-              className="relative w-[280px] sm:w-[330px] lg:w-[360px]"
+              className="relative w-[240px] sm:w-[270px] lg:w-[300px]"
             >
               {/* Phone frame */}
-              <div className="relative rounded-[2.8rem] border-[10px] border-[#0d1b3a] bg-[#0d1b3a] shadow-[0_40px_120px_rgba(0,0,0,0.5)]">
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 bg-[#0d1b3a] rounded-full z-10" />
-                <div className="rounded-[2.1rem] overflow-hidden bg-white">
+              <div className="relative rounded-[2.5rem] border-[9px] border-[#0d1b3a] bg-[#0d1b3a] shadow-[0_40px_120px_rgba(0,0,0,0.5)]">
+                <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-[#0d1b3a] rounded-full z-10" />
+                <div className="rounded-[1.9rem] overflow-hidden bg-white">
                   {/* Browser bar */}
-                  <div className="flex items-center gap-1.5 px-3 py-2.5 bg-slate-100 border-b border-slate-200">
+                  <div className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 border-b border-slate-200">
                     <span className="w-2 h-2 rounded-full bg-slate-300" />
                     <span className="w-2 h-2 rounded-full bg-slate-300" />
-                    <div className="ml-2 flex-1 h-4 rounded bg-white border border-slate-200" />
+                    <div className="ml-2 flex-1 h-3.5 rounded bg-white border border-slate-200" />
                   </div>
-                  {/* Stylized site */}
-                  <div className="relative h-[480px] lg:h-[520px] bg-gradient-to-b from-slate-900 to-slate-800">
-                    <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,#1d4ed8_0%,transparent_60%)] opacity-70" />
-                    <div className="relative p-5 flex flex-col h-full">
-                      <p className="font-display italic text-blue-200 text-xs">drevia</p>
-                      <h3 className="mt-8 text-white font-bold text-2xl leading-tight">
-                        Convertimos visitas en clientes reales.
-                      </h3>
-                      <p className="mt-3 text-white/60 text-[11px] leading-relaxed">
-                        Diseño, estrategia y tecnología en una sola solución
-                        digital pensada para vender.
-                      </p>
-                      <div className="mt-5 inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-blue-600 text-white text-[11px] font-semibold w-fit">
-                        Iniciar proyecto →
+                  {/* Rotating project showcase — todos montados, solo el activo reproduce */}
+                  <div className="relative h-[400px] lg:h-[440px] bg-slate-900">
+                    {showcase.map((s, i) => (
+                      <div
+                        key={s.video}
+                        className="absolute inset-0 transition-opacity duration-700"
+                        style={{ opacity: i === slide ? 1 : 0 }}
+                        aria-hidden={i === slide ? undefined : true}
+                      >
+                        <video
+                          ref={(el) => { videoRefs.current[i] = el; }}
+                          src={s.video}
+                          poster={s.poster}
+                          muted
+                          loop
+                          playsInline
+                          preload="none"
+                          aria-label={`Proyecto ${s.name}`}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        {/* bottom gradient + label */}
+                        <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                          <p className="text-xs font-medium text-blue-200">{s.tag}</p>
+                          <p className="text-sm font-bold text-white leading-tight">{s.name}</p>
+                          <p className="mt-0.5 text-xs font-semibold text-green-300">{s.metric}</p>
+                        </div>
                       </div>
-                      <div className="mt-auto grid grid-cols-3 gap-2">
-                        {["+240%", "95%", "+50"].map((v) => (
-                          <div key={v} className="rounded-lg bg-white/10 border border-white/10 p-2 text-center">
-                            <p className="text-white font-bold text-sm">{v}</p>
-                            <p className="text-white/45 text-[7px]">resultado</p>
-                          </div>
-                        ))}
-                      </div>
+                    ))}
+
+                    {/* progress dots */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5">
+                      {showcase.map((s, i) => (
+                        <span
+                          key={s.video}
+                          className={`h-1 rounded-full transition-all duration-300 ${
+                            i === slide ? "w-5 bg-white" : "w-1.5 bg-white/40"
+                          }`}
+                        />
+                      ))}
                     </div>
+
+                    {/* #31 — control de pausa */}
+                    <button
+                      type="button"
+                      onClick={() => setPaused((p) => !p)}
+                      aria-label={paused ? "Reanudar presentación" : "Pausar presentación"}
+                      className="absolute top-2.5 right-2.5 z-10 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/60 transition-colors"
+                    >
+                      {paused ? <RiPlayFill size={13} aria-hidden="true" /> : <RiPauseFill size={13} aria-hidden="true" />}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -220,8 +317,8 @@ export default function Hero() {
                 transition={{ delay: 1.4, duration: 0.5 }}
                 className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-xl whitespace-nowrap"
               >
-                <RiShieldCheckLine size={15} className="text-blue-600" />
-                <span className="text-[11px] font-semibold text-slate-800">Proyecto real · +confianza</span>
+                <RiShieldCheckLine size={15} className="text-blue-600" aria-hidden="true" />
+                <span className="text-xs font-semibold text-slate-800">Proyecto real · +confianza</span>
               </motion.div>
             </motion.div>
           </div>

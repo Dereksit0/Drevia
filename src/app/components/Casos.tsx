@@ -1,87 +1,128 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { RiArrowRightLine } from "react-icons/ri";
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { RiArrowRightLine, RiArrowRightUpLine } from "react-icons/ri";
 import Reveal from "./Reveal";
 import { WA } from "../lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const casos = [
-  {
-    id: "musclevolution",
-    chip: "musclevolution.com",
-    n: "01",
-    cats: "E-COMMERCE · FITNESS · ESCALA",
-    year: "2024",
-    title: ["Tienda que", "crece desde", "el día uno."],
-    desc: "Ecosistema digital completo con membresías, blog y logística integrada. Independencia total de marketplaces y ventas en automático.",
-    metric: "+240%",
-    metricLabel: "pedidos mensuales",
-    video: "/videos/musclevolution.mp4",
-  },
+type Caso = {
+  id: string;
+  n: string;
+  brand: string;
+  url?: string;
+  title: string;
+  highlight: string;
+  tags: string[];
+  year: string;
+  desc: string;
+  metric: string;
+  metricLabel: string;
+  video: string;
+  poster: string;
+};
+
+const casos: Caso[] = [
   {
     id: "centraldent",
-    chip: "centraldentmx.com",
-    n: "02",
-    cats: "DISEÑO WEB · SALUD · UX/UI",
+    n: "01",
+    brand: "centraldentmx.com",
+    url: "https://centraldentmx.com",
+    title: "Sitio corporativo",
+    highlight: "que convierte",
+    tags: ["Diseño web", "Salud", "UX/UI"],
     year: "2024",
-    title: ["Sitio corporativo", "que convierte."],
     desc: "Una presencia digital construida para comunicar con precisión, generar confianza y convertir visitantes en pacientes desde el primer scroll.",
     metric: "+180%",
     metricLabel: "consultas online",
     video: "/videos/centraldent.mp4",
+    poster: "/videos/centraldent.jpg",
   },
   {
     id: "didacticosiq",
-    chip: "didacticosiq.com",
-    n: "03",
-    cats: "TIENDA EN LÍNEA · CONVERSIÓN · CHECKOUT",
+    n: "02",
+    brand: "didacticosiq.com",
+    url: "https://didacticosiq.com",
+    title: "E-commerce",
+    highlight: "que vende de verdad",
+    tags: ["Tienda en línea", "Conversión", "Checkout"],
     year: "2024",
-    title: ["E-commerce", "que vende", "de verdad."],
     desc: "Estructura de compra optimizada para reducir fricción, maximizar el ticket promedio y hacer que cada visita cuente.",
     metric: "+320%",
     metricLabel: "ventas online",
     video: "/videos/didacticosiq.mp4",
+    poster: "/videos/didacticosiq.jpg",
+  },
+  {
+    id: "musclevolution",
+    n: "03",
+    brand: "musclevolution.com",
+    url: "https://musclevolution.com",
+    title: "Tienda que crece",
+    highlight: "desde el día uno",
+    tags: ["E-commerce", "Fitness", "Escala"],
+    year: "2024",
+    desc: "Ecosistema digital completo con membresías, blog y logística integrada. Independencia total de marketplaces y ventas en automático.",
+    metric: "+240%",
+    metricLabel: "pedidos mensuales",
+    video: "/videos/musclevolution.mp4",
+    poster: "/videos/musclevolution.jpg",
   },
 ];
 
-function LaptopMockup({ video }: { video: string }) {
+function CasoMockup({ caso }: { caso: Caso }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  // #45 — reproduce solo cuando está en viewport; pausa al salir
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.35 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <div className="relative w-full max-w-[460px]">
-      <div className="rounded-t-xl border-[6px] border-[#0d1b3a] bg-[#0d1b3a] overflow-hidden shadow-2xl shadow-black/40">
+    <div className="relative w-full max-w-[520px]">
+      <div className="rounded-2xl border border-white/10 bg-[#0d1b3a] overflow-hidden shadow-2xl shadow-black/40">
         {/* browser bar */}
-        <div className="flex items-center gap-1.5 px-3 py-2 bg-[#13234a]">
-          <span className="w-2 h-2 rounded-full bg-white/20" />
-          <span className="w-2 h-2 rounded-full bg-white/20" />
-          <span className="w-2 h-2 rounded-full bg-white/20" />
+        <div className="flex items-center gap-1.5 px-4 py-2.5 bg-[#13234a] border-b border-white/5">
+          <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+          <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+          <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+          <div className="ml-3 flex-1 h-5 rounded-md bg-white/5 border border-white/5 flex items-center px-3">
+            <span className="text-xs text-blue-100/45 truncate">{caso.url ?? caso.brand}</span>
+          </div>
         </div>
-        {/* screen — autoplaying muted video of the real project */}
-        <div className="relative h-[230px] sm:h-[260px] bg-slate-900">
+
+        {/* screen — video real del proyecto */}
+        <div className="relative h-[260px] sm:h-[300px] bg-slate-900">
           <video
-            key={video}
-            src={video}
-            autoPlay
+            ref={ref}
+            src={caso.video}
+            poster={caso.poster}
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
+            aria-label={`Vista del proyecto ${caso.brand}`}
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
       </div>
-      {/* laptop base */}
-      <div className="h-3 bg-[#0d1b3a] rounded-b-xl mx-[-8px]" />
-      <div className="h-1.5 w-1/3 mx-auto bg-[#13234a] rounded-b-lg" />
     </div>
   );
 }
 
 export default function Casos() {
-  const [active, setActive] = useState(0);
-  const c = casos[active];
-
   return (
     <section
       id="casos"
@@ -103,72 +144,90 @@ export default function Casos() {
           </p>
         </Reveal>
 
-        {/* chips */}
-        <Reveal delay={0.1} className="mt-10 flex flex-wrap justify-center gap-3">
-          {casos.map((item, i) => (
-            <button
-              key={item.id}
-              onClick={() => setActive(i)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
-                active === i
-                  ? "bg-white/15 border-white/30 text-white"
-                  : "bg-white/5 border-white/10 text-blue-100/60 hover:text-white hover:border-white/20"
-              }`}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${active === i ? "bg-blue-300" : "bg-white/30"}`} />
-              {item.chip}
-            </button>
-          ))}
-        </Reveal>
+        {/* alternating project rows */}
+        <div className="mt-16 lg:mt-24 flex flex-col gap-20 lg:gap-28">
+          {casos.map((c, i) => {
+            const flipped = i % 2 === 1; // alterna lado de la imagen
+            return (
+              <Reveal key={c.id}>
+                <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+                  {/* Mockup */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.6, ease: EASE }}
+                    className={`flex justify-center ${
+                      flipped ? "lg:order-2 lg:justify-start" : "lg:justify-end"
+                    }`}
+                  >
+                    <CasoMockup caso={c} />
+                  </motion.div>
 
-        {/* case content */}
-        <div className="mt-14 grid lg:grid-cols-2 gap-10 lg:gap-12 items-center min-h-[360px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={c.id + "-text"}
-              initial={{ opacity: 0, x: -24 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 24 }}
-              transition={{ duration: 0.45, ease: EASE }}
-            >
-              <div className="flex items-center gap-3 text-blue-200/50 text-xs font-mono tracking-widest">
-                <span>{c.n}</span>
-                <span className="h-px w-6 bg-blue-200/30" />
-                <span>{c.cats}</span>
-                <span className="h-px w-6 bg-blue-200/30" />
-                <span>{c.year}</span>
-              </div>
-              <h3 className="mt-5 text-4xl sm:text-5xl font-bold text-white leading-[1.05]">
-                {c.title.map((line) => (
-                  <span key={line} className="block">{line}</span>
-                ))}
-              </h3>
-              <p className="mt-6 text-blue-100/70 leading-relaxed max-w-md">
-                {c.desc}
-              </p>
-              <div className="mt-8 inline-flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 border border-white/10">
-                <span className="text-2xl font-bold text-white">{c.metric}</span>
-                <span className="h-6 w-px bg-white/20" />
-                <span className="text-sm text-blue-100/70">{c.metricLabel}</span>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                  {/* Text */}
+                  <div className={flipped ? "lg:order-1" : ""}>
+                    {/* counter + number */}
+                    <div className="flex items-baseline gap-4">
+                      <span className="text-5xl sm:text-6xl font-bold text-white/15 leading-none">
+                        {c.n}
+                      </span>
+                      <span className="text-xs font-mono tracking-widest text-blue-200/50">
+                        {c.n} / {casos.length}
+                      </span>
+                    </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={c.id + "-mockup"}
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.94 }}
-              transition={{ duration: 0.45, ease: EASE }}
-              className="flex justify-center lg:justify-end"
-            >
-              <LaptopMockup video={c.video} />
-            </motion.div>
-          </AnimatePresence>
+                    {/* tags */}
+                    <div className="mt-5 flex flex-wrap items-center gap-2">
+                      {c.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-medium tracking-wide text-blue-100/70 uppercase"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                      <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-blue-200/50">
+                        {c.year}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-6 text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white leading-[1.1]">
+                      {c.title}{" "}
+                      <span className="font-display italic font-medium text-blue-200">
+                        {c.highlight}
+                      </span>
+                    </h3>
+
+                    <p className="mt-5 text-blue-100/70 leading-relaxed max-w-md">
+                      {c.desc}
+                    </p>
+
+                    <div className="mt-7 flex flex-wrap items-center gap-5">
+                      <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 border border-white/10">
+                        <span className="text-2xl font-bold text-white">{c.metric}</span>
+                        <span className="h-6 w-px bg-white/20" />
+                        <span className="text-sm text-blue-100/70">{c.metricLabel}</span>
+                      </div>
+                      {c.url && (
+                        <a
+                          href={c.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-blue-300 transition-colors"
+                        >
+                          Visitar sitio
+                          <RiArrowRightUpLine size={16} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
 
-        <Reveal delay={0.15} className="mt-16 flex justify-center">
+        <Reveal delay={0.15} className="mt-20 flex justify-center">
           <a
             href={WA.cotizar}
             target="_blank"

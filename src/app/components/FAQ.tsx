@@ -43,11 +43,26 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section id="faq" className="relative bg-white py-20 lg:py-28">
+      {/* #2 — Rich results de FAQ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-wide">
@@ -76,6 +91,7 @@ export default function FAQ() {
                     </span>
                     <RiArrowDownSLine
                       size={22}
+                      aria-hidden="true"
                       className={`text-blue-600 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                     />
                   </button>
@@ -107,11 +123,24 @@ export default function FAQ() {
             href={WA.pregunta}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 px-6 py-3.5 bg-green-500 text-white text-sm font-semibold rounded-full hover:bg-green-600 transition-all"
+            className="mt-4 inline-flex items-center gap-2 px-6 py-3.5 bg-green-700 text-white text-sm font-semibold rounded-full hover:bg-green-800 transition-all"
           >
-            <RiWhatsappLine size={18} />
+            <RiWhatsappLine size={18} aria-hidden="true" />
             Escríbenos por WhatsApp
+            <span className="sr-only">(se abre WhatsApp)</span>
           </a>
+          {/* #69 — enlazado interno */}
+          <p className="mt-5 text-sm text-slate-500">
+            También puedes{" "}
+            <a href="#casos" className="font-semibold text-blue-600 hover:text-blue-700 underline underline-offset-2">
+              ver casos de éxito
+            </a>{" "}
+            o{" "}
+            <a href="#precios" className="font-semibold text-blue-600 hover:text-blue-700 underline underline-offset-2">
+              revisar precios
+            </a>
+            .
+          </p>
         </Reveal>
       </div>
     </section>

@@ -76,6 +76,47 @@ body {
   font-family: var(--font-playfair), Georgia, serif;
 }
 
+/* #8 — Las anclas no quedan tapadas por el header fijo (h-16/20) */
+section[id],
+[id].scroll-anchor {
+  scroll-margin-top: 5.5rem;
+}
+
+/* #9 — Foco visible consistente en todos los elementos interactivos (WCAG 2.4.7/2.4.11) */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* #7 — Skip link (visible solo al enfocar con teclado) */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+  background: #ffffff;
+  color: #0a1a3f;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.625rem 1rem;
+  border-radius: 9999px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }

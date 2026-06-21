@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { RiArrowRightLine, RiCalendarLine, RiWhatsappLine } from "react-icons/ri";
-import { WA } from "../lib/site";
+import { RiArrowRightLine, RiCalendarLine, RiWhatsappLine, RiMailLine, RiTimeLine } from "react-icons/ri";
+import { WA, EMAIL } from "../lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -42,22 +42,39 @@ export default function CTAFinal() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white text-[#0a1a3f] text-sm font-semibold rounded-full hover:bg-blue-50 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-black/20"
               >
-                <RiWhatsappLine size={18} className="text-green-500" />
+                <RiWhatsappLine size={18} className="text-green-600" aria-hidden="true" />
                 Cotizar Proyecto
+                <span className="sr-only">(se abre WhatsApp)</span>
               </a>
               <a
-                href={WA.llamada}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#contacto"
                 className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 border border-white/25 text-white text-sm font-semibold rounded-full hover:bg-white/15 transition-all backdrop-blur-sm"
               >
-                <RiCalendarLine size={18} />
-                Agendar Llamada
-                <RiArrowRightLine size={16} />
+                <RiCalendarLine size={18} aria-hidden="true" />
+                Llenar formulario
+                <RiArrowRightLine size={16} aria-hidden="true" />
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-xs text-blue-100/70">
+            {/* #66 — alternativa email para quien no usa WhatsApp */}
+            <p className="mt-5 text-sm text-blue-100/70">
+              ¿Prefieres correo?{" "}
+              <a
+                href={`mailto:${EMAIL}`}
+                className="inline-flex items-center gap-1.5 font-semibold text-white underline underline-offset-2 hover:text-blue-200 transition-colors"
+              >
+                <RiMailLine size={15} aria-hidden="true" />
+                {EMAIL}
+              </a>
+            </p>
+
+            {/* #67 — urgencia / tiempo de respuesta */}
+            <p className="mt-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-medium text-white">
+              <RiTimeLine size={14} className="text-blue-200" aria-hidden="true" />
+              Respondemos en menos de 2 horas hábiles
+            </p>
+
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-xs text-blue-100/75">
               {["Sin compromiso", "Propuesta clara", "Enfoque en resultados"].map((b, i) => (
                 <span key={b} className="flex items-center gap-2">
                   {i > 0 && <span className="hidden sm:inline w-1 h-1 rounded-full bg-blue-300/60 -ml-3" />}

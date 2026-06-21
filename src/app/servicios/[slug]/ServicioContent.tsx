@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { RiArrowLeftLine, RiWhatsappLine, RiCheckLine } from "react-icons/ri";
@@ -243,12 +244,12 @@ export default function ServicioContent({ servicio }: { servicio: ServicioData }
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mt-8"
               >
-                <a
+                <Link
                   href="/casos"
                   className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm font-medium transition-colors duration-200"
                 >
                   Ver todos los casos de éxito →
-                </a>
+                </Link>
               </motion.div>
             </div>
           </section>

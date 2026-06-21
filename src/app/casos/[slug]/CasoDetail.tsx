@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { RiArrowLeftLine, RiWhatsappLine, RiAlertLine, RiLightbulbLine, RiExternalLinkLine } from "react-icons/ri";
@@ -28,13 +29,13 @@ export default function CasoDetail({ caso }: { caso: Caso }) {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-4 mb-10"
             >
-              <a
+              <Link
                 href="/casos"
                 className="inline-flex items-center gap-2 text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-sm transition-colors duration-200 group"
               >
                 <RiArrowLeftLine size={15} className="transition-transform duration-200 group-hover:-translate-x-1" />
                 Casos de éxito
-              </a>
+              </Link>
               <span className="text-black/15 dark:text-white/15">/</span>
               <span className="text-black/40 dark:text-white/40 text-sm">{caso.company}</span>
             </motion.div>
@@ -216,13 +217,13 @@ export default function CasoDetail({ caso }: { caso: Caso }) {
                 </a>
               </div>
 
-              <a
+              <Link
                 href="/casos"
                 className="inline-flex items-center gap-2 text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 text-sm transition-colors duration-200 mt-8 group"
               >
                 <RiArrowLeftLine size={14} className="transition-transform group-hover:-translate-x-1" />
                 Ver todos los casos de éxito
-              </a>
+              </Link>
             </motion.div>
           </div>
         </section>

@@ -244,6 +244,45 @@ export const servicios: ServicioData[] = [
       },
     ],
   },
+  {
+    slug: "seo",
+    title: "SEO",
+    tagline: "Posicionamiento orgánico que te trae clientes cada mes",
+    description:
+      "Estrategia de SEO técnico y de contenidos para que tu negocio aparezca en Google cuando tus clientes te buscan.",
+    longDescription:
+      "El SEO es el canal que sigue trayendo clientes mucho después de pagar por él. En DREVIA combinamos SEO técnico, contenido optimizado y autoridad de dominio para posicionar tu negocio en las primeras posiciones de Google. Reportes mensuales claros: tráfico, posiciones y oportunidades, sin permanencia.",
+    icon: "RiLineChartLine",
+    features: [
+      { title: "Auditoría on-page",        description: "Revisamos estructura, velocidad, metadatos y contenido para detectar oportunidades." },
+      { title: "Contenido que posiciona",  description: "Blogs optimizados por keyword, escritos para personas y para Google." },
+      { title: "Keywords objetivo",        description: "Investigación y priorización de las búsquedas que sí convierten." },
+      { title: "Backlinks de autoridad",   description: "Enlaces de calidad que aumentan la confianza de tu dominio." },
+      { title: "GA4 + Search Console",     description: "Medición real de tráfico y posiciones, configurada y explicada." },
+      { title: "Reportes mensuales",       description: "Sabes exactamente qué hicimos, qué mejoró y qué sigue." },
+    ],
+    benefits: [
+      { metric: "+240%", label: "Tráfico orgánico" },
+      { metric: "Pág. 1", label: "Posiciones objetivo" },
+      { metric: "100%",  label: "Reportes transparentes" },
+    ],
+    casos: [
+      {
+        logo: "/imgs/centraldent.png",
+        company: "CentralDent",
+        type: "SEO local + contenidos",
+        industry: "Salud & Odontología",
+        description:
+          "Estrategia de SEO técnico y contenido que triplicó las visitas orgánicas de CentralDent y la posicionó para búsquedas de alta intención en su ciudad.",
+        results: [
+          { metric: "3x",     label: "Más visitas orgánicas" },
+          { metric: "+180%",  label: "Consultas online" },
+          { metric: "Pág. 1", label: "Keywords locales" },
+        ],
+        tags: ["SEO técnico", "Contenido", "Local SEO"],
+      },
+    ],
+  },
 ];
 
 export function getServicio(slug: string): ServicioData | undefined {

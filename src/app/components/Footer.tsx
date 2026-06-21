@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   RiFacebookFill,
@@ -19,18 +20,20 @@ const empresaLinks = [
   { label: "Servicios", href: "/#servicios" },
   { label: "Precios", href: "/#precios" },
   { label: "Casos de Éxito", href: "/#casos" },
-  { label: "Quiénes somos", href: "/quienes-somos" },
+  { label: "Quiénes somos", href: "/#quienes-somos" },
+  { label: "Contacto", href: "/#contacto" },
 ];
 
 const serviceLinks = [
   { label: "Páginas Web", href: "/servicios/paginas-web" },
   { label: "Landing Pages", href: "/servicios/landing-pages" },
   { label: "E-commerce", href: "/servicios/ecommerce" },
+  { label: "SEO", href: "/servicios/seo" },
   { label: "Sistemas Web", href: "/servicios/sistema-web" },
-  { label: "Desarrollos a Medida", href: "/servicios/desarrollos-a-medida" },
+  { label: "Software a Medida", href: "/servicios/desarrollos-a-medida" },
 ];
 
-const ciudades = ["Puebla", "CDMX", "Guadalajara", "Querétaro", "Monterrey"];
+const ciudades = ["Puebla", "CDMX", "Guadalajara", "Bogotá", "Medellín", "Monterrey"];
 
 const socialLinks = [
   { icon: RiInstagramLine, href: SOCIAL.instagram, label: "Instagram" },
@@ -85,7 +88,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="col-span-2 lg:col-span-4">
-            <a href="/#inicio" className="inline-flex items-center">
+            <Link href="/#inicio" className="inline-flex items-center" aria-label="DREVIA Solutions — inicio">
               <Image
                 src="/imgs/drevialogo.png"
                 alt="DREVIA Solutions"
@@ -93,7 +96,7 @@ export default function Footer() {
                 width={200}
                 className="h-16 w-auto object-contain brightness-0 invert"
               />
-            </a>
+            </Link>
             <p className="mt-5 text-blue-100/55 text-sm leading-relaxed max-w-xs">
               Agencia de desarrollo web premium para empresas que buscan
               resultados digitales reales: más tráfico, más clientes, más ventas.
@@ -199,8 +202,8 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 py-7 flex flex-col sm:flex-row items-center justify-between gap-5">
-          <p className="text-blue-100/45 text-xs order-2 sm:order-1">
-            © 2026 DREVIA Solutions. Todos los derechos reservados.
+          <p className="text-blue-100/55 text-xs order-2 sm:order-1">
+            © {new Date().getFullYear()} DREVIA Solutions. Todos los derechos reservados.
           </p>
 
           <div className="flex items-center gap-5 order-1 sm:order-2">
@@ -212,12 +215,16 @@ export default function Footer() {
             </a>
             <a
               href="#inicio"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
               aria-label="Volver arriba"
               className="inline-flex items-center gap-1.5 text-blue-100/55 hover:text-white text-xs font-medium transition-colors"
             >
               Arriba
               <span className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 hover:border-blue-500 transition-colors">
-                <RiArrowUpLine size={14} />
+                <RiArrowUpLine size={14} aria-hidden="true" />
               </span>
             </a>
           </div>
