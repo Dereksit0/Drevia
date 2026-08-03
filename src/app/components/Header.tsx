@@ -21,7 +21,7 @@ const navLinks = [
   { label: "Servicios", href: "/#servicios", id: "servicios" },
   { label: "Precios", href: "/#precios", id: "precios" },
   { label: "Casos de Éxito", href: "/#casos", id: "casos" },
-  { label: "Quiénes somos", href: "/#quienes-somos", id: "quienes-somos" },
+  { label: "Contacto", href: "/#contacto", id: "contacto" },
 ];
 
 const socialLinks = [
@@ -92,11 +92,11 @@ export default function Header() {
             {/* Logo */}
             <a href={isHome ? "#inicio" : "/"} className="flex items-center shrink-0" aria-label="DREVIA Solutions — inicio">
               <Image
-                src="/imgs/drevialogo.png"
+                src="/imgs/logo_blanco.png"
                 alt="DREVIA Solutions"
-                height={56}
-                width={200}
-                className="h-12 lg:h-14 w-auto object-contain brightness-0 invert"
+                height={53}
+                width={214}
+                className="h-9 lg:h-11 w-auto object-contain"
                 priority
               />
             </a>
@@ -187,11 +187,11 @@ export default function Header() {
               {/* Top bar */}
               <div className="flex items-center justify-between px-6 h-16 border-b border-white/10 shrink-0">
                 <Image
-                  src="/imgs/drevialogo.png"
+                  src="/imgs/logo_blanco.png"
                   alt="DREVIA"
-                  height={28}
-                  width={110}
-                  className="h-9 w-auto object-contain brightness-0 invert"
+                  height={32}
+                  width={130}
+                  className="h-7 w-auto object-contain"
                 />
                 <button
                   ref={closeRef}

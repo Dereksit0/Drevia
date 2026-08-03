@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   RiArrowRightLine,
@@ -21,14 +20,6 @@ const showcase = [
   { video: "/videos/musclevolution_movil.mp4", poster: "/videos/musclevolution_movil.jpg", name: "Muscle Evolution", tag: "E-commerce", metric: "+240% pedidos" },
   { video: "/videos/centraldent_movil.mp4", poster: "/videos/centraldent_movil.jpg", name: "CentralDent", tag: "Sitio corporativo", metric: "+180% consultas" },
   { video: "/videos/didacticosiq_movil.mp4", poster: "/videos/didacticosiq_movil.jpg", name: "Didácticos IQ", tag: "Tienda en línea", metric: "+320% ventas" },
-];
-
-// Logos reales para la prueba social del hero.
-const trustLogos = [
-  { src: "/imgs/centraldent.png", alt: "CentralDent" },
-  { src: "/imgs/didacticosiq.png", alt: "Didácticos IQ" },
-  { src: "/imgs/musclevolution.png", alt: "Muscle Evolution" },
-  { src: "/imgs/plata925logo.png", alt: "Plata 925" },
 ];
 
 const valueChips = [
@@ -123,16 +114,9 @@ export default function Hero() {
 
           {/* Left column */}
           <motion.div variants={container} initial="hidden" animate="show">
-            <motion.div variants={item}>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/85 text-xs font-medium backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-300 animate-pulse" />
-                +50 proyectos con resultados medibles
-              </span>
-            </motion.div>
-
             <motion.h1
               variants={item}
-              className="mt-5 text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold leading-[1.08] tracking-tight text-white"
+              className="text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold leading-[1.08] tracking-tight text-white"
             >
               Sitios web, tiendas y SEO que traen{" "}
               <span className="font-display italic font-medium text-blue-200">
@@ -173,14 +157,6 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* #37 — atajo a precios */}
-            <motion.div variants={item} className="mt-4">
-              <a href="#precios" className="inline-flex items-center gap-1.5 text-blue-100/80 hover:text-white text-sm font-medium transition-colors">
-                Ver planes y precios
-                <RiArrowRightLine size={15} aria-hidden="true" />
-              </a>
-            </motion.div>
-
             {/* #28 — chips de valor visibles en móvil (los badges flotantes son sm+) */}
             <motion.div variants={item} className="mt-6 flex sm:hidden flex-wrap gap-2">
               {valueChips.map(({ icon: Icon, label }) => (
@@ -191,22 +167,9 @@ export default function Hero() {
               ))}
             </motion.div>
 
-            {/* #29 — prueba social con logos reales */}
+            {/* #29 — prueba social */}
             <motion.div variants={item} className="mt-8">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                {trustLogos.map((logo) => (
-                  <span key={logo.alt} className="relative h-7 w-24 opacity-70">
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      fill
-                      className="object-contain object-left brightness-0 invert"
-                      sizes="96px"
-                    />
-                  </span>
-                ))}
-              </div>
-              <p className="mt-3 text-sm text-blue-100/75">
+              <p className="text-sm text-blue-100/75">
                 <span className="font-semibold text-white">+50 empresas</span> en
                 México y Colombia confían en DREVIA
               </p>

@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "¿Cuánto cuesta una página web profesional en México?",
-    a: "Manejamos precios claros de pago único: Landing Pages desde $4,500 MXN, Páginas Web desde $6,500 MXN y E-commerce desde $9,900 MXN. Cada servicio tiene tres niveles (Esencial, Crecimiento y Pro), y los proyectos más complejos (sistemas a medida o e-commerce a gran escala) se cotizan según el alcance.",
+    a: "Trabajamos con un modelo de cuota de inicio + mensualidad: Landing Pages desde $1,800 MXN de inicio y $890 MXN al mes, Páginas Web desde $3,200 MXN de inicio y $1,490 MXN al mes, y E-commerce desde $5,500 MXN de inicio y $2,690 MXN al mes. La mensualidad incluye hosting, dominio, mantenimiento y actualizaciones de contenido, así que no hay costos sorpresa. Cada servicio tiene tres niveles (Esencial, Crecimiento y Pro), y los proyectos más complejos (sistemas a medida o e-commerce a gran escala) se cotizan según el alcance.",
   },
   {
     q: "¿Cuánto tarda el desarrollo de mi proyecto?",
@@ -39,7 +39,7 @@ const faqs = [
   },
   {
     q: "¿Qué pasa después del lanzamiento?",
-    a: "Todos los planes incluyen soporte post-lanzamiento (de 20 a 60 días según el plan) y ofrecemos soporte continuo y mejoras futuras. No te dejamos solo cuando el proyecto está en línea.",
+    a: "Tu plan no termina en el lanzamiento: la mensualidad incluye hosting, dominio, mantenimiento, monitoreo y actualizaciones de contenido cada mes. El soporte por WhatsApp va de 72 horas de respuesta en el plan Esencial a 24 horas en el plan Pro, y los planes Pro suman una reunión mensual de seguimiento. La permanencia mínima es de 6 a 12 meses según el servicio.",
   },
 ];
 

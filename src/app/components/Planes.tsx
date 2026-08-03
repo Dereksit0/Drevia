@@ -12,11 +12,22 @@ type Plan = {
   badge: string;
   name: string;
   tagline: string;
-  price: string;
+  /** Cuota de inicio. Si no existe, el plan se cotiza según alcance (SEO, Software). */
+  price?: string;
+  /** Mensualidad recurrente que acompaña a la cuota de inicio. */
+  monthly?: string;
+  /** Letra pequeña bajo el precio. */
+  note: string;
   features: string[];
 };
 
-const tabs = ["Landing Page", "Página Web", "E-commerce", "SEO"] as const;
+const tabs = [
+  "Landing Page",
+  "Página Web",
+  "E-commerce",
+  "SEO",
+  "Software a Medida",
+] as const;
 type Tab = (typeof tabs)[number];
 
 const detailsHref: Record<Tab, string> = {
@@ -24,31 +35,7 @@ const detailsHref: Record<Tab, string> = {
   "Página Web": "/servicios/paginas-web",
   "E-commerce": "/servicios/ecommerce",
   SEO: "/servicios/seo",
-};
-
-// La inversión cubre 1 año (desarrollo + lo incluido) y se renueva cada año.
-// `suffix` se muestra junto al precio; SEO es un servicio mensual recurrente.
-const priceMeta: Record<Tab, { badge: string; note: string; suffix: string }> = {
-  "Landing Page": {
-    badge: "POR 1 AÑO",
-    note: "Hosting y dominio incluidos · renovación anual",
-    suffix: "",
-  },
-  "Página Web": {
-    badge: "POR 1 AÑO",
-    note: "Hosting y dominio incluidos · renovación anual",
-    suffix: "",
-  },
-  "E-commerce": {
-    badge: "POR 1 AÑO",
-    note: "Plataforma (mensualidad) la pagas tú · renovación anual",
-    suffix: "",
-  },
-  SEO: {
-    badge: "MENSUAL",
-    note: "Servicio mensual · sin permanencia · cancela cuando quieras",
-    suffix: "/mes",
-  },
+  "Software a Medida": "/servicios/desarrollos-a-medida",
 };
 
 const plansByTab: Record<Tab, Plan[]> = {
@@ -56,44 +43,49 @@ const plansByTab: Record<Tab, Plan[]> = {
     {
       badge: "Para empezar",
       name: "Esencial",
-      tagline: "Lanza y empieza a recibir clientes",
-      price: "$4,500",
+      tagline: "Tu landing profesional para empezar a vender",
+      price: "$1,800",
+      monthly: "$890",
+      note: "Hosting, dominio y mantenimiento incluidos · cobro mensual automático · mínimo 6 meses",
       features: [
-        "Landing de 1 página enfocada 100% en convertir",
-        "Lista en 3–5 días, perfecta en celular y carga rápida",
-        "Formulario y botón directo a tu WhatsApp",
-        "Aparece en Google (SEO inicial configurado)",
-        "1 año de hosting y dominio incluidos",
-        "1 ronda de cambios + 15 días de soporte",
+        "Diseño de landing page de 1 sola página",
+        "Hosting administrado + dominio conectado",
+        "Certificado SSL (candado de seguridad)",
+        "1 actualización de contenido al mes",
+        "Monitoreo de que la página esté siempre activa",
+        "Soporte por WhatsApp (respuesta en 72 horas)",
       ],
     },
     {
       badge: "Más recomendado",
       name: "Crecimiento",
-      tagline: "Convierte más y mide resultados",
-      price: "$8,500",
+      tagline: "Tu landing como motor activo de clientes",
+      price: "$2,500",
+      monthly: "$1,290",
+      note: "★ El plan más elegido por PYMES · Hosting, dominio y mantenimiento incluidos · cobro mensual · mínimo 6 meses",
       features: [
         "Todo lo del plan Esencial",
-        "Más secciones para resolver dudas y cerrar la venta",
-        "Píxel de Meta/Google instalado y listo para tus campañas",
-        "Datos estructurados para destacar en Google",
-        "Diseño accesible para todo tipo de usuario",
-        "2 rondas de cambios + 45 días de soporte por WhatsApp",
+        "2 actualizaciones de contenido al mes",
+        "Reporte mensual de visitas",
+        "Optimización básica de velocidad de carga",
+        "Formulario de contacto/agendamiento integrado",
+        "Soporte prioritario (respuesta en 48 horas)",
       ],
     },
     {
       badge: "Máximo potencial",
       name: "Pro",
-      tagline: "Tu landing al máximo, con acompañamiento",
-      price: "$13,900",
+      tagline: "Tu landing como principal canal de ventas",
+      price: "$3,200",
+      monthly: "$1,790",
+      note: "Hosting, dominio y mantenimiento incluidos · cobro mensual · mínimo 6 meses",
       features: [
         "Todo lo del plan Crecimiento",
-        "Hasta 9 secciones con animaciones profesionales",
-        "Se conecta con tu CRM o sistema de ventas",
-        "Velocidad optimizada (Core Web Vitals)",
-        "Dominio .com o .mx incluido (primer año)",
-        "3 rondas de cambios + soporte prioritario por WhatsApp",
-        "Acompañamiento post-lanzamiento para seguir mejorando",
+        "4 actualizaciones de contenido al mes",
+        "SEO básico (para aparecer en búsquedas de Google)",
+        "Reporte mensual con recomendaciones de mejora",
+        "Integración con WhatsApp Business / redes sociales",
+        "Soporte VIP (respuesta en 24 horas)",
       ],
     },
   ],
@@ -102,45 +94,57 @@ const plansByTab: Record<Tab, Plan[]> = {
       badge: "Para empezar",
       name: "Esencial",
       tagline: "Tu presencia profesional online",
-      price: "$6,500",
+      price: "$3,200",
+      monthly: "$1,490",
+      note: "Hosting, dominio y mantenimiento incluidos · cobro mensual automático · mínimo 6 meses",
       features: [
-        "Sitio de hasta 4 páginas (Inicio, Servicios, Nosotros, Contacto)",
+        "Sitio de hasta 5 páginas (Inicio, Servicios, Nosotros, Contacto)",
         "Diseño impecable en celular y computadora",
         "Contacto directo a tu WhatsApp en todo el sitio",
         "SEO inicial para que Google te encuentre",
-        "1 año de hosting y dominio incluidos",
-        "Entrega en 5–8 días + 1 ronda de cambios + 15 días de soporte",
+        "Hosting, dominio y mantenimiento incluidos",
+        "2 actualizaciones de contenido al mes",
+        "Revisión de seguridad mensual",
+        "Reporte mensual de visitas",
+        "Soporte por WhatsApp (48 horas)",
       ],
     },
     {
       badge: "Más recomendado",
       name: "Crecimiento",
       tagline: "Atrae clientes desde Google",
-      price: "$13,900",
+      price: "$4,500",
+      monthly: "$2,190",
+      note: "★ El plan más elegido por PYMES · Hosting, dominio y mantenimiento incluidos · cobro mensual · mínimo 12 meses",
       features: [
         "Todo lo del plan Esencial",
-        "Hasta 7 páginas, con blog para atraer tráfico orgánico",
-        "3 artículos optimizados para SEO escritos por nosotros",
+        "Hasta 8 páginas, con blog para atraer tráfico orgánico",
+        "4 actualizaciones de contenido al mes",
+        "SEO básico continuo (palabras clave + meta descripciones)",
         "Píxel de Meta/Google listo para tus campañas",
         "Google Analytics y datos estructurados configurados",
         "Panel sencillo para que edites tu propio contenido",
-        "2 rondas de cambios + 45 días de soporte por WhatsApp",
+        "Reporte mensual con métricas de posicionamiento",
+        "Soporte prioritario (24–48 horas)",
       ],
     },
     {
       badge: "Máximo potencial",
       name: "Pro",
       tagline: "Conviértete en el referente de tu nicho",
-      price: "$21,900",
+      price: "$6,000",
+      monthly: "$2,990",
+      note: "Hosting, dominio y mantenimiento incluidos · cobro mensual · mínimo 12 meses",
       features: [
         "Todo lo del plan Crecimiento",
-        "Hasta 12 páginas/secciones totalmente personalizadas",
-        "Blog por categorías + 6 artículos SEO incluidos",
+        "Diseño de páginas ilimitadas dentro del sitio",
+        "6 actualizaciones de contenido al mes",
+        "SEO avanzado + optimización continua",
         "Se conecta con tu CRM o sistema de ventas",
-        "Galería optimizada sin sacrificar velocidad",
+        "Integración con Google Business Profile",
         "Optimización certificada Core Web Vitals",
-        "Dominio .com o .mx incluido (primer año)",
-        "3 rondas de cambios + soporte prioritario por WhatsApp",
+        "Reunión mensual de seguimiento (30 min)",
+        "Soporte VIP (24 horas)",
       ],
     },
   ],
@@ -148,47 +152,54 @@ const plansByTab: Record<Tab, Plan[]> = {
     {
       badge: "Para empezar",
       name: "Esencial",
-      tagline: "Empieza a vender online",
-      price: "$9,900",
+      tagline: "Empieza a vender en línea sin fricciones",
+      price: "$5,500",
+      monthly: "$2,690",
+      note: "Hosting, dominio y mantenimiento incluidos · cobro mensual automático · mínimo 12 meses",
       features: [
-        "Tienda lista para vender desde el día 1",
-        "Hasta 50 productos configurados y organizados",
-        "Carrito y pago en línea integrados",
-        "Botón de WhatsApp para dudas y cierre de venta",
-        "Cada producto optimizado para Google (SEO por producto)",
-        "Panel fácil para controlar tu inventario",
-        "Plataforma a tu elección (tú pagas su mensualidad)",
-        "1 ronda de cambios + 15 días de soporte",
+        "Tienda en línea con hasta 30 productos",
+        "Integración de 1 método de pago (Stripe/Mercado Pago)",
+        "Hosting administrado de alta disponibilidad",
+        "Backups automáticos diarios",
+        "Monitoreo de la pasarela de pagos",
+        "Soporte de catálogo (altas/bajas/precios) — hasta 2 hrs/mes",
+        "Reporte mensual de ventas",
+        "Soporte prioritario (24 horas)",
       ],
     },
     {
       badge: "Más recomendado",
       name: "Crecimiento",
-      tagline: "Catálogo y promociones que venden",
-      price: "$17,900",
+      tagline: "Escala tus ventas sin fricciones técnicas",
+      price: "$7,500",
+      monthly: "$3,690",
+      note: "★ El plan más elegido por PYMES · Hosting, dominio y mantenimiento incluidos · cobro mensual · mínimo 12 meses",
       features: [
         "Todo lo del plan Esencial",
-        "Hasta 150 productos con categorías y filtros",
-        "Cupones y descuentos automáticos",
-        "Envíos conectados a tu proveedor de paquetería",
-        "Píxel de Meta/Google listo para tus campañas",
-        "SEO por categorías + 3 artículos de blog",
-        "2 rondas de cambios + 45 días de soporte por WhatsApp",
+        "Productos ilimitados",
+        "2 métodos de pago integrados",
+        "SEO de productos y categorías",
+        "Análisis de carritos abandonados",
+        "Soporte de catálogo — hasta 4 hrs/mes",
+        "Reporte mensual de ventas + conversión",
+        "Soporte VIP (mismo día en horario laboral)",
       ],
     },
     {
       badge: "Máximo potencial",
       name: "Pro",
-      tagline: "Tu tienda sin límites, con acompañamiento",
-      price: "$29,900",
+      tagline: "Tu tienda como principal canal de ingresos",
+      price: "$10,000",
+      monthly: "$4,990",
+      note: "Hosting, dominio y mantenimiento incluidos · cobro mensual · mínimo 12 meses",
       features: [
         "Todo lo del plan Crecimiento",
-        "Catálogo ilimitado (hasta 100 variantes por producto)",
-        "Notificaciones de pedido por WhatsApp",
-        "Se conecta con tu CRM y herramientas de analítica",
-        "Velocidad optimizada para no perder ventas",
-        "Dominio .com incluido (primer año)",
-        "3 rondas de cambios + soporte prioritario por WhatsApp",
+        "Optimización continua de conversión (CRO)",
+        "Automatización de emails (carrito abandonado, post-compra)",
+        "Integración con inventario/facturación si aplica",
+        "Soporte de catálogo — hasta 8 hrs/mes",
+        "Reunión mensual de seguimiento (30 min)",
+        "Prioridad máxima de soporte (mismo día, incluso findes en emergencias)",
       ],
     },
   ],
@@ -197,7 +208,7 @@ const plansByTab: Record<Tab, Plan[]> = {
       badge: "Para empezar",
       name: "Básico",
       tagline: "Tu primer mes en búsqueda orgánica",
-      price: "$2,900",
+      note: "Servicio mensual · sin permanencia · se cotiza según tu sector y competencia",
       features: [
         "4 blogs de 1,000 palabras/mes",
         "Auditoría on-page inicial",
@@ -211,7 +222,7 @@ const plansByTab: Record<Tab, Plan[]> = {
       badge: "Más recomendado",
       name: "Profesional",
       tagline: "Tráfico orgánico real + posiciones en página 1",
-      price: "$5,900",
+      note: "★ El plan más elegido · Servicio mensual · sin permanencia · se cotiza según alcance",
       features: [
         "Todo lo del plan Básico",
         "8 blogs de 1,200 palabras/mes",
@@ -227,7 +238,7 @@ const plansByTab: Record<Tab, Plan[]> = {
       badge: "Máximo potencial",
       name: "Premium",
       tagline: "Dominio completo de tu nicho",
-      price: "$9,900",
+      note: "Servicio mensual · sin permanencia · se cotiza según alcance",
       features: [
         "Todo lo del plan Profesional",
         "12 blogs/mes + content hub",
@@ -240,9 +251,57 @@ const plansByTab: Record<Tab, Plan[]> = {
       ],
     },
   ],
+  "Software a Medida": [
+    {
+      badge: "Para empezar",
+      name: "Automatización",
+      tagline: "Digitaliza el proceso que más te frena",
+      note: "Proyecto cotizado según alcance · diagnóstico inicial sin costo",
+      features: [
+        "Sesión de discovery para entender tu operación",
+        "Automatización de un proceso o flujo de trabajo",
+        "Integración con las herramientas que ya usas",
+        "Panel web para operarlo desde cualquier lugar",
+        "Documentación técnica y de usuario",
+        "Soporte post-entrega los primeros meses",
+      ],
+    },
+    {
+      badge: "Más recomendado",
+      name: "Sistema a Medida",
+      tagline: "Tu operación completa en un solo sistema",
+      note: "★ El más solicitado por empresas · Proyecto cotizado según alcance · diagnóstico sin costo",
+      features: [
+        "Todo lo del plan Automatización",
+        "Arquitectura escalable pensada para crecer contigo",
+        "Roles y permisos por tipo de usuario",
+        "Integraciones con ERP, CRM o pasarelas de pago",
+        "Reportería y panel de analítica en tiempo real",
+        "Entregas incrementales para ver avances cada semana",
+        "Capacitación para tu equipo",
+      ],
+    },
+    {
+      badge: "Máximo potencial",
+      name: "Plataforma",
+      tagline: "Software propio como ventaja competitiva",
+      note: "Proyecto cotizado según alcance · diagnóstico inicial sin costo",
+      features: [
+        "Todo lo del plan Sistema a Medida",
+        "Arquitectura multiusuario y multisucursal",
+        "API propia para conectar con terceros",
+        "Integraciones complejas con sistemas legados",
+        "Ambiente de pruebas y despliegue continuo",
+        "Mantenimiento evolutivo mensual",
+        "Acompañamiento técnico dedicado",
+      ],
+    },
+  ],
 };
 
 const ctaLabels = ["Cotizar por WhatsApp", "Quiero este plan", "Hablar con especialista"];
+// En los planes sin precio público el CTA no puede prometer contratación directa.
+const quoteCtaLabels = ["Solicitar cotización", "Quiero cotizar este plan", "Hablar con especialista"];
 
 export default function Planes() {
   const [tab, setTab] = useState<Tab>("Página Web");
@@ -358,29 +417,47 @@ export default function Planes() {
                     {p.tagline}
                   </p>
 
-                  <div className="mt-6 flex items-end gap-2">
-                    <span className={`text-4xl font-bold ${dark ? "text-white" : "text-slate-900"}`}>
-                      {p.price}
-                    </span>
-                    <span className={`mb-1.5 text-sm font-semibold ${dark ? "text-blue-200/80" : "text-slate-500"}`}>
-                      MXN{priceMeta[tab].suffix}
-                    </span>
-                    <span className={`mb-1.5 px-2 py-0.5 rounded text-[11px] font-semibold ${dark ? "bg-white/10 text-blue-200" : "bg-slate-100 text-slate-500"}`}>
-                      {priceMeta[tab].badge}
-                    </span>
-                  </div>
-                  {recommended && (
-                    <p className="mt-2 text-xs font-semibold text-blue-600">
-                      ★ El plan más elegido por PYMES
-                    </p>
+                  {p.price ? (
+                    <>
+                      <div className="mt-6 flex items-end gap-2">
+                        <span className={`text-4xl font-bold ${dark ? "text-white" : "text-slate-900"}`}>
+                          {p.price}
+                        </span>
+                        <span className={`mb-1.5 text-sm font-semibold ${dark ? "text-blue-200/80" : "text-slate-500"}`}>
+                          MXN
+                        </span>
+                        <span className={`mb-1.5 px-2 py-0.5 rounded text-[11px] font-semibold ${dark ? "bg-white/10 text-blue-200" : "bg-slate-100 text-slate-500"}`}>
+                          CUOTA DE INICIO
+                        </span>
+                      </div>
+                      <p className={`mt-2 text-xl font-bold ${dark ? "text-white" : "text-slate-900"}`}>
+                        + {p.monthly}{" "}
+                        <span className={`text-sm font-semibold ${dark ? "text-blue-200/80" : "text-slate-500"}`}>
+                          MXN/mes
+                        </span>
+                      </p>
+                    </>
+                  ) : (
+                    <div className="mt-6 flex items-end gap-2">
+                      <span className={`text-4xl font-bold ${dark ? "text-white" : "text-slate-900"}`}>
+                        A cotizar
+                      </span>
+                      <span className={`mb-1.5 px-2 py-0.5 rounded text-[11px] font-semibold ${dark ? "bg-white/10 text-blue-200" : "bg-slate-100 text-slate-500"}`}>
+                        SEGÚN ALCANCE
+                      </span>
+                    </div>
                   )}
                   <p className={`mt-2 text-xs leading-relaxed ${dark ? "text-blue-200/60" : "text-slate-400"}`}>
-                    {priceMeta[tab].note}
+                    {p.note}
                   </p>
 
                   {/* Primary CTA */}
                   <a
-                    href={WA.plan(`${p.name} (${tab})`)}
+                    href={
+                      p.price
+                        ? WA.plan(`${p.name} (${tab})`, true)
+                        : WA.cotizarPlan(`${p.name} (${tab})`)
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`mt-6 flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold transition-all hover:scale-[1.02] active:scale-95 ${
@@ -392,7 +469,7 @@ export default function Planes() {
                     }`}
                   >
                     <RiWhatsappLine size={16} />
-                    {ctaLabels[i]}
+                    {(p.price ? ctaLabels : quoteCtaLabels)[i]}
                   </a>
 
                   {/* Ver detalles */}

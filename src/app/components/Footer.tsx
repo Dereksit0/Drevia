@@ -11,6 +11,9 @@ import {
   RiMapPinLine,
   RiArrowRightLine,
   RiArrowUpLine,
+  RiWhatsappLine,
+  RiCalendarLine,
+  RiShieldCheckLine,
 } from "react-icons/ri";
 import { SiTiktok } from "react-icons/si";
 import { WA, EMAIL, PHONE, LOCATION, SOCIAL } from "../lib/site";
@@ -20,8 +23,8 @@ const empresaLinks = [
   { label: "Servicios", href: "/#servicios" },
   { label: "Precios", href: "/#precios" },
   { label: "Casos de Éxito", href: "/#casos" },
-  { label: "Quiénes somos", href: "/#quienes-somos" },
   { label: "Contacto", href: "/#contacto" },
+  { label: "Preguntas frecuentes", href: "/#faq" },
 ];
 
 const serviceLinks = [
@@ -42,9 +45,10 @@ const socialLinks = [
 ];
 
 const contactInfo = [
-  { icon: RiMailLine, text: EMAIL, href: `mailto:${EMAIL}` },
-  { icon: RiPhoneLine, text: PHONE, href: `tel:${PHONE.replace(/\s/g, "")}` },
-  { icon: RiMapPinLine, text: LOCATION, href: null },
+  { icon: RiWhatsappLine, text: "Escríbenos por WhatsApp", href: WA.general, external: true },
+  { icon: RiMailLine, text: EMAIL, href: `mailto:${EMAIL}`, external: false },
+  { icon: RiPhoneLine, text: PHONE, href: `tel:${PHONE.replace(/\s/g, "")}`, external: false },
+  { icon: RiMapPinLine, text: LOCATION, href: null, external: false },
 ];
 
 export default function Footer() {
@@ -56,7 +60,7 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* CTA band */}
-        <div className="py-12 lg:py-14 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="py-12 lg:py-14 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight">
               ¿Listo para hacer crecer{" "}
@@ -69,18 +73,36 @@ export default function Footer() {
               Cuéntanos tu idea y te decimos exactamente cómo convertirla en
               resultados. Sin compromisos.
             </p>
+            <p className="mt-4 inline-flex items-center gap-2 text-blue-200/70 text-xs">
+              <RiShieldCheckLine size={14} className="text-blue-300" aria-hidden="true" />
+              Diagnóstico inicial sin costo · Propuesta con alcance y tiempos por escrito
+            </p>
           </div>
-          <motion.a
-            href={WA.cotizar}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.96 }}
-            className="shrink-0 inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/30"
-          >
-            Cotizar Proyecto
-            <RiArrowRightLine size={18} />
-          </motion.a>
+
+          <div className="shrink-0 flex flex-col sm:flex-row gap-3">
+            <motion.a
+              href={WA.cotizar}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/30"
+            >
+              Cotizar Proyecto
+              <RiArrowRightLine size={18} aria-hidden="true" />
+            </motion.a>
+            <motion.a
+              href={WA.llamada}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 border border-white/15 text-white text-sm font-semibold rounded-full hover:bg-white/10 hover:border-white/25 transition-colors"
+            >
+              <RiCalendarLine size={17} aria-hidden="true" />
+              Agendar llamada
+            </motion.a>
+          </div>
         </div>
 
         {/* Main grid */}
@@ -159,11 +181,11 @@ export default function Footer() {
           <div className="col-span-2 lg:col-span-3">
             <h4 className="text-white font-semibold text-sm mb-5">Contacto</h4>
             <ul className="space-y-4">
-              {contactInfo.map(({ icon: Icon, text, href }) => {
+              {contactInfo.map(({ icon: Icon, text, href, external }) => {
                 const inner = (
                   <>
-                    <span className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                      <Icon size={15} className="text-blue-300" />
+                    <span className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 transition-colors group-hover:bg-blue-600 group-hover:border-blue-500">
+                      <Icon size={15} className="text-blue-300 transition-colors group-hover:text-white" />
                     </span>
                     <span className="text-blue-100/60 text-sm group-hover:text-white transition-colors break-all">
                       {text}
@@ -173,7 +195,13 @@ export default function Footer() {
                 return (
                   <li key={text}>
                     {href ? (
-                      <a href={href} className="group flex items-center gap-3">
+                      <a
+                        href={href}
+                        className="group flex items-center gap-3"
+                        {...(external
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                      >
                         {inner}
                       </a>
                     ) : (
@@ -202,8 +230,12 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 py-7 flex flex-col sm:flex-row items-center justify-between gap-5">
-          <p className="text-blue-100/55 text-xs order-2 sm:order-1">
+          <p className="text-blue-100/55 text-xs order-2 sm:order-1 text-center sm:text-left">
             © {new Date().getFullYear()} DREVIA Solutions. Todos los derechos reservados.
+            <span className="hidden sm:inline text-blue-100/25"> · </span>
+            <span className="block sm:inline text-blue-100/40">
+              Hecho en Puebla, México.
+            </span>
           </p>
 
           <div className="flex items-center gap-5 order-1 sm:order-2">

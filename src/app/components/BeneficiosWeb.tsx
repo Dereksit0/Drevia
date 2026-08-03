@@ -120,7 +120,7 @@ export default function BeneficiosWeb() {
                 </div>
                 <div>
                   <p className="text-black dark:text-white text-sm font-semibold">¿Listo para empezar?</p>
-                  <p className="text-black/55 dark:text-white/55 text-xs">Desde $4,900 MXN · Sin compromiso</p>
+                  <p className="text-black/55 dark:text-white/55 text-xs">Desde $1,800 MXN de inicio + $890 MXN/mes · Cotización sin costo</p>
                 </div>
               </div>
               <a

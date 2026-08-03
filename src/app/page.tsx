@@ -8,7 +8,6 @@ import Casos from "./components/Casos";
 import Planes from "./components/Planes";
 import Comparativa from "./components/Comparativa";
 import Testimonios from "./components/Testimonios";
-import QuienesSomos from "./components/QuienesSomos";
 import Contacto from "./components/Contacto";
 import CTAFinal from "./components/CTAFinal";
 import FAQ from "./components/FAQ";
@@ -29,7 +28,6 @@ export default function Home() {
         <Planes />
         <Comparativa />
         <Testimonios />
-        <QuienesSomos />
         <Contacto />
         <CTAFinal />
         <FAQ />

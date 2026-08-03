@@ -36,7 +36,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  // El favicon lo genera src/app/icon.tsx (monograma "D" a tamaño completo).
+  icons: {
+    icon: "/imgs/logos/faviconblanco.png",
+    apple: "/imgs/logos/faviconblanco.png",
+  },
   openGraph: {
     title: "DREVIA — Desarrollo Web para Empresas",
     description:

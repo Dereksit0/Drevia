@@ -14,7 +14,12 @@ export const WA = {
   cotizar: wa("Hola, me interesa cotizar un proyecto con DREVIA."),
   general: wa("Hola, me gustaría más información sobre los servicios de DREVIA."),
   llamada: wa("Hola, me gustaría agendar una llamada gratuita con el equipo de DREVIA."),
-  plan: (plan: string) => wa(`Hola, me interesa el plan ${plan} de DREVIA.`),
+  /** `mensualidad` lo usan los planes con cuota de inicio + cobro mensual. */
+  plan: (plan: string, mensualidad = false) =>
+    wa(`Hola, me interesa el plan ${plan} de DREVIA${mensualidad ? " con mensualidad" : ""}.`),
+  /** Planes sin precio público (SEO y Software a Medida): se cotizan por alcance. */
+  cotizarPlan: (plan: string) =>
+    wa(`Hola, me gustaría cotizar el plan ${plan} de DREVIA.`),
   pregunta: wa("Hola, tengo una pregunta sobre los servicios de DREVIA."),
 };
 
@@ -23,11 +28,5 @@ export const SOCIAL = {
   tiktok: "https://www.tiktok.com/@dreviasolutionsweb?lang=es",
   facebook: "https://www.facebook.com/profile.php?id=61586295823455",
 };
-
-export const STATS = [
-  { value: "+50", label: "proyectos entregados" },
-  { value: "95%", label: "satisfacción de clientes" },
-  { value: "+3", label: "años de experiencia" },
-];
 
 export const CITIES = ["Puebla", "CDMX", "Guadalajara"];
